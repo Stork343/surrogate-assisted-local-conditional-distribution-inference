@@ -1,0 +1,111 @@
+{
+  "created_at_local": "2026-09-28T15:18:52+0800",
+  "recovery_kind": "date appended from the archived source RDS",
+  "delivered_table": {
+    "path": "EPA_handoff_20260928_110006/epa_site_day_recovery.csv",
+    "rows": 2814,
+    "columns": ["observation_id", "reference_log_pm25", "surrogate_log_pm25", "relative_humidity", "site"]
+  },
+  "date_source": {
+    "rds_path": "D:/OneDrive/NUDT/SALSA/paper/salcdi-jasa/analysis/output/public_application/epa_public_application.rds",
+    "member": "data",
+    "member_columns": ["Location", "date", "PM25_Ref", "PM25_sens", "RH_sens", "y_raw", "y", "s_raw", "s", "x_raw", "x", "month", "week", "make_id"],
+    "date_column": "date",
+    "date_class": "Date"
+  },
+  "alignment_checks": {
+    "row_count_equal": true,
+    "observation_id_is_1_to_n": true,
+    "reference_log_pm25_equals_y": true,
+    "surrogate_log_pm25_equals_s": true,
+    "relative_humidity_equals_x_raw": true,
+    "site_equals_Location": true
+  },
+  "mapping": {
+    "path": "EPA_date_recovery_20260928/epa_date_mapping.csv",
+    "rows": 2814,
+    "columns": ["observation_id", "date"],
+    "unique_observation_id": 2814,
+    "missing_dates": 0
+  },
+  "date_summary": {
+    "min_date": "2019-07-22",
+    "max_date": "2021-01-01",
+    "distinct_dates": 530,
+    "duplicate_location_date_rows": 0
+  },
+  "per_site": [
+    {
+      "site": "AZ",
+      "n_site_days": 316,
+      "start_date": "2019-08-01",
+      "end_date": "2020-10-02"
+    },
+    {
+      "site": "CO",
+      "n_site_days": 396,
+      "start_date": "2019-08-01",
+      "end_date": "2020-10-02"
+    },
+    {
+      "site": "DE",
+      "n_site_days": 357,
+      "start_date": "2019-07-29",
+      "end_date": "2020-10-01"
+    },
+    {
+      "site": "GA",
+      "n_site_days": 467,
+      "start_date": "2019-08-02",
+      "end_date": "2021-01-01"
+    },
+    {
+      "site": "NC",
+      "n_site_days": 384,
+      "start_date": "2019-07-23",
+      "end_date": "2020-12-31"
+    },
+    {
+      "site": "OK",
+      "n_site_days": 456,
+      "start_date": "2019-08-02",
+      "end_date": "2020-12-22"
+    },
+    {
+      "site": "WI",
+      "n_site_days": 438,
+      "start_date": "2019-07-22",
+      "end_date": "2020-10-02"
+    }
+  ],
+  "weekday_counts": {
+    "Friday": 407,
+    "Monday": 401,
+    "Saturday": 399,
+    "Sunday": 401,
+    "Thursday": 405,
+    "Tuesday": 401,
+    "Wednesday": 400
+  },
+  "month_counts": {
+    "2019-07": 20,
+    "2019-08": 205,
+    "2019-09": 182,
+    "2019-10": 198,
+    "2019-11": 189,
+    "2019-12": 191,
+    "2020-01": 197,
+    "2020-02": 157,
+    "2020-03": 172,
+    "2020-04": 160,
+    "2020-05": 170,
+    "2020-06": 170,
+    "2020-07": 192,
+    "2020-08": 210,
+    "2020-09": 191,
+    "2020-10": 66,
+    "2020-11": 73,
+    "2020-12": 70,
+    "2021-01": 1
+  }
+}

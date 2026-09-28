@@ -1,0 +1,326 @@
+\section{Efficiency bound and augmentation covariance}
+\label{sec:supp-efficiency}
+
+Fix \(M\) and \(h\). The observed-data law factors as
+\[
+p_O(o)
+=
+p_W(w)
+\{\pi_M(w)p_{Y\mid W}(y\mid w)\}^{r}
+\{1-\pi_M(w)\}^{1-r},
+\]
+where the factor involving \(Y\) is present only when \(r=1\). With known \(\pi_M\), the nonparametric tangent space is the \(L_2(P)\)-closure of
+\begin{equation}
+s(O)=s_W(W)+R s_Y(Y,W),
+\qquad
+E s_W(W)=0,
+\qquad
+E\{s_Y(Y,W)\mid W\}=0.
+\label{eq:known-pi-tangent}
+\end{equation}
+When the verification law is unrestricted, the tangent space additionally contains
+\begin{equation}
+s_\pi(O)=\{R-\pi_M(W)\}c(W)
+\label{eq:pi-tangent}
+\end{equation}
+for square-integrable \(c\). This is the observed-data tangent decomposition for missing-at-random models; see \citet{RobinsRotnitzkyZhao1994}, Chapters 3--4 of \citet{Tsiatis2006}, and Chapter 25 of \citet{VanderVaart1998}.
+
+For a finite signed measure \(\vartheta\) on \(\mathcal Y\), let
+\[
+\zeta_\vartheta(Y)=\int_{\mathcal Y}1(Y\le y)\,d\vartheta(y),
+\qquad
+m_{0,\vartheta}(W)=E\{\zeta_\vartheta(Y)\mid W\},
+\]
+and
+\[
+\theta_{M,h,\vartheta}
+=
+\frac{E\{K_h(X-x_0)\zeta_\vartheta(Y)\}}{\mu_h}.
+\]
+Finite total variation of \(\vartheta\) makes \(\zeta_\vartheta\) bounded.
+
+\begin{theorem}[Signed-projection canonical gradient]
+\label{thm:signed-efficiency}
+Under Condition~\ref{cond:sampling}, assume \(\mu_h>0\) and
+\(E\{K_h^2(X-x_0)/\pi_M(W)\}<\infty\). The canonical gradient for
+\(\theta_{M,h,\vartheta}\) is
+\begin{equation}
+\phi_{M,h,\vartheta}^{\mathrm{eff}}(O)
+=
+\frac{K_h(X-x_0)}{\mu_h}
+\left[
+ m_{0,\vartheta}(W)
+ +\frac{R}{\pi_M(W)}\{\zeta_\vartheta(Y)-m_{0,\vartheta}(W)\}
+ -\theta_{M,h,\vartheta}
+\right].
+\label{eq:supp-efficient-if}
+\end{equation}
+The gradient is orthogonal to the propensity-score tangent space \eqref{eq:pi-tangent}. For a finite threshold collection \(y_1,\ldots,y_L\) and \(\vartheta=\sum_{j=1}^Lc_j\delta_{y_j}\),
+\[
+\phi_{M,h,\vartheta}^{\mathrm{eff}}
+=
+\sum_{j=1}^Lc_j\phi_{M,h,y_j}^{\mathrm{eff}}.
+\]
+\end{theorem}
+
+\begin{proof}
+Consider a regular parametric submodel with score \(s=s_W+Rs_Y\) as in \eqref{eq:known-pi-tangent}. Write
+\[
+\mathcal N_{M,h,\vartheta}
+=
+E\{K_h(X-x_0)\zeta_\vartheta(Y)\},
+\qquad
+\theta_{M,h,\vartheta}=\mathcal N_{M,h,\vartheta}/\mu_h.
+\]
+Differentiating the numerator and denominator gives
+\begin{align}
+\dot{\mathcal N}_{M,h,\vartheta}
+&=
+E\{K_hm_{0,\vartheta}s_W\}
++
+E(K_h\zeta_\vartheta s_Y),
+\label{eq:num-path-derivative}\\
+\dot\mu_h
+&=E(K_hs_W).
+\label{eq:den-path-derivative}
+\end{align}
+Hence
+\begin{equation}
+\dot\theta_{M,h,\vartheta}
+=
+\frac1{\mu_h}
+\left[
+E\{K_h(m_{0,\vartheta}-\theta_{M,h,\vartheta})s_W\}
++
+E(K_h\zeta_\vartheta s_Y)
+\right].
+\label{eq:theta-path-derivative}
+\end{equation}
+
+The function in \eqref{eq:supp-efficient-if} has mean zero and lies in the closure of the tangent space. Its \(W\)-component is
+\[
+\frac{K_h}{\mu_h}(m_{0,\vartheta}-\theta_{M,h,\vartheta}),
+\]
+and its conditional-outcome component is
+\[
+\frac{K_h}{\mu_h\pi_M}(\zeta_\vartheta-m_{0,\vartheta}).
+\]
+For the \(W\)-score,
+\[
+E(\phi_{M,h,\vartheta}^{\mathrm{eff}}s_W)
+=
+\frac1{\mu_h}
+E\{K_h(m_{0,\vartheta}-\theta_{M,h,\vartheta})s_W\}.
+\]
+Using \(R\perp Y\mid W\), \(E(s_Y\mid W)=0\), and \(R^2=R\),
+\begin{align*}
+E(\phi_{M,h,\vartheta}^{\mathrm{eff}}R s_Y)
+&=
+\frac1{\mu_h}
+E\left[
+K_h\frac{R}{\pi_M}(\zeta_\vartheta-m_{0,\vartheta})s_Y
+\right]\\
+&=
+\frac1{\mu_h}E(K_h\zeta_\vartheta s_Y).
+\end{align*}
+The sum equals \eqref{eq:theta-path-derivative}, so \(\phi_{M,h,\vartheta}^{\mathrm{eff}}\) is the canonical gradient.
+
+For a propensity score \(s_\pi\) in \eqref{eq:pi-tangent},
+\begin{align*}
+E\{\phi_{M,h,\vartheta}^{\mathrm{eff}}s_\pi\mid W\}
+&=
+\frac{K_hc(W)}{\mu_h}
+E\left[
+\frac{R}{\pi_M}(\zeta_\vartheta-m_{0,\vartheta})(R-\pi_M)
+\,\Bigm|\,W
+\right]\\
+&=
+\frac{K_hc(W)}{\mu_h}
+\{1-\pi_M(W)\}
+E(\zeta_\vartheta-m_{0,\vartheta}\mid W)
+=0.
+\end{align*}
+Thus the canonical gradient is unchanged when \(\pi_M\) is included in the nuisance model. Linearity gives the finite-threshold vector result.
+\end{proof}
+
+Theorem~\ref{thm:efficiency} follows by taking \(\vartheta\) to be the coordinate point masses \(\delta_{y_1},\ldots,\delta_{y_L}\).
+
+\begin{lemma}[Augmentation identity]
+\label{lem:augmentation}
+Under missing at random, for every integrable augmentation \(a_y(W)\),
+\[
+E\{U_y(a)\mid W\}=m_{0,y}(W),
+\qquad
+E\{U_y(a)\mid X\}=q_{0,y}(X).
+\]
+\end{lemma}
+
+\begin{proof}
+Conditional on \(W\),
+\[
+E(RZ_y\mid W)=\pi_M(W)m_{0,y}(W),
+\qquad
+E(R\mid W)=\pi_M(W).
+\]
+Therefore
+\[
+\begin{aligned}
+E\{U_y(a)\mid W\}
+&=a_y(W)+\frac1{\pi_M(W)}
+E[R\{Z_y-a_y(W)\}\mid W]\\
+&=a_y(W)+m_{0,y}(W)-a_y(W)
+=m_{0,y}(W).
+\end{aligned}
+\]
+Taking conditional expectation given \(X\) yields the second identity.
+\end{proof}
+
+\begin{lemma}[Conditional covariance decomposition]
+\label{lem:cov-decomp}
+Let \(\delta_y^a(W)=a_y(W)-m_{0,y}(W)\), and assume the displayed conditional second moments are finite. Then
+\begin{equation}
+\operatorname{Cov}\{U_y(a),U_z(a)\mid W\}
+=
+\frac{C_{yz}(W)}{\pi_M(W)}
++
+\left\{\frac1{\pi_M(W)}-1\right\}
+\delta_y^a(W)\delta_z^a(W).
+\label{eq:supp-cov-decomp}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Write
+\begin{equation}
+U_y(a)-m_{0,y}
+=
+\frac{R}{\pi_M}(Z_y-m_{0,y})
++
+\delta_y^a\left(1-\frac{R}{\pi_M}\right).
+\label{eq:decomp-proof}
+\end{equation}
+The two terms have conditional mean zero. Their cross moment vanishes because \(R\perp Y\mid W\) and \(E(Z_y-m_{0,y}\mid W)=0\). Since \(R^2=R\),
+\[
+E\left[
+\frac{R^2}{\pi_M^2}
+(Z_y-m_{0,y})(Z_z-m_{0,z})
+\,\Bigm|\,W
+\right]
+=
+\frac{C_{yz}(W)}{\pi_M(W)}.
+\]
+Also,
+\[
+E\left[\left(1-\frac{R}{\pi_M}\right)^2\Bigm|W\right]
+=
+\frac1{\pi_M(W)}-1.
+\]
+Substitution into \eqref{eq:decomp-proof} proves \eqref{eq:supp-cov-decomp}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:cov-order}]
+For a fixed augmentation \(a\), define
+\[
+\phi_{M,h,y}^{a}(O)
+=
+\frac{K_h}{\mu_h}
+\{U_y(a)-F_{h,0}(y\mid x_0)\}.
+\]
+The difference from the canonical gradient is
+\begin{equation}
+\Delta_{M,h,y}^{a}(O)
+=
+\phi_{M,h,y}^{a}(O)-\phi_{M,h,y}^{m_0}(O)
+=
+\frac{K_h}{\mu_h}\delta_y^a(W)
+\left(1-\frac{R}{\pi_M(W)}\right).
+\label{eq:augmentation-orthogonal-component}
+\end{equation}
+For known \(\pi_M\), \(\Delta_{M,h,y}^{a}\) is orthogonal to the tangent space in \eqref{eq:known-pi-tangent}. For every \(s_W\),
+\[
+E(\Delta_{M,h,y}^{a}s_W\mid W)
+=
+\frac{K_h}{\mu_h}\delta_y^as_W
+E\left(1-\frac{R}{\pi_M}\Bigm|W\right)=0.
+\]
+For every \(s_Y\) with \(E(s_Y\mid W)=0\),
+\[
+E(\Delta_{M,h,y}^{a}R s_Y\mid W)=0.
+\]
+Hence \(\phi_{M,h,y}^{a}\) is an influence function in the known-design model and \(\Delta_{M,h,y}^{a}\) is its orthogonal excess component.
+
+When \(\pi_M\) is unrestricted,
+\begin{equation}
+E\{\Delta_{M,h,y}^{a}s_\pi\mid W\}
+=
+-\frac{K_h}{\mu_h}
+\delta_y^a(W)c(W)\{1-\pi_M(W)\}.
+\label{eq:augmentation-propensity-inner-product}
+\end{equation}
+This inner product vanishes for every \(c\) exactly when
+\[
+K_h(X-x_0)\{1-\pi_M(W)\}\delta_y^a(W)=0
+\quad\text{a.s.}
+\]
+The oracle augmentation therefore retains the canonical-gradient property under both known and unknown verification laws, while the family \(\phi^a\) is the influence-function family for the known-design experiment.
+
+By Lemma~\ref{lem:cov-decomp},
+\[
+\Omega_{M,h}^a(y,z)-\Omega_{M,h}^{m_0}(y,z)
+=
+\frac{h^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+\delta_y^a\delta_z^a
+\right].
+\]
+For thresholds \(y_1,\ldots,y_L\) and \(c\in\mathbb R^L\),
+\[
+\begin{aligned}
+&\sum_{j=1}^L\sum_{\ell=1}^L
+c_jc_\ell
+\{\Omega_{M,h}^a(y_j,y_\ell)-\Omega_{M,h}^{m_0}(y_j,y_\ell)\}\\
+&\quad=
+\frac{h^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+\left\{\sum_{j=1}^Lc_j\delta_{y_j}^a\right\}^2
+\right]
+\ge0.
+\end{aligned}
+\]
+This proves the positive-semidefinite covariance decomposition.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:transfer}]
+Along \(a_{\lambda,y}=q_y+\lambda D_y\),
+\[
+a_{\lambda,y}-m_{0,y}=-(A_y-\lambda D_y).
+\]
+Consequently,
+\[
+\begin{aligned}
+J_{M,h}(\lambda)
+&=E\{v_{M,h}\|A-\lambda D\|_\nu^2\}\\
+&=E(v_{M,h}\|A\|_\nu^2)
+-2\lambda E\{v_{M,h}\langle A,D\rangle_\nu\}
++\lambda^2E(v_{M,h}\|D\|_\nu^2)\\
+&=J_{M,h}(0)-2\lambda G_{M,h}+\lambda^2H_{M,h}.
+\end{aligned}
+\]
+If \(H_{M,h}=0\), weighted Cauchy--Schwarz gives
+\[
+|G_{M,h}|^2
+\le
+J_{M,h}(0)H_{M,h}=0.
+\]
+Thus \(G_{M,h}=0\), the criterion is constant on \([0,1]\), and the convention \(\lambda_h^{\mathrm{or}}=0\) applies.
+
+If \(H_{M,h}>0\), the unconstrained minimizer is \(G_{M,h}/H_{M,h}\), and projection gives \(\lambda_h^{\mathrm{or}}\). Setting \(\lambda=1\) gives
+\[
+J_{M,h}(0)-J_{M,h}(1)=2G_{M,h}-H_{M,h}.
+\]
+The remaining cases in \eqref{eq:oracle-gain} follow according to whether the projected minimizer equals zero, lies in \((0,1)\), or equals one.
+\end{proof}

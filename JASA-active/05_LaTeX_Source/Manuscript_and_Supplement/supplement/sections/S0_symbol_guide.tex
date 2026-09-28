@@ -1,0 +1,35 @@
+\section{Symbol guide}
+\label{sec:supp-symbols}
+
+\begin{center}
+\footnotesize
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{10.5cm}}
+\toprule
+Symbol & Definition \\
+\midrule
+$O=(W,R,RY)$ & Observed data; $W$ includes broadly observed $X,S$, and $Z_y=1(Y\le y)$. \\
+$F_0(y\mid x_0)$ & Conditional CDF of the reference outcome at the target point. \\
+$F_{h,0}(y\mid x_0)$ & Kernel-regularized target in \eqref{eq:regular-target}. \\
+$F_{h,\mathrm{emp}}(y\mid x_0)$ & Full-data empirical localized CDF used for the EPA and VitalDB controlled-sampling benchmarks. \\
+$\pi_M(W)$ & Verification probability; $p_M=E\{\pi_M(W)\}$ and $e_M(W)=\pi_M(W)/p_M$. \\
+$N_{M,h}=Mp_Mh^d$ & Nominal local-information rate index used in the process normalization. \\
+$q_{0,y}(X)$, $m_{0,y}(W)$ & Threshold regressions given $X$ and $W$, respectively. \\
+$U_y(a)$ & Augmented threshold signal in \eqref{eq:pseudo}. \\
+$\delta_y^a=a_y-m_{0,y}$ & Generic augmentation error; $\Delta_{M,y}$ and $\Delta_y$ are the triangular and limiting oracle-path errors. \\
+$D_y=m_y-q_y$ & Candidate surrogate correction, conditional on the fitting sample. \\
+$A_y=m_{0,y}-q_y$ & Correction from the candidate anchor to the true threshold regression. \\
+$J_{M,h}(\lambda)$ & Augmentation-dependent integrated local variance along $a_{\lambda,y}=q_y+\lambda D_y$. \\
+$G_{M,h}$, $H_{M,h}$ & Alignment and curvature terms in the quadratic criterion. \\
+$\lambda_h^{\mathrm{or}}$ & Path-oracle coefficient ($M$ implicit); $\widehat\lambda_{h,k}$ is its fold estimate. \\
+$\widehat\mu_{h,G,k}$, $\widehat v_{h,k}$ & Selection-fold kernel mean and empirical transfer weight in \eqref{eq:vhat}. \\
+$\mathcal J$, $\mathcal G$, $\mathcal H$ & Criterion quantities multiplied by $p_M$ for a common fixed/scarce-reference scale. \\
+$\Psi_{M,y}$ & Scaled path-oracle influence process in \eqref{eq:oracle-process}. \\
+$\Gamma_p(y,z)$ & Covariance kernel of the limiting local CDF process. \\
+$\mathbf S_h$, $L_h$ & Local-linear population Gram matrix and equivalent weight. \\
+$\vartheta$ & Finite signed measure used for a scalar projection of the threshold-indexed CDF. \\
+$\rho_{M,k}$, $\rho_k$ & Evaluation-fold sample fraction and its positive limit. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Bold symbols denote finite vectors or matrices. A superscript ``eff'' denotes a canonical-gradient quantity, a superscript ``or'' denotes a path-oracle estimator with fitted regressions and population borrowing coefficients, and a superscript ``cl'' denotes an independent-cluster process.

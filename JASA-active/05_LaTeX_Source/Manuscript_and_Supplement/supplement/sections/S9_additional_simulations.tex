@@ -1,0 +1,221 @@
+\section{Additional numerical and empirical results}
+\label{sec:supp-numerics}
+
+All results in this section were generated with the implementation version
+recorded in the result registry. The registry contains 95 point/risk
+simulation objects, 24 multiplier-band objects, 115 AI downstream objects, 6 AI
+band objects, and two application objects (242 objects total), each with an exact
+path and SHA-256 hash.
+
+\subsection{Simulation inventory}
+
+The simulation manifest contains 119 configurations spanning oracle
+mechanisms, a five-cell vanishing-curvature path, estimated regression paths,
+selective verification, scarce-reference scaling, nuisance and distributional
+perturbations, multiplier bands, estimated propensities, discrete outcomes,
+and two-dimensional localization. Every replication uses the same generated
+data, verification mask, fold assignment, and threshold grid across methods.
+Primary modules use 2,000 replications, secondary modules use 1,000, and
+two-dimensional modules use 500. The multiplier-band module uses 4,999
+Rademacher draws per replication. L'Ecuyer--CMRG streams assign deterministic,
+scenario-specific data streams. Multiplier seeds are deterministic functions
+of replication and method, are recorded in every object, and are shared across
+band scenarios to provide common multiplier draws.
+
+\subsection{Threshold-level CDF evaluation}
+
+The scalar result objects retain ISE, tail loss, quantile loss, borrowing,
+and coverage summaries but not every threshold-level estimate. Before producing
+the new curves, we selected three existing settings to represent aligned
+borrowing under 10\% random verification, a moderate surrogate under 5\%
+selective verification, and local reversal under 10\% random verification.
+The choice was based on these scientific roles rather than the appearance of
+the curves. Each setting was recomputed over its first 500 deterministic
+random-number streams without changing its data-generating
+mechanism, learner, bandwidth, folds, or threshold grid. The artifact stores
+the truth, mean and median rearranged CDF, pointwise bias, pointwise RMSE,
+central estimate quantiles, the first-stream diagnostic bands, all seeds, and
+source hashes. All twelve integrity checks pass.
+
+The application panels use the first reference sample at the following targets:
+50\% relative humidity for EPA, 75 minutes for VitalDB, and 10\% random review
+at \(x_0=0\) for the AI study. The EPA and AI Adaptive bands contain their
+complete-data or population benchmarks. The VitalDB band does not, and
+its fixed-mask ISE ordering differs from the repeated-mask mean ordering. These
+panels remain diagnostic examples rather than empirical coverage estimates.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../paper/figures/figure4_application_evidence.pdf}
+\caption{Conditional-CDF estimates from one fixed reference sample in each
+study. Each panel uses a 10\% random-reference sample at a target fixed before
+the curves were produced. Black denotes \(F_{h,\mathrm{emp}}\) for EPA and
+VitalDB and the frozen \(F_{h,0}\) for the AI benchmark; slate dashed, orange
+dotted, and teal solid curves denote Anchor, Full, and Adaptive. The teal
+ribbon is the Adaptive 95\% simultaneous band. The EPA and AI bands contain
+their benchmarks; the VitalDB band does not.}
+\label{fig:supp-fixed-application-cdfs}
+\end{figure}
+
+\subsection{Oracle mechanisms}
+
+Supplementary Table~\ref{tab:sim-oracle} reports the oracle geometry. The sign
+of $2G_h-H_h$ matches the realized anchor-minus-Full ISE direction in all 18
+cells. M4 now has separate clipped and raw paths. The clipped paths have
+positive transfer signals, while the raw paths have negative signals; both
+versions agree with their realized risk directions. M5--M6 have
+$\lambda_h^{\mathrm{or}}=0$, mean estimated coefficients below $10^{-4}$, and harmful
+full borrowing.
+
+Oracle $m_0(X,S)$ reduces mean ISE relative to the $X$-anchor by 25.3--28.0\%
+in M1--M2. In M2, the conservative candidate improves on the anchor but does
+not attain the oracle-$m$ risk, illustrating the positive-semidefinite
+augmentation excess directly.
+
+\subsection{Candidate regression methods and local failure}
+
+Supplementary Table~\ref{tab:sim-feasible} compares the primary
+location--scale learner with misspecified parametric and nearest-neighbor
+candidates. At moderate surrogate noise, Adaptive gains are 23.7\%, 25.3\%,
+and 22.4\% for the primary, L2, and L3 learners. Across the strong-to-weak
+surrogate sequence, primary gains decline from 48.5\% to 7.6\%; the analogous
+L2 range is 49.8--11.0\% and the L3 range is 37.0--8.0\%.
+
+The local-reversal scenario N5 is the main failure audit. Adaptive reduces
+mean borrowing to 0.0017 and negative-transfer frequency to 1.5\%, compared
+with 82.3\% for Full. Its mean ISE remains 0.066\% above the anchor because a
+small number of loss realizations dominate the paired mean. This result
+shows that Adaptive greatly reduces the risk increase caused by local reversal,
+but does not establish uniform or finite-sample dominance.
+
+\subsection{Distributional perturbations and localization dimension}
+
+Adaptive gains are 15.6\%, 17.8\%, and 24.7\% under standardized $t_3$,
+standardized $\chi^2_3$, and Gaussian-mixture errors, compared with 22.0\%
+under Gaussian errors. For the ten-level outcome, category-scale oracle truth
+produces a 22.5\% Adaptive gain and a 25.9\% Full gain. The old apparent loss
+was caused by evaluating discrete outcomes against a continuous-scale truth
+engine.
+
+With $X=(X_1,X_2)$, a product Epanechnikov kernel, and $h=M^{-1/6}$, Adaptive
+gains range from 20.9\% to 24.4\% over
+$M\in\{2{,}000,5{,}000\}$ and $p_M\in\{0.10,0.20\}$.
+
+\subsection{Bandwidth, curvature, and estimated propensities}
+
+The bandwidth and denominator-floor checks preserve the primary risk ordering.
+The numerical analyses use a denominator floor of $10^{-8}$.
+We vary the candidate-path scale over
+$s\in\{1,0.5,0.25,0.125,0\}$, so normalized curvature follows $s^2$,
+the effective correction decreases from 0.899 to zero, and
+Adaptive-minus-path-oracle regret decreases from $6.01\times10^{-5}$ to zero.
+
+Eight exploratory configurations estimate verification probabilities on the
+fitting fold. Adaptive gains range from 22.9--45.4\%, while mean borrowing
+ranges from 0.408 to 0.600. These results demonstrate sensitivity of the
+selected path to propensity estimation; inferential validity still requires
+the local product-rate condition in Section~\ref{sec:supp-pi-adaptive}.
+
+\subsection{Scarcity and multiplier bands}
+
+Supplementary Table~\ref{tab:sim-scarcity} reports scaling over four sample
+sizes and four reference fractions. For $Mp_Mh\geq30$, scaled ISE lies in
+0.319--0.358 for the anchor and 0.241--0.286 for Adaptive. The rescaling is
+stable over the grid, while selective placement changes the covariance
+constant at the same nominal reference fraction.
+
+Supplementary Table~\ref{tab:sim-bands} reports the 24 multiplier cells.
+At the lowest nominal rate index, the selective-verification cells give
+Adaptive coverage 0.910--0.935 and anchor coverage 0.908--0.932. The minimum
+Adaptive estimate has Monte Carlo standard error 0.0090 and a 95\% Wilson
+interval of 0.8907--0.9262. Adaptive coverage over all cells ranges from 0.910
+to 0.953. Mean coverage under selective verification increases from 0.9220 at
+$p_M=0.05$ to 0.9435 at $p_M=0.20$.
+Aligned surrogates reduce
+integrated width to 0.760--0.981 of the anchor width; locally reversed paths
+produce ratios within 1.000--1.003, eliminating nearly all width gain.
+The minimum role-fold verified support averages about five in the lowest
+selective cells. Table~\ref{tab:band-local-information} shows pooled raw
+coverage of 0.911 for counts 4--5 and 0.945 for counts of at least 10.
+
+A pre-specified seven-cell sensitivity used the same data streams and 4,999
+multiplier draws. Increasing rearrangement of the endpoints raised coverage in
+several low-information cells but did not restore the nominal level uniformly.
+A pointwise-studentized supremum band produced coverage 0.358--0.633 and was
+13--24\% narrower than the unstudentized band. It failed the selection rule, so
+the raw-process band remains primary.
+
+\subsection{Application configurations}
+
+The EPA analysis uses
+\(X=(\mathrm{RH}-50)/20\),
+\(S=\log(1+\mathrm{PurpleAir})\), and
+\(Y=\log(1+\mathrm{reference\ PM}_{2.5})\). Targets
+\(x_0\in\{-1,0,1\}\) correspond to 30\%, 50\%, and 70\% relative humidity;
+the Epanechnikov bandwidth is \(h=0.5\), and the 101 thresholds span the
+empirical 0.01--0.99 quantiles of transformed \(Y\).
+
+The VitalDB analysis uses
+\(X=\log(1+\mathrm{elapsed\ minutes})\), \(S=\mathrm{SpO}_2\), and
+\(Y=\mathrm{SaO}_2\). Targets are 30, 75, and 180 minutes, the Epanechnikov
+bandwidth is \(h=0.55\), and the threshold grid is \(70{:}99\).
+
+The AI analysis uses standardized complexity \(X\), automated score \(S\),
+and the mean of three expert ratings as \(Y\), with \(x_0=0\), \(h=0.3\),
+and 101 thresholds defined by point-target conditional quantile levels
+0.02--0.98. For confidence-triggered designs, the broadly observed vector is
+\(W=(X,S,C)\), where model confidence \(C\) enters the known verification
+probability; the augmentation candidates use \((X,S)\). The risk benchmark is
+the frozen population \(F_{h,0}\).
+
+\subsection{EPA details}
+
+The EPA source archive is verified by SHA-256 before extraction. The
+uncorrected PurpleAir records are aggregated to 2,814 site-days, and calendar
+weeks are assigned to regression fitting, weight selection, and CDF evaluation.
+At the 10\% random budget, Adaptive gains
+are 52.2--60.3\%, with paired intervals excluding zero. A single weekly
+cluster-multiplier diagnostic gives 19--30\% narrower Adaptive bands and
+complete-data containment at all three humidity targets; it is not a
+repeated-coverage result.
+
+\subsection{VitalDB details}
+
+The VitalDB acquisition and hash-selection rules produce 8,476 eligible pairs
+and 3,178 subject-level observations. At the 10\% random budget, Adaptive gains
+are 11.8\%, 11.2\%, and 2.95\%. Within-grid information multipliers are 1.109,
+1.102, and 1.027 at 30, 75, and 180 minutes. Full has lower mean ISE, but its
+paired advantage is conclusive only at 30 minutes. Adaptive reduces observed
+negative-transfer frequency relative to Full at all targets; the paired
+interval excludes zero at 75 and 180 minutes.
+
+\subsection{AI-assisted evaluation details}
+
+The corrected reference uses fixed expert biases $(-1,0,1)$ while retaining
+the same dossier text and 5,997 valid model responses. On Corpus A, bias,
+MAE, and RMSE are 0.350, 2.415, and 3.058; Pearson and Spearman correlations
+are 0.946 and 0.942.
+
+The primary evaluator is \texttt{deepseek-v4-pro};
+\texttt{deepseek-v4-flash} is used for the model-sensitivity analysis. Both use
+the frozen dossier text and rubric. A canonical call manifest links each
+corpus row to its request hash and cached response-file checksum; the model
+outputs themselves were fixed before any reference mask was drawn. A companion
+cache manifest checksums all retained primary and sensitivity responses.
+
+Under random review, Adaptive gains are 53.9--59.9\%. For fractions up to 0.10,
+the anchor needs 2.28--2.50 times the actual fraction to match Adaptive risk
+within the evaluated grid. Under local under-review and local reversal,
+Adaptive borrowing collapses toward zero and limits mean loss to at most
+0.39\%, whereas Full remains harmful. Representative AI multiplier cells have
+Adaptive coverage 0.940--0.974 and narrower bands than the anchor.
+
+\subsection{Complete simulation tables}
+
+\input{../paper/tables/table1_oracle_mechanism}
+\input{../paper/tables/table2_feasible}
+\input{../paper/tables/table3_scarcity}
+\input{../paper/tables/table4_bands}
+\input{../paper/tables/table_band_local_information}
+\input{../paper/tables/table5_vanishing_path}
+\clearpage

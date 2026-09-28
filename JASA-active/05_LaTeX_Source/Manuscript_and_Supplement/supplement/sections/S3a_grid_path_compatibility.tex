@@ -1,0 +1,66 @@
+\section{Path compatibility on a finite threshold grid}
+\label{sec:supp-grid-path-compatibility}
+
+The continuum oracle-equivalence theorem uses Condition~\ref{cond:path-compatibility}. On a fixed threshold grid, the corresponding bound follows directly from the discrete transfer criterion.
+
+Let
+\[
+\nu_L=\sum_{j=1}^Lw_j\delta_{y_j},
+\qquad
+w_j>0,
+\qquad
+\sum_{j=1}^Lw_j<\infty,
+\]
+and write \(w_{\min}=\min_{1\le j\le L}w_j\). Define
+\begin{align*}
+\mathcal H_{M,h,L}
+&=
+p_ME\left[
+v_{M,h}(W)
+\sum_{j=1}^Lw_jD_{M,y_j}^2(W)
+\right],\\
+\mathcal D_{M,h,L}^2
+&=
+\max_{1\le j\le L}
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+D_{M,y_j}^2
+\right].
+\end{align*}
+
+\begin{lemma}[Finite-grid path compatibility]
+\label{lem:finite-grid-path-compatibility}
+For every fixed positive-weight grid,
+\begin{equation}
+\mathcal D_{M,h,L}^2
+\le
+\frac{\mathcal H_{M,h,L}}{w_{\min}}.
+\label{eq:finite-grid-path-bound}
+\end{equation}
+The same inequality holds conditionally for each fitted correction path. Consequently, if \(\mathcal H_{M,h,L}\to0\), coefficient perturbations are negligible uniformly over \(\{y_1,\ldots,y_L\}\), without a continuum H\"older condition.
+\end{lemma}
+
+\begin{proof}
+For every \(j\), nonnegativity of the local weight gives
+\[
+\mathcal H_{M,h,L}
+\ge
+w_j
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+D_{M,y_j}^2
+\right].
+\]
+Divide by \(w_j\), take the maximum over \(j\), and use \(w_j\ge w_{\min}\). The fitted-path inequality is identical conditional on the fitting sample. The coefficient-perturbation argument of Lemma~\ref{lem:coefficient-perturb} then applies with the grid maximum in place of the continuum supremum.
+\end{proof}
+
+For the uniform grid used in computation, \(w_j=1/L\) and \eqref{eq:finite-grid-path-bound} becomes
+\[
+\mathcal D_{M,h,L}^2
+\le L\mathcal H_{M,h,L}.
+\]
+The growing-grid result in Proposition~\ref{prop:growing-grid} connects these finite-grid processes with the continuum process when the grid mesh tends to zero.

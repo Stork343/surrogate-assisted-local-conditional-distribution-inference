@@ -1,0 +1,337 @@
+\section{Estimation of the borrowing criterion}
+\label{sec:supp-gain}
+
+\begin{lemma}[Kernel moments and denominator]
+\label{lem:denominator}
+Under Condition~\ref{cond:kernel},
+\begin{align}
+\mu_h
+&=h^df_X(x_0)\kappa_1\{1+o(1)\},
+\label{eq:mu-expansion}\\
+E K_h^2(X-x_0)
+&=h^df_X(x_0)\kappa_2\{1+o(1)\}.
+\label{eq:K2-expansion}
+\end{align}
+If \(I\) is a fold of size \(n_I\) with \(n_I/M\to\rho_I\in(0,1)\), then
+\begin{equation}
+\frac{\mathbb P_IK_h}{\mu_h}-1
+=O_{\mathbb P}\{(n_Ih^d)^{-1/2}\}
+=O_{\mathbb P}\{(Mh^d)^{-1/2}\}.
+\label{eq:den-rate}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Changing variables \(x=x_0+hu\),
+\[
+\mu_h=h^d\int K(u)f_X(x_0+hu)\,du.
+\]
+Continuity of \(f_X\), compact support of \(K\), and dominated convergence give \eqref{eq:mu-expansion}; the same argument gives \eqref{eq:K2-expansion}. Moreover,
+\[
+\operatorname{Var}(\mathbb P_IK_h)
+=\frac1{n_I}\operatorname{Var}\{K_h(X-x_0)\}
+=O(h^d/n_I).
+\]
+Since \(\mu_h\asymp h^d\), Chebyshev's inequality gives \eqref{eq:den-rate}.
+\end{proof}
+
+\begin{lemma}[Ratio linearization]
+\label{lem:ratio}
+Under Conditions~\ref{cond:sampling} and \ref{cond:kernel}, let \(a\) be fixed
+conditional on the data outside an evaluation fold \(I\), with
+\(n_I/M\to\rho_I\in(0,1)\). If the scaled numerator process is tight in
+\(\ell^\infty(\mathcal Y)\), then
+\begin{align}
+&\sqrt{Mp_Mh^d}
+\{\widehat F_{h,I}^{a}(y)-F_{h,0}(y)\}
+\nonumber\\
+&\qquad=
+\sqrt{Mp_Mh^d}
+(\mathbb P_I-P)
+\left[
+\frac{K_h}{\mu_h}
+\{U_y(a)-F_{h,0}(y)\}
+\right]
++o_{\mathbb P}(1)
+\label{eq:ratio-linearization}
+\end{align}
+uniformly over \(y\in\mathcal Y\).
+\end{lemma}
+
+\begin{proof}
+The numerator has mean zero, so
+\[
+\widehat F_{h,I}^{a}(y)-F_{h,0}(y)
+=
+\frac{\mathbb P_I[K_h\{U_y(a)-F_{h,0}(y)\}]}{\mathbb P_IK_h}.
+\]
+Write \(D_I=\mathbb P_IK_h/\mu_h-1\). By Lemma~\ref{lem:denominator},
+\[
+D_I=O_{\mathbb P}\{(n_Ih^d)^{-1/2}\}=o_{\mathbb P}(1).
+\]
+The assumed tightness and \(n_I/M\to\rho_I\) give
+\[
+\left\|
+(\mathbb P_I-P)
+\left[
+\frac{K_h}{\mu_h}\{U_\cdot(a)-F_{h,0}(\cdot)\}
+\right]
+\right\|_{\mathcal Y}
+=O_{\mathbb P}\{(Mp_Mh^d)^{-1/2}\}.
+\]
+Expanding \((1+D_I)^{-1}=1-D_I+o_{\mathbb P}(|D_I|)\), the scaled remainder is \(O_{\mathbb P}(|D_I|)=o_{\mathbb P}(1)\), proving \eqref{eq:ratio-linearization}.
+\end{proof}
+
+Conditional on a fitting fold, suppress its index and treat \(q\), \(m\), and \(D\) as fixed. Define
+\[
+\mathcal G_{M,h}=p_MG_{M,h},
+\qquad
+\mathcal H_{M,h}=p_MH_{M,h}.
+\]
+
+\begin{lemma}[Observable alignment identity]
+\label{lem:observable-G}
+Conditional on the candidate regressions,
+\begin{equation}
+G_{M,h}
+=
+E\left[
+ v_{M,h}
+ \left\langle
+ D,\frac{R}{\pi_M}(Z-q)
+ \right\rangle_\nu
+\right].
+\label{eq:supp-observable-G}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Conditional on \(W\),
+\[
+E\left\{
+\frac{R}{\pi_M(W)}(Z_y-q_y(X))
+\,\Bigm|\,W
+\right\}
+=m_{0,y}(W)-q_y(X)=A_y(W).
+\]
+Integrating against \(D_y\,d\nu(y)\), multiplying by \(v_{M,h}\), and taking expectation proves \eqref{eq:supp-observable-G}.
+\end{proof}
+
+\begin{lemma}[Gain-estimation rates]
+\label{lem:gain-rates}
+Under Conditions~\ref{cond:sampling}--\ref{cond:candidates}, on a selection fold of size \(n_G\) with \(n_G/M\to\rho_G\in(0,1)\),
+\begin{align}
+\widehat{\mathcal G}_{h}-\mathcal G_{M,h}
+&=O_{\mathbb P}\{(Mp_Mh^d)^{-1/2}\},
+\label{eq:gain-G-rate}\\
+\widehat{\mathcal H}_{h}-\mathcal H_{M,h}
+&=O_{\mathbb P}\{(Mh^d)^{-1/2}\}.
+\label{eq:gain-H-rate}
+\end{align}
+The same rates hold when \(\mu_h\) in \(v_{M,h}\) is replaced by the selection-fold kernel mean.
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+T_{G,M}
+=
+p_Mv_{M,h}
+\left\langle
+D,\frac{R}{\pi_M}(Z-q)
+\right\rangle_\nu.
+\]
+Uniform boundedness of the paths and finiteness of \(\nu\) imply, on the support of \(K_h\),
+\[
+|T_{G,M}|
+\le
+\frac{CR}{p_Mh^d}.
+\]
+Since
+\[
+\Pr\{R=1,K_h(X-x_0)\ne0\}
+=E[\pi_M(W)1\{K_h(X-x_0)\ne0\}]
+=O(p_Mh^d),
+\]
+we obtain
+\[
+E(T_{G,M}^2)=O\{(p_Mh^d)^{-1}\}.
+\]
+An empirical mean over \(n_G\asymp M\) observations therefore has standard deviation \(O\{(Mp_Mh^d)^{-1/2}\}\).
+
+For
+\[
+T_{H,M}=p_Mv_{M,h}\|D\|_\nu^2,
+\]
+we have \(|T_{H,M}|\le Ch^{-d}\) on the kernel support, so
+\[
+E(T_{H,M}^2)=O(h^{-d}).
+\]
+This gives \eqref{eq:gain-H-rate}. Lemma~\ref{lem:denominator} shows that replacing \(\mu_h^{-2}\) by its selection-fold counterpart multiplies each criterion term by
+\[
+1+O_{\mathbb P}\{(Mh^d)^{-1/2}\}.
+\]
+The normalized population criteria are \(O(1)\), and \((Mh^d)^{-1/2}\le(Mp_Mh^d)^{-1/2}\), so this substitution is absorbed by the displayed rates.
+\end{proof}
+
+\begin{lemma}[Quadratic regret with numerical stabilization]
+\label{lem:regret}
+Under the conditions of Lemma~\ref{lem:gain-rates} and the stabilizer clauses
+of Condition~\ref{cond:candidates}, let
+\[
+\mathcal Q_{M,h}(\lambda)
+=-2\lambda\mathcal G_{M,h}+\lambda^2\mathcal H_{M,h}
+\]
+and define the stabilized empirical criterion
+\[
+\widehat{\mathcal Q}_{h}(\lambda)
+=
+-2\lambda\widehat{\mathcal G}_{h}
++
+\lambda^2\max\{\widehat{\mathcal H}_{h},\varepsilon_M\}.
+\]
+Let \(\widehat\lambda_h\) and \(\lambda_h^{\mathrm{or}}\) minimize these criteria over \([0,1]\), and put
+\[
+r_{M,h}=(Mp_Mh^d)^{-1/2}.
+\]
+Then
+\begin{align}
+\sup_{\lambda\in[0,1]}
+|\widehat{\mathcal Q}_{h}(\lambda)-\mathcal Q_{M,h}(\lambda)|
+&=O_{\mathbb P}(r_{M,h}+\varepsilon_M),
+\label{eq:Q-uniform}\\
+\mathcal Q_{M,h}(\widehat\lambda_h)
+-
+\mathcal Q_{M,h}(\lambda_h^{\mathrm{or}})
+&=O_{\mathbb P}(r_{M,h}+\varepsilon_M).
+\label{eq:Q-regret}
+\end{align}
+If \(\mathcal H_{M,h}\to H_\infty>0\), then
+\begin{equation}
+\widehat\lambda_h-\lambda_h^{\mathrm{or}}
+=O_{\mathbb P}(r_{M,h}).
+\label{eq:lambda-direct-rate}
+\end{equation}
+If, in addition, \(\lambda_h^{\mathrm{or}}\in[\delta,1-\delta]\) for some \(\delta>0\) and all sufficiently large \(M\), then
+\begin{equation}
+\mathcal Q_{M,h}(\widehat\lambda_h)
+-
+\mathcal Q_{M,h}(\lambda_h^{\mathrm{or}})
+=O_{\mathbb P}(r_{M,h}^2).
+\label{eq:Q-interior-regret}
+\end{equation}
+If \(\mathcal H_{M,h}\to0\) and \(\sup_M\mathcal J_{M,h}(0)<\infty\), then
+\begin{equation}
+\sup_{\lambda\in[0,1]}
+|\mathcal Q_{M,h}(\lambda)-\mathcal Q_{M,h}(0)|
+=o(1).
+\label{eq:flat-criterion}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For \(0\le\lambda\le1\),
+\[
+\begin{aligned}
+&|\widehat{\mathcal Q}_{h}(\lambda)-\mathcal Q_{M,h}(\lambda)|\\
+&\qquad\le
+2|\widehat{\mathcal G}_{h}-\mathcal G_{M,h}|
++
+|\widehat{\mathcal H}_{h}-\mathcal H_{M,h}|
++
+\varepsilon_M.
+\end{aligned}
+\]
+Lemma~\ref{lem:gain-rates} proves \eqref{eq:Q-uniform}. Empirical optimality gives
+\[
+\mathcal Q_{M,h}(\widehat\lambda_h)
+-
+\mathcal Q_{M,h}(\lambda_h^{\mathrm{or}})
+\le
+2\sup_{\lambda\in[0,1]}
+|\widehat{\mathcal Q}_{h}(\lambda)-\mathcal Q_{M,h}(\lambda)|,
+\]
+which proves \eqref{eq:Q-regret}.
+
+Suppose \(\mathcal H_{M,h}\to H_\infty>0\). Then \(\widehat{\mathcal H}_{h}\to_{\mathbb P}H_\infty\), so the stabilizer is inactive with probability tending to one. On that event,
+\[
+\widehat\lambda_h
+=
+\Pi_{[0,1]}
+\left(
+\frac{\widehat{\mathcal G}_{h}}{\widehat{\mathcal H}_{h}}
+\right).
+\]
+Projection is nonexpansive and the ratio map is Lipschitz in a neighborhood of \(H_\infty\), which gives \eqref{eq:lambda-direct-rate}.
+
+If \(\lambda_h^{\mathrm{or}}\in[\delta,1-\delta]\), then the population minimizer is interior and \(\mathcal G_{M,h}=\mathcal H_{M,h}\lambda_h^{\mathrm{or}}\). Equation \eqref{eq:lambda-direct-rate} places \(\widehat\lambda_h\) in \((0,1)\) with probability tending to one. The exact quadratic identity yields
+\[
+\mathcal Q_{M,h}(\widehat\lambda_h)
+-
+\mathcal Q_{M,h}(\lambda_h^{\mathrm{or}})
+=
+\mathcal H_{M,h}
+(\widehat\lambda_h-\lambda_h^{\mathrm{or}})^2,
+\]
+which is \(O_{\mathbb P}(r_{M,h}^2)\).
+
+Now suppose \(\mathcal H_{M,h}\to0\). Weighted Cauchy--Schwarz gives
+\[
+|\mathcal G_{M,h}|^2
+\le
+\mathcal J_{M,h}(0)\mathcal H_{M,h},
+\]
+so \(\mathcal G_{M,h}\to0\). Uniformly over \(\lambda\in[0,1]\),
+\[
+|\mathcal Q_{M,h}(\lambda)-\mathcal Q_{M,h}(0)|
+\le2|\mathcal G_{M,h}|+\mathcal H_{M,h}
+=o(1),
+\]
+which proves \eqref{eq:flat-criterion}.
+\end{proof}
+
+\begin{lemma}[Primitive norm comparison]
+\label{lem:norm-comparison}
+Under Conditions~\ref{cond:sampling} and \ref{cond:kernel}, suppose \(\nu\)
+has a density bounded below on \(\mathcal Y\), and every path \(D_M(W)\) is
+uniformly \(\alpha\)-H\"older with constant \(L_D\):
+\[
+|D_{M,z}(W)-D_{M,y}(W)|
+\le L_D|z-y|^\alpha.
+\]
+Then Condition~\ref{cond:path-compatibility} holds with
+\[
+\omega(t)=Ct^{2\alpha/(2\alpha+1)}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(f\) be an \(\alpha\)-H\"older function with constant \(L_D\), and set \(a=\|f\|_\infty\). On an interval of length proportional to \(a^{1/\alpha}\) around a maximizer of \(|f|\), one has \(|f|\ge a/2\). Since the density of \(\nu\) is bounded below,
+\[
+\|f\|_\nu^2\ge Ca^{2+1/\alpha},
+\qquad
+\|f\|_\infty^2
+\le C\{\|f\|_\nu^2\}^{\gamma},
+\qquad
+\gamma=\frac{2\alpha}{2\alpha+1}.
+\]
+Let \(w_{M,h}(W)=p_Mv_{M,h}(W)\). Then
+\[
+\mathcal D_{M,h}^2
+\le E\{w_{M,h}\|D_M\|_\infty^2\}
+\le C E\{w_{M,h}(\|D_M\|_\nu^2)^\gamma\}.
+\]
+Because \(\gamma\in(0,1)\), Jensen's inequality under the probability measure with density \(w_{M,h}/Ew_{M,h}\) gives
+\[
+E\{w_{M,h}(\|D_M\|_\nu^2)^\gamma\}
+\le
+(Ew_{M,h})^{1-\gamma}
+\{E(w_{M,h}\|D_M\|_\nu^2)\}^{\gamma}.
+\]
+Conditions~\ref{cond:sampling}--\ref{cond:kernel} imply \(Ew_{M,h}=O(1)\), while the last expectation is \(\mathcal H_{M,h}\). Hence
+\[
+\mathcal D_{M,h}^2
+\le C\mathcal H_{M,h}^{2\alpha/(2\alpha+1)}+o(1),
+\]
+which proves the claim.
+\end{proof}

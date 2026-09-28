@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "date": "2026-09-27",
+  "source_manuscript": "Manuscript_with_author_details.pdf",
+  "source_sha256": "4242f188652692881d50a11efaf06e7e2842d52a49ac27e0fcd11f4def5c6e26",
+  "source_modified": false,
+  "new_empirical_analysis_run": false,
+  "numerical_assertions": "passed",
+  "contents": {
+    "technical_note.pdf": "1d046fd9fb0468bc352f40eef1b636beb71e004b71b7c7f817ed3de420023f4f",
+    "technical_note.tex": "e1a71859140742e29afb4c59fbcbafdcb34f51fb75ea84924981b43079d93022",
+    "verify_core.py": "f80f54e1aa65100c77fc44de0afd7976be43b4557f44ed389304a74aab4fc003",
+    "verification_results.json": "0525678aa2a66b602bcd0a708fdfe831194cd5f6467c3424cfb0302aa28d614b",
+    "README_zh.md": "1a64ed188e377c6a6f9fa4192e99a5cc8d6dbf37c46a4b2954a5799146a4a2a9",
+    "literature_matrix.md": "83734900421ce3df14299a81a4c4f24dee273b0ba53acb3dcffb5d4dbc4348dd",
+    "references.bib": "330d6df4290504f4cee8693e24f308a96cf0747fa0f62520e7cbb668733b48e6",
+    "requirements.txt": "1978c5330a34a48fac00c1107de3949b8c8da3bd11517f59ca9b4510363c6c8a"
+  }
+}

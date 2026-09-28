@@ -1,0 +1,263 @@
+\section{Multiplier bootstrap}
+\label{sec:supp-bootstrap}
+
+For observation \(i\) in evaluation fold \(k(i)\), define
+\[
+\widehat\Psi_{i,y}
+=
+\sqrt{p_Mh^d}
+\frac{K_h(X_i-x_0)}{\widehat\mu_{h,k(i)}}
+\{U_{i,y}(\widehat a_{k(i)})-\widehat F_{h,k(i)}(y)\}.
+\]
+The bootstrap process is
+\[
+\mathbb G_M^\xi(y)
+=
+\frac1{\sqrt M}\sum_{i=1}^M\xi_i\widehat\Psi_{i,y},
+\]
+where \(\xi_i\) are independent Rademacher multipliers, independent of the data.
+
+\begin{lemma}[Estimated influence-process replacement]
+\label{lem:IF-replacement}
+Under Conditions~\ref{cond:sampling}--\ref{cond:path-compatibility},
+\begin{equation}
+\sup_{y\in\mathcal Y}
+\frac1M\sum_{i=1}^M
+\{\widehat\Psi_{i,y}-\Psi_{M,y}(O_i)\}^2
+=o_{\mathbb P}(1),
+\label{eq:empirical-L2}
+\end{equation}
+and the realized difference class obeys the polynomial entropy bound in Condition~\ref{cond:entropy} with an empirical \(L_2\) envelope of order \(o_{\mathbb P}(1)\).
+\end{lemma}
+
+\begin{proof}
+Fix an evaluation fold \(k\) and suppress the fold index. Put
+\[
+r_{\mu,k}=\frac{\mu_h}{\widehat\mu_{h,k}}-1,
+\qquad
+r_{F,k,y}=\widehat F_{h,k}(y)-F_{h,0}(y).
+\]
+The estimated-minus-path-oracle influence function has the exact decomposition
+\begin{align}
+\widehat\Psi_{i,y}-\Psi_{M,y}(O_i)
+&=
+r_{\mu,k}
+\sqrt{p_Mh^d}\frac{K_{h,i}}{\mu_h}
+\{U_{i,y}(\widehat a_k)-\widehat F_{h,k}(y)\}
+\label{eq:IF-denominator}\\
+&\quad+
+\sqrt{p_Mh^d}\frac{K_{h,i}}{\mu_h}
+\{\widehat a_{k,y}(W_i)-a_{M,y}(W_i)\}
+\left(1-\frac{R_i}{\pi_M(W_i)}\right)
+\label{eq:IF-path}\\
+&\quad-
+\sqrt{p_Mh^d}\frac{K_{h,i}}{\mu_h}
+r_{F,k,y},
+\label{eq:IF-centering}
+\end{align}
+where \(K_{h,i}=K_h(X_i-x_0)\).
+
+Lemma~\ref{lem:denominator} gives
+\[
+\max_{k\le3}|r_{\mu,k}|
+=O_{\mathbb P}\{(Mh^d)^{-1/2}\}
+=o_{\mathbb P}(1).
+\]
+Conditional on the fitted path, boundedness of \(\widehat a_k\) and \(c_e\le e_M\) imply
+\begin{align*}
+&E\left[
+\sup_{y\in\mathcal Y}
+ p_Mh^d\frac{K_h^2}{\mu_h^2}
+ \{U_y(\widehat a_k)-\widehat F_{h,k}(y)\}^2
+\Bigm|\mathcal T_k
+\right]\\
+&\qquad\le
+C\frac{p_Mh^d}{\mu_h^2}
+E\left[K_h^2\left\{1+\frac1{\pi_M(W)}\right\}\right]
+=O_{\mathbb P}(1).
+\end{align*}
+Conditional Markov inequality gives an \(O_{\mathbb P}(1)\) empirical second moment for the scaled bracket in \eqref{eq:IF-denominator}; multiplication by \(r_{\mu,k}^2\) makes this contribution \(o_{\mathbb P}(1)\).
+
+For \eqref{eq:IF-path}, conditional expectation given the fitting and selection folds equals
+\[
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+(\widehat a_{k,y}-a_{M,y})^2
+\Bigm|\mathcal T_k
+\right].
+\]
+Lemmas~\ref{lem:nuisance-perturb} and \ref{lem:coefficient-perturb}, together with Conditions~\ref{cond:nuisance} and \ref{cond:path-compatibility}, make its supremum \(o_{\mathbb P}(1)\). The conditional VC maximal inequality transfers the same order to the empirical second moment uniformly over \(y\).
+
+Lemma~\ref{lem:ratio}, tightness of the foldwise numerator processes, and the path-replacement lemmas give
+\[
+\max_{k\le3}\sup_{y\in\mathcal Y}|r_{F,k,y}|
+=O_{\mathbb P}(N_{M,h}^{-1/2}).
+\]
+Moreover,
+\[
+\frac{p_Mh^d}{\mu_h^2}\mathbb P_MK_h^2
+=O_{\mathbb P}(p_M),
+\]
+so the empirical \(L_2\) norm of \eqref{eq:IF-centering} is \(o_{\mathbb P}(1)\). Summing the three foldwise bounds proves \eqref{eq:empirical-L2}.
+
+The difference class is a finite sum of a scalar multiple of a localized influence class, a localized fitted-path difference class multiplied by \(1-R/\pi_M\), and a threshold-indexed centering class. The closure properties of VC-type classes preserve the polynomial covering bound, and the preceding calculations give an empirical \(L_2\) envelope of order \(o_{\mathbb P}(1)\).
+\end{proof}
+
+\begin{lemma}[Empirical covariance consistency]
+\label{lem:cov-estimation}
+Under Conditions~\ref{cond:sampling}--\ref{cond:covariance},
+\begin{equation}
+\sup_{y,z\in\mathcal Y}
+\left|
+\frac1M\sum_{i=1}^M
+\widehat\Psi_{i,y}\widehat\Psi_{i,z}
+-
+\Gamma_p(y,z)
+\right|
+=o_{\mathbb P}(1).
+\label{eq:cov-consistency}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+\mathcal P_M
+=
+\{\Psi_{M,y}\Psi_{M,z}:(y,z)\in\mathcal Y^2\}.
+\]
+The product class is VC-type and has envelope \(F_M^2\). The localization calculation gives
+\begin{equation}
+\sup_{y\in\mathcal Y}P\Psi_{M,y}^4
+=O\{(p_Mh^d)^{-1}\},
+\qquad
+\|F_M^2\|_{P,2}
+=O\{(p_Mh^d)^{-1/2}\}.
+\label{eq:product-moment}
+\end{equation}
+The maximal inequality in Section 2.14 of \citet{VanderVaartWellner1996}, applied to \(\mathcal P_M\), yields
+\begin{equation}
+\sup_{y,z\in\mathcal Y}
+|(\mathbb P_M-P)(\Psi_{M,y}\Psi_{M,z})|
+=
+O_{\mathbb P}\{(Mp_Mh^d)^{-1/2}+(Mp_Mh^d)^{-1}\}
+=o_{\mathbb P}(1).
+\label{eq:product-ulln}
+\end{equation}
+The same VC-type moment regime underlies the Gaussian and bootstrap coupling results of \citet{ChernozhukovChetverikovKato2014} and \citet{ChernozhukovChetverikovKato2016}. Lemma~\ref{lem:covariance-limit} gives
+\[
+\sup_{y,z}|P(\Psi_{M,y}\Psi_{M,z})-\Gamma_p(y,z)|
+\to0.
+\]
+
+Set
+\[
+\mathcal E_{i,y}
+=
+\widehat\Psi_{i,y}-\Psi_{M,y}(O_i).
+\]
+Lemma~\ref{lem:IF-replacement} gives
+\[
+\sup_y\mathbb P_M\mathcal E_y^2=o_{\mathbb P}(1),
+\]
+while \eqref{eq:product-ulln} and covariance convergence imply
+\[
+\sup_y\mathbb P_M\Psi_{M,y}^2=O_{\mathbb P}(1).
+\]
+Uniform Cauchy--Schwarz therefore gives
+\begin{align*}
+&\sup_{y,z}
+\left|
+\mathbb P_M(\widehat\Psi_y\widehat\Psi_z-\Psi_y\Psi_z)
+\right|\\
+&\quad\le
+2\left\{\sup_y\mathbb P_M\mathcal E_y^2\right\}^{1/2}
+ \left(\sup_y\mathbb P_M\Psi_{M,y}^2\right)^{1/2}
++\sup_y\mathbb P_M\mathcal E_y^2
+=o_{\mathbb P}(1).
+\end{align*}
+Combining the bounds proves \eqref{eq:cov-consistency}.
+\end{proof}
+
+\begin{lemma}[Conditional multiplier convergence]
+\label{lem:multiplier-clt}
+Under Conditions~\ref{cond:sampling}--\ref{cond:covariance},
+\[
+\frac1{\sqrt M}
+\sum_{i=1}^M\xi_i\Psi_{M,\cdot}(O_i)
+\Rightarrow_{\mathbb P}
+\mathbb G_p
+\quad\text{in }\ell^\infty(\mathcal Y).
+\]
+\end{lemma}
+
+\begin{proof}
+Write
+\[
+\mathbb G_M^{\xi,\mathrm{or}}(y)
+=
+M^{-1/2}\sum_{i=1}^M\xi_i\Psi_{M,y}(O_i).
+\]
+Conditional on the observations, the summands are independent and centered. For every finite threshold vector, Lemma~\ref{lem:cov-estimation} gives convergence of the conditional covariance matrix. In addition,
+\[
+\max_{1\le i\le M}
+\frac{\|\Psi_M(O_i)\|_{\mathcal Y}}{\sqrt M}
+\le
+\frac{C}{\sqrt{Mp_Mh^d}}
+\to0,
+\]
+so the conditional Lindeberg condition holds and the conditional finite-dimensional laws converge.
+
+For tightness, define
+\[
+\rho_M^2(y,z)
+=
+\mathbb P_M\{\Psi_{M,y}-\Psi_{M,z}\}^2.
+\]
+Applying \eqref{eq:product-ulln} to the squared-increment class and using Lemma~\ref{lem:increments} gives
+\begin{equation}
+\rho_M^2(y,z)
+\le
+C\rho^2(y,z)+o_{\mathbb P}(1)
+\label{eq:empirical-metric-control}
+\end{equation}
+uniformly in \(y,z\). The conditional covering numbers under \(L_2(\mathbb P_M)\) obey the polynomial bound in Condition~\ref{cond:entropy}. The conditional Rademacher maximal inequality gives
+\begin{equation}
+E_\xi\|\mathbb G_M^{\xi,\mathrm{or}}\|_{\rho,\delta}
+\le
+C\delta\sqrt{\log(A/\delta)}
++
+C\frac{\|F_M\|_\infty}{\sqrt M}\log(A/\delta)
++o_{\mathbb P}(1).
+\label{eq:conditional-maximal}
+\end{equation}
+The envelope term vanishes because \(Mp_Mh^d\to\infty\), and the first term vanishes as \(\delta\downarrow0\). Thus \(\mathbb G_M^{\xi,\mathrm{or}}\) is conditionally asymptotically equicontinuous. Conditional finite-dimensional convergence, covariance consistency, and equicontinuity verify the triangular-array multiplier conditions of \citet{Kosorok2003}; the increasing-complexity multiplier coupling theory of \citet{ChernozhukovChetverikovKato2016} gives the same conclusion under the displayed VC-type bounds. Hence \(\mathbb G_M^{\xi,\mathrm{or}}\Rightarrow_{\mathbb P}\mathbb G_p\) in \(\ell^\infty(\mathcal Y)\).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:bootstrap}]
+Lemma~\ref{lem:multiplier-clt} establishes conditional convergence for the path-oracle multiplier process. Lemma~\ref{lem:IF-replacement} and the conditional multiplier maximal inequality imply
+\[
+\left\|
+\frac1{\sqrt M}
+\sum_{i=1}^M\xi_i
+\{\widehat\Psi_{i,\cdot}-\Psi_{M,\cdot}(O_i)\}
+\right\|_{\mathcal Y}
+=o_{\mathbb P}(1).
+\]
+This proves \eqref{eq:bootstrap-limit}. Continuity of the supremum norm and of the distribution of \(\|\mathbb G_p\|_{\mathcal Y}\) at its \((1-\alpha)\)-quantile gives consistency of \(c_{1-\alpha}^\xi\) and proves \eqref{eq:band}.
+\end{proof}
+
+\begin{proposition}[Finite multiplier simulation]
+\label{prop:finite-B}
+Let \(c_{1-\alpha}^{\xi,B}\) be the empirical \((1-\alpha)\)-quantile computed from \(B\) independent multiplier draws conditional on the data. If the conditional multiplier-supremum distribution is continuous at \(c_{1-\alpha}^{\xi}\), then, as \(B\to\infty\),
+\[
+c_{1-\alpha}^{\xi,B}-c_{1-\alpha}^{\xi}
+\to_{\mathbb P}0.
+\]
+\end{proposition}
+
+\begin{proof}
+Conditional on the data, the multiplier supremum draws are independent and identically distributed. The conditional Glivenko--Cantelli theorem gives uniform convergence of their empirical distribution function, and quantile consistency follows at the stated continuity point.
+\end{proof}

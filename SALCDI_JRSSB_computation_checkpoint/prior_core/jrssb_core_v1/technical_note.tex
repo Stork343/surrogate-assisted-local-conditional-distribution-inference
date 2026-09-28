@@ -1,0 +1,539 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs,longtable,array}
+\usepackage[round,authoryear]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\R}{\mathbb R}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\calC}{\mathcal C}
+\title{Paired Certification of Simultaneous-Inference Gains\\under Scarce Reference Verification}
+\author{Core-method technical note for the JRSSB revision}
+\date{27 September 2026 \quad Version 1.0}
+\begin{document}
+\maketitle
+\begin{abstract}
+This note develops the first technical component of the proposed revision of
+\emph{Surrogate-Assisted Local Conditional Distribution Inference with Scarce Reference Outcomes}.
+An explicit CDF example separates integrated-variance minimization from simultaneous-band minimization.
+We construct a borrowing rule by lower-bounding a paired Gaussian critical-value gain over a common joint-covariance confidence set.
+The resulting certificate controls the probability of selecting a harmful borrowing weight and satisfies an oracle inequality without requiring a unique minimizer.
+On a fixed nondegenerate threshold grid, the error in the paired gain is proportional to the borrowing weight times the covariance-estimation error.
+An explicit observable covariance confidence ball is provided.
+A binary local submodel yields a matching signal-detection obstruction and certificate: the signal scale is the inverse square root of the local verified count, whereas the optimal critical-value gain has its square as the relevant scale.
+The attached code reproduces the separation example, checks the paired cancellation, and verifies the submodel certificate.
+\end{abstract}
+
+\section{Research target and relationship to the submitted manuscript}
+The supplied 36-page manuscript defines the local target and AIPW signal in Section 2.1, chooses a common borrowing weight by integrated augmentation variance in Section 2.2, and establishes raw-process simultaneous bands in Section 3.3. Its Section 3.4 gives the covariance cost of augmentation error. These components are retained.
+The added object is the \emph{gain in a specified simultaneous-inference criterion}, together with the information required to certify that gain.
+
+Several nearby contributions already cover components of this proposal.
+PPI++ develops efficient adaptive borrowing for finite-dimensional parameters \citep{ppi}.
+Conditional PPI develops local conditional inference and nonasymptotic and minimax results \citep{ppci}; its revised version dated 29 August 2026 was checked.
+Generation-powered inference develops an optimal functional borrowing operator and simultaneous bands \citep{gpi}.
+Multi-source PPI directly optimizes asymptotic confidence-region volume \citep{mppi}.
+Finite-sample costs of estimating PPI++ weights are studied by \citet{nfl}.
+Learning a candidate and then validating a risk claim is also an established idea \citep{ltt}.
+
+Accordingly, neither AIPW augmentation, optimization of a confidence-region size, nor a generic lower-confidence-bound decision is treated here as a new principle.
+The technical object pursued here is a \emph{paired, local, distribution-level gain certificate} whose uncertainty vanishes at the anchor and whose weak-signal behavior can be related to local verified information.
+An operator that dominates all competing covariance operators already improves probabilities of centered convex Gaussian sets. The separation example below concerns a fitted scalar path which need not admit such a dominating element; it does not contradict operator-efficiency results.
+
+\section{Local scores and a common covariance representation}
+Condition on an independent training sample. The fitted candidates $q_y(X)$ and $m_y(W)$ are now fixed, bounded in $[0,1]$, and need not be correctly specified. Write
+\[
+ D_y=m_y-q_y,\qquad a_{\lambda,y}=q_y+\lambda D_y,\qquad 0\leq\lambda\leq1.
+\]
+Let $O=(W,R,RY)$, $R\perp Y\mid W$, and let the known verification probability satisfy
+$\pi(W)=p e(W)$, with $p>0$ and $e(W)\geq c_e>0$.
+For $Z_y=\ind\{Y\leq y\}$,
+\begin{align}
+ U_{\lambda,y}
+ &=q_y+\frac R\pi(Z_y-q_y)
+   +\lambda\left(1-\frac R\pi\right)D_y
+ =U_{0,y}+\lambda B_y,\label{eq:affine}\\
+ B_y&=\left(1-\frac R\pi\right)D_y.
+\end{align}
+Both $\E(B_y\mid W)=0$ and $\E(U_{\lambda,y}\mid W)=\E(Z_y\mid W)$ hold exactly.
+
+Fix $x_0$, a nonnegative bounded kernel $K_h(X-x_0)$, and $v_h=h^d$. Put
+\[
+ \mu_h=\E K_h>0,\quad f_h=\mu_h/v_h,\quad
+ F_h(y)=\E(K_h Z_y)/\mu_h.
+\]
+Use a fixed threshold grid $y_1<\cdots<y_J$. Define the $2J$-vector
+\begin{equation}
+ \Psi(O)=\sqrt{p/v_h}\,K_h
+ \begin{pmatrix}U_{0,y_1}-F_h(y_1)\\ \vdots\\U_{0,y_J}-F_h(y_J)\\B_{y_1}\\\vdots\\B_{y_J}\end{pmatrix},
+ \qquad \Omega=\E(\Psi\Psi^\top).
+ \label{eq:omega}
+\end{equation}
+It has mean zero. With $H_\lambda=(I_J,\lambda I_J)$,
+\begin{equation}
+ \Sigma_\lambda=H_\lambda\Omega H_\lambda^\top
+ =\Omega_{00}+\lambda(\Omega_{01}+\Omega_{10})+\lambda^2\Omega_{11}.
+ \label{eq:pathcov}
+\end{equation}
+The usual covariance for the $\sqrt{n p h^d}$-scaled kernel-ratio estimator is $\Sigma_\lambda/f_h^2$. The positive scale $f_h^{-1}$ is common to all weights and therefore cancels in weight selection and the sign of a gain.
+
+For an independent evaluation sample of size $n_E$,
+\begin{equation}
+ \widehat F_{E,\lambda}(y)=\frac{\mathbb P_E K_h U_{\lambda,y}}{\mathbb P_E K_h},\qquad
+ \sqrt{n_E p v_h}(\widehat F_{E,\lambda}-F_h)
+ =\frac{n_E^{-1/2}\sum_{i\in E}H_\lambda\Psi(O_i)}{\widehat f_{h,E}},
+ \label{eq:ratio}
+\end{equation}
+where $\widehat f_{h,E}=\mathbb P_E K_h/v_h$. This identity is exact whenever the denominator is positive.
+
+Let $G_\lambda\sim N(0,\Sigma_\lambda)$ and define
+\begin{equation}
+ c_\Omega(\lambda)=\inf\{t:\Pp(\|G_\lambda\|_\infty\leq t)\geq1-\alpha\},\qquad
+ g_\Omega(\lambda)=c_\Omega(0)-c_\Omega(\lambda).
+ \label{eq:gain}
+\end{equation}
+The raw band has common half-width $c_\Omega(\lambda)/(f_h\sqrt{n_Epv_h})$ at population calibration. A fixed positive shape $w_j$ can be accommodated by dividing the $j$th coordinate of both score blocks by $w_j$ before defining $\Omega$. Shapes depending on $\lambda$ are excluded from this comparison.
+
+\section{A verifiable separation between two efficiency criteria}
+Let $S\sim\operatorname{Bernoulli}(0.2)$ and
+\[
+ Y\mid S=0\in\{1,2\}\text{ with equal probabilities},\qquad
+ Y\mid S=1\in\{0,2\}\text{ with equal probabilities}.
+\]
+Take thresholds $(0,1)$, $q=(0.1,0.5)$, $p=0.1$, independent verification, and the legitimate candidate CDF values
+\[
+ m(S)=\{0.5S,\;0.5+0.4(S-0.2)\}.
+\]
+The candidate values are $(0,0.42)$ and $(0.5,0.82)$; setting the CDF to zero below the first support point and to one at and above two completes each distribution.
+For $K_h=v_h=\mu_h=1$, enumeration of $(S,Y,R)$ gives
+\begin{equation}
+ \Sigma_\lambda=
+ \begin{pmatrix}.09&.05\\.05&.25\end{pmatrix}
+ +\lambda\begin{pmatrix}-.072&-.0288\\-.0288&0\end{pmatrix}
+ +\lambda^2\begin{pmatrix}.036&.0288\\.0288&.02304\end{pmatrix}.
+ \label{eq:examplecov}
+\end{equation}
+\begin{proposition}[Integrated variance and band width separate]\label{prop:separation}
+The integrated-variance minimizer for the equal-weight grid is $\lambda_{\mathrm{IV}}=25/41$. It decreases $\tr\Sigma_\lambda$ but increases the $95\%$ critical value in \eqref{eq:gain} relative to the anchor.
+\end{proposition}
+\begin{proof}
+The trace is $.34-.072\lambda+.05904\lambda^2$, whose minimizer is $25/41$.
+At the anchor, the union bound gives
+\[
+ \Pp(\|G_0\|_\infty>.99)
+ \leq2\overline\Phi(.99/.3)+2\overline\Phi(.99/.5)
+ =.04867037697<.05.
+\]
+At $\lambda_{\mathrm{IV}}$, the second marginal variance is $.25856632957$, so
+\[
+ \Pp(\|G_{\lambda_{\mathrm{IV}}}\|_\infty\leq.99)
+ \leq2\Phi\{.99/\sqrt{.25856632957}\}-1
+ =.94845626635<.95.
+\]
+Thus $c_\Omega(0)<.99<c_\Omega(\lambda_{\mathrm{IV}})$. The inequalities have margins far exceeding the numerical integration tolerance used in the attached verification.
+\end{proof}
+
+Deterministic bivariate normal integration gives the following additional values. The band-minimizing weight is a numerical optimizer; it is not needed for Proposition~\ref{prop:separation}.
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Rule & Weight & Trace & $95\%$ critical value\\\midrule
+Anchor &0.000000&0.340000&0.983562\\
+Integrated variance &0.609756&0.318049&0.996761\\
+Band critical value &0.114860&0.332509&0.982639\\
+Full &1.000000&0.327040&1.024169\\\bottomrule
+\end{tabular}
+\end{center}
+The example demonstrates separation, not a large effect size for the new optimizer. Taking an independent continuous $X$ embeds the same covariance geometry into a local conditional problem, up to a common positive scale.
+
+\section{Paired certification over a common confidence set}
+Let $\calC_G$ be a nonempty compact confidence set of positive semidefinite joint matrices based on the selection sample, satisfying
+\begin{equation}
+ \Pp(\Omega\in\calC_G\mid\text{training})\geq1-\delta.
+ \label{eq:confidence}
+\end{equation}
+Define the paired lower bound and borrowing rule by
+\begin{equation}
+ \underline g_G(\lambda)=\inf_{Q\in\calC_G}\{c_Q(0)-c_Q(\lambda)\},\qquad
+ \widehat\lambda\in\argmax_{\lambda\in\Lambda}\underline g_G(\lambda),
+ \label{eq:rule}
+\end{equation}
+where $0\in\Lambda\subseteq[0,1]$. A finite numerical grid always permits a maximizer. For a compact continuum, a measurable maximizer is used when it exists. If the maximum is zero, choose zero.
+The same $Q$ must be used for the two critical values inside the braces. In particular, $\underline g_G(0)=0$ exactly.
+
+\begin{theorem}[Certification and an oracle inequality]\label{thm:certificate}
+Let $\lambda^*\in\argmax_{\lambda\in\Lambda}g_\Omega(\lambda)$ and define, on the event $\Omega\in\calC_G$,
+\[
+ r_G(\lambda)=\sup_{Q\in\calC_G}|g_Q(\lambda)-g_\Omega(\lambda)|.
+\]
+The rule \eqref{eq:rule} satisfies
+\begin{align}
+ &\Pp\{g_\Omega(\widehat\lambda)<0\mid\text{training}\}\leq\delta,\label{eq:safety}\\
+ &0\leq g_\Omega(\lambda^*)-g_\Omega(\widehat\lambda)\leq r_G(\lambda^*)
+ \quad\text{on }\{\Omega\in\calC_G\}.\label{eq:oracle}
+\end{align}
+No uniqueness or curvature of the minimizer is required.
+\end{theorem}
+\begin{proof}
+On the confidence event,
+\[
+ g_\Omega(\widehat\lambda)\geq\underline g_G(\widehat\lambda)
+ \geq\underline g_G(0)=0,
+\]
+which proves \eqref{eq:safety}. Also,
+\[
+ g_\Omega(\widehat\lambda)\geq\underline g_G(\widehat\lambda)
+ \geq\underline g_G(\lambda^*)\geq g_\Omega(\lambda^*)-r_G(\lambda^*).
+\]
+Optimality of $\lambda^*$ gives the other side of \eqref{eq:oracle}.
+\end{proof}
+
+A computationally certified lower bound may replace the exact infimum. An ordinary local optimizer for the inner minimization supplies an \emph{upper} bound on that infimum, so its output alone is not a valid safety certificate. Analytic envelopes, globally valid bounds, or a rigorously controlled approximation error are required.
+
+\section{The paired error vanishes at the anchor}
+This section provides a fixed-grid refinement of Theorem~\ref{thm:certificate}. Let
+\[
+ \mathcal K_{\kappa,B}=\{Q\succeq0:\|Q\|_\op\leq B,\quad
+ H_\lambda QH_\lambda^\top\succeq\kappa I_J\text{ for every }\lambda\in[0,1]\}.
+\]
+This is a convex compact class. The joint matrix $Q$ itself may be singular: a zero correction block is allowed if the anchor covariance is positive definite.
+
+\begin{lemma}[Smoothness of the Gaussian rectangle quantile]\label{lem:smooth}
+For fixed $J$ and $\alpha\in(0,1)$, the map
+\[
+ q_\alpha(\Sigma)=\operatorname{Quantile}_{1-\alpha}\|N(0,\Sigma)\|_\infty
+\]
+is twice continuously differentiable on the positive definite cone. Its first and second derivatives are bounded, in the relevant induced operator norms, on $\{\kappa I_J\preceq\Sigma\preceq2B I_J\}$.
+\end{lemma}
+\begin{proof}
+Let $H(t,\Sigma)=\int_{[-t,t]^J}\varphi_\Sigma(z)\,dz$ for $t>0$. Smoothness in $\Sigma$ follows by differentiation under the integral on compact positive definite sets. Writing the integral over $[-1,1]^J$ after the substitution $z=tu$ also establishes smoothness in $t$. The derivative $\partial_tH$ is a sum of integrals of strictly positive Gaussian densities over the faces of the rectangle and is strictly positive.
+The quantile is the unique positive solution of $H(t,\Sigma)=1-\alpha$.
+The implicit function theorem gives smoothness. Continuity and compactness give finite bounds on the derivatives. For reference, the first directional derivative is
+\[
+ Dq_\alpha(\Sigma)[E]
+ =-\frac{\frac12\int_{[-q,q]^J}\varphi_\Sigma(z)
+ \{z^\top\Sigma^{-1}E\Sigma^{-1}z-\tr(\Sigma^{-1}E)\}\,dz}
+ {\partial_t H(q,\Sigma)},\qquad q=q_\alpha(\Sigma).
+\]
+The constants can deteriorate with $J$ or with $\kappa\downarrow0$; the statement does not claim a growing-grid bound.
+\end{proof}
+
+\begin{theorem}[Anchor-adaptive perturbation and regret]\label{thm:paired}
+There is a finite constant $C=C(J,\alpha,\kappa,B)$ such that, for $Q,Q'\in\mathcal K_{\kappa,B}$,
+\begin{equation}
+ |g_Q(\lambda)-g_{Q'}(\lambda)|
+ \leq C\lambda\|Q-Q'\|_\op,\qquad 0\leq\lambda\leq1.
+ \label{eq:paired}
+\end{equation}
+In particular, suppose $\calC_G\subseteq\mathcal K_{\kappa,B}$ and every member of $\calC_G$ is within $\varepsilon_G$ of a common center. On the confidence event,
+\begin{equation}
+ 0\leq c_\Omega(\widehat\lambda)-\inf_{\lambda\in\Lambda}c_\Omega(\lambda)
+ \leq2C\lambda^*\varepsilon_G.
+ \label{eq:localregret}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Let $M_1,M_2$ bound the first and second derivatives in Lemma~\ref{lem:smooth}. Put $f_\lambda(Q)=q_\alpha(H_\lambda QH_\lambda^\top)$.
+For any symmetric perturbation $E$,
+\[
+ Df_\lambda(Q)[E]=Dq_\alpha(\Sigma_\lambda)[H_\lambda EH_\lambda^\top].
+\]
+Since $\|H_\lambda\|_\op^2\leq2$,
+\begin{align*}
+ \|H_\lambda EH_\lambda^\top-H_0EH_0^\top\|_\op&\leq3\lambda\|E\|_\op,\\
+ \|\Sigma_\lambda-\Sigma_0\|_\op&\leq3B\lambda.
+\end{align*}
+Consequently,
+\[
+ |D\{f_0-f_\lambda\}(Q)[E]|
+ \leq(3M_1+6BM_2)\lambda\|E\|_\op.
+\]
+Integrate this derivative along the line segment from $Q$ to $Q'$, which remains in $\mathcal K_{\kappa,B}$. This proves \eqref{eq:paired} with $C=3M_1+6BM_2$. On the confidence event the set diameter is at most $2\varepsilon_G$, so Theorem~\ref{thm:certificate} yields \eqref{eq:localregret}.
+\end{proof}
+
+If an analytic bound uses $\widehat g(\lambda)-C\lambda\varepsilon_G$ and its maximum is attained to tolerance $\tau$, choosing the anchor whenever the attained lower bound is negative preserves safety; the corresponding regret is at most $2C\lambda^*\varepsilon_G+\tau$.
+Separate absolute critical-value intervals generally lose the factor $\lambda$. That loss matters when the beneficial weight approaches zero.
+
+\section{A fully observable covariance confidence ball}
+Theorem~\ref{thm:certificate} does not rely on a confidence set supplied by an oracle. Here is one explicit construction, implemented in \texttt{verify\_core.py}. It uses deliberately conservative constants; efficient multiplier calibration remains a separate numerical development.
+
+Let the selection sample have size $n=n_G\geq2$. Assume $0\leq K_h\leq K_{\max}$ and $\pi\geq pc_e$. All statements are conditional on the independent training sample. Set $L=2J+1$ and define
+\[
+ X_i=\sqrt{p/v_h}\,(K_i,\,K_iU_{0,i}^\top,\,K_iB_i^\top)^\top,\qquad
+ Q=\E X_iX_i^\top,\quad \widehat Q=n^{-1}\sum_iX_iX_i^\top.
+\]
+For $f\in[0,1]^J$, let
+\[
+ A_f=\begin{pmatrix}-f&I_J&0\\0&0&I_J\end{pmatrix}.
+\]
+Then $\Omega=A_{F_h}QA_{F_h}^\top$. Use
+\[
+ \widehat\mu=\mathbb P_GK_h,\qquad
+ \widehat f_j=\left[\frac{\mathbb P_GK_hU_{0,y_j}}{\widehat\mu}\right]_{[0,1]},\qquad
+ \widehat\Omega=A_{\widehat f}\widehat Q A_{\widehat f}^\top.
+\]
+The last matrix is automatically positive semidefinite.
+
+Split $\delta$ into four positive parts $\delta_K,\delta_Q,\delta_N,\delta_\mu$.
+Let $s_+$ be an exact one-sided Clopper--Pearson upper confidence bound, at error $\delta_K$, on $s=\Pp(K_h>0)$, computed from the number of nonzero kernels. Let
+\[
+ t_Q=\log(2L^2/\delta_Q),\quad t_N=\log(2J/\delta_N),\quad t_\mu=\log(2/\delta_\mu).
+\]
+Define
+\begin{align*}
+ M_X&=\frac{K_{\max}}{c_e\sqrt{pv_h}},&
+ V_Q^+&=\frac{2K_{\max}^4s_+}{p c_e^3v_h^2},\\
+ V_N^+&=\frac{2K_{\max}^2s_+}{pc_e},&
+ V_\mu^+&=K_{\max}^2s_+,\\
+ r_Q&=\sqrt{2V_Q^+t_Q/n}+\frac{4M_X^2t_Q}{3n},\\
+ r_N&=\sqrt{2V_N^+t_N/n}+\frac{4K_{\max}t_N}{3npc_e},\\
+ r_\mu&=\sqrt{2V_\mu^+t_\mu/n}+\frac{2K_{\max}t_\mu}{3n}.
+\end{align*}
+For $\widehat\mu>0$, put $\zeta=\min\{1,(r_N+r_\mu)/\widehat\mu\}$, and otherwise set $\widehat f_j=1/2$, $\zeta=1$. Define
+\begin{equation}
+ \varepsilon_G=(J+1)Lr_Q+
+ 2\sqrt{J(J+1)}\,\zeta\{\|\widehat Q\|_\op+Lr_Q\}.
+ \label{eq:radius}
+\end{equation}
+\begin{proposition}[Observable confidence ball]\label{prop:covball}
+Under the stated boundedness, known-propensity, and sample-separation conditions,
+\[
+ \Pp\{\|\widehat\Omega-\Omega\|_\op\leq\varepsilon_G\mid\text{training}\}\geq1-\delta.
+\]
+For fixed $J$, bounded localization density, $\mu_h\asymp v_h$, and $n_Gpv_h\to\infty$, the radius has order
+\begin{equation}
+ \varepsilon_G=O_\Pp\left\{\sqrt{\frac{\log(J/\delta)}{N_G}}+
+ \frac{\log(J/\delta)}{N_G}\right\},\qquad N_G=n_Gpv_h,
+ \label{eq:rate}
+\end{equation}
+with dimension-dependent constants. The candidates need not converge to the true regressions for this fitted-path confidence statement.
+\end{proposition}
+\begin{proof}
+When $R=0$, $|U_0|,|B|\leq1$; when $R=1$, both are at most $1/\pi$. Thus every raw scaled coordinate is bounded by $M_X$, and
+\[
+ \E\|X_i\|_\infty^4\leq\frac{2K_{\max}^4s}{p c_e^3v_h^2}.
+\]
+For an entry of $X_iX_i^\top$, the centered absolute bound is $2M_X^2$. Bernstein's inequality and a union bound over $L^2$ entries yield
+$\|\widehat Q-Q\|_{\max}\leq r_Q$ on an event of error at most $\delta_Q+\delta_K$, using the event $s\leq s_+$.
+The same reasoning gives simultaneous bounds $r_N$ on the numerator means and $r_\mu$ on the kernel mean, with the second-moment bounds displayed above. These statements can be intersected even though the upper support bound and moment estimates use the same sample: the inequalities with the true support probability are intersected with $s\leq s_+$ before substitution.
+
+Writing $\E(K_hU_{0,y_j})=\mu_hF_h(y_j)$ gives
+\[
+ \left|\frac{\mathbb P_GK_hU_{0,y_j}}{\widehat\mu}-F_h(y_j)\right|
+ \leq\frac{r_N+r_\mu}{\widehat\mu}.
+\]
+Clipping to $[0,1]$ cannot increase this error. Hence $\|\widehat f-F_h\|_\infty\leq\zeta$.
+Now $\|A_f\|_\op\leq\sqrt{J+1}$,
+$\|A_{\widehat f}-A_{F_h}\|_\op\leq\sqrt J\zeta$, and
+$\|\widehat Q-Q\|_\op\leq Lr_Q$. Expanding
+\[
+ A_{\widehat f}\widehat Q A_{\widehat f}^\top-A_{F_h}QA_{F_h}^\top
+\]
+into a $\widehat Q-Q$ term and two $A_{\widehat f}-A_{F_h}$ terms gives \eqref{eq:radius}, using $\|Q\|_\op\leq\|\widehat Q\|_\op+Lr_Q$.
+The union error is at most the four allocated errors. Under localization, $s_+=O_\Pp(v_h)$, $\widehat\mu\asymp_\Pp v_h$, and $\|\widehat Q\|_\op=O_\Pp(1)$ for fixed $J$, which gives \eqref{eq:rate}.
+\end{proof}
+
+The positive semidefinite operator-norm ball supplied by Proposition~\ref{prop:covball} is sufficient for Theorem~\ref{thm:certificate}. Intersecting it with $\mathcal K_{\kappa,B}$ invokes additional, explicitly stated covariance conditions for Theorem~\ref{thm:paired}; those conditions must not be silently imposed to exclude inconvenient data.
+
+\section{Weak borrowing: an information bound and a matching certificate}
+Consider a binary submodel with $S\in\{-1,1\}$ equally likely and
+\[
+ Z=\ind\{Y=0\},\qquad \Pp_\theta(Z=1\mid S)=1/2+\theta S,
+ \quad |\theta|<1/4.
+\]
+The marginal target is $1/2$. Let $q=1/2$, $D=dS$ with fixed $0<d<1/4$, and $R\sim\operatorname{Bernoulli}(p)$ independently. This is a valid binary-CDF augmentation family. Direct calculation gives
+\begin{equation}
+ \sigma_\theta^2(\lambda)
+ =p\Var_\theta(U_\lambda)
+ =\frac14+(1-p)(d^2\lambda^2-2d\theta\lambda).
+ \label{eq:binaryvar}
+\end{equation}
+For $0<\theta<d$, the oracle weight is $\lambda^*=\theta/d$, and the Gaussian critical-value improvement is
+\begin{equation}
+ g_\theta^*=z_{1-\alpha/2}\left\{\frac12-\sqrt{\frac14-(1-p)\theta^2}\right\}
+ =z_{1-\alpha/2}(1-p)\theta^2+O(\theta^4).
+ \label{eq:binarygain}
+\end{equation}
+For $\theta\leq0$, no positive weight improves the anchor.
+
+\begin{theorem}[A local information obstruction]\label{thm:lower}
+Suppose a rule issues a positive-gain certificate on an event $\mathcal A$, with $\Pp_0(\mathcal A)\leq\delta$.
+From $n_G$ observations in the binary model, let $N_G=n_Gp$. Then
+\begin{equation}
+ \Pp_\theta(\mathcal A)\leq\delta+\sqrt{2N_G}\,|\theta|.
+ \label{eq:power}
+\end{equation}
+In particular, if $\theta=o(N_G^{-1/2})$, its probability of certifying the positive improvement is at most $\delta+o(1)$, while the optimal critical-value gain is $o(N_G^{-1})$.
+\end{theorem}
+\begin{proof}
+The laws of $(S,R)$ are identical under $\theta$ and zero. Conditional on verification, the Bernoulli divergence to probability $1/2$ is at most its chi-squared divergence, $4\theta^2$. Thus the observed-data divergence satisfies
+\[
+ \KL(P_\theta^{n_G},P_0^{n_G})\leq4n_Gp\theta^2.
+\]
+Pinsker's inequality gives total variation at most $\sqrt{2N_G}|\theta|$. Apply the event inequality and then \eqref{eq:binarygain}.
+To embed the construction locally, take $X$ independent of $S$, use a box kernel with support probability $r_h\asymp h^d$, and introduce the association $\theta$ only inside that support. All broadly observed variables have the same law under the two alternatives. The divergence bound replaces $N_G$ by $n_Gpr_h$, the expected local verified count.
+\end{proof}
+
+\begin{proposition}[Matching submodel certificate]\label{prop:matching}
+Conditional on $k\geq1$ verified observations in the target neighborhood, let
+\[
+ \widehat\theta=\frac1{2k}\sum_{i=1}^k S_i(2Z_i-1),\qquad
+ \theta_L=\widehat\theta-\sqrt{\frac{\log(1/\delta)}{2k}},\qquad
+ \widehat\lambda=\min\{1,(\theta_L)_+/d\}.
+\]
+The probability of selecting a strictly harmful positive weight is at most $\delta$.
+For $\theta>0$, the adoption probability is at least $1-\beta$ whenever
+\begin{equation}
+ \theta\geq\sqrt{\frac{\log(1/\delta)}{2k}}+
+               \sqrt{\frac{\log(1/\beta)}{2k}}.
+ \label{eq:matching}
+\end{equation}
+For $k=0$, use $\widehat\lambda=0$.
+\end{proposition}
+\begin{proof}
+Each summand divided by two lies in $[-1/2,1/2]$ and has mean $\theta$.
+One-sided Hoeffding bounds give $\Pp(\theta_L>\theta)\leq\delta$ and the adoption bound in \eqref{eq:matching}.
+On the confidence event, if $\widehat\lambda>0$ then
+$0<d\widehat\lambda\leq\theta_L\leq\theta$. Therefore
+\[
+ \sigma_\theta^2(\widehat\lambda)-\sigma_\theta^2(0)
+ =(1-p)d\widehat\lambda(d\widehat\lambda-2\theta)
+ \leq-(1-p)(d\widehat\lambda)^2<0.
+\]
+The Gaussian critical value is strictly increasing in the scalar variance, completing the proof.
+\end{proof}
+
+These results identify a fixed-submodel signal scale and its squared gain scale. They do not assert that every possible multi-threshold covariance geometry has the same detection boundary. They also concern certification of a specified estimator family, not a lower bound for estimating an otherwise known marginal target over this submodel. With $\varepsilon_G\asymp N_G^{-1/2}$ and $\lambda^*\asymp\theta$, Theorem~\ref{thm:paired} gives a regret scale $\theta N_G^{-1/2}$, consistent with the submodel boundary. Using a constant-in-$\lambda$ error bound would instead demand a gain of order $N_G^{-1/2}$ near the anchor and discard this adaptation.
+
+\section{Selection and final simultaneous coverage}
+A selection certificate and a coverage statement control different events. Keep training, selection, and final evaluation samples disjoint. No convergence of $\widehat\lambda$ to a unique deterministic minimizer is needed for the following transfer lemma.
+
+\begin{theorem}[Protected-band construction]\label{thm:coverage}
+Suppose \eqref{eq:confidence} holds and, conditional on training, the evaluation sample satisfies
+\[
+ \sup_{\lambda\in\Lambda}\sup_{t\in\R}
+ \left|\Pp\left(\left\|n_E^{-1/2}\sum_{i\in E}H_\lambda\Psi(O_i)\right\|_\infty\leq t
+ \middle|\text{training}\right)-\Pp(\|G_\lambda\|_\infty\leq t)\right|\leq\eta_E.
+\]
+Let $U_G(\lambda)=\sup_{Q\in\calC_G}c_Q(\lambda)$, and use \eqref{eq:rule}. Then the grid band
+\[
+ \widehat F_{E,\widehat\lambda}(y_j)\ \pm\
+ \frac{U_G(\widehat\lambda)}{\widehat f_{h,E}\sqrt{n_Epv_h}}
+\]
+has simultaneous coverage at least $1-\alpha-\delta-\eta_E$. If the kernel denominator is zero, report the trivial $[0,1]$ band instead.
+Moreover, its untruncated common half-width is no greater than that of the correspondingly protected anchor band using $U_G(0)$ and the same sample.
+\end{theorem}
+\begin{proof}
+On the confidence event, $U_G(\widehat\lambda)\geq c_\Omega(\widehat\lambda)$.
+Given training and selection, the selected weight is fixed and the evaluation sample is independent. The approximation hypothesis gives conditional grid coverage at least $1-\alpha-\eta_E$, using the exact identity \eqref{eq:ratio}. Integration and the confidence-set error give the asserted bound.
+For every $Q\in\calC_G$, optimality in \eqref{eq:rule} implies
+$g_Q(\widehat\lambda)\geq\underline g_G(\widehat\lambda)\geq0$.
+Hence $c_Q(\widehat\lambda)\leq c_Q(0)$ for every such $Q$, and taking suprema yields $U_G(\widehat\lambda)\leq U_G(0)$.
+\end{proof}
+
+The width comparison is with an anchor given the \emph{same} covariance protection, not with an uninflated conventional anchor. A desired total noncoverage probability must allocate the covariance-certificate and Gaussian-approximation errors as well as $\alpha$.
+Alternatively, a uniformly valid independently calibrated evaluation-fold multiplier band gives marginal coverage $1-\alpha+o(1)$ irrespective of whether the selection certificate succeeds; its realized width ordering is then an empirical question. The joint event of coverage and true Gaussian gain has probability at least $1-\alpha-\delta-o(1)$.
+Gaussian comparison, anti-concentration, and high-dimensional rectangle approximation are appropriate tools for controlling the remaining approximation terms \citep{cckanti,cckclt}.
+
+The original rotating three-role estimator is not automatically covered by the above conditional argument: conditioning on all rotating selections can reveal information about several evaluation blocks. A replacement result must explicitly control this dependence or introduce an outer independent selection stage.
+
+\subsection{From a threshold grid to an entire CDF}
+Suppose simultaneous lower and upper limits $l_j,u_j$ cover $F_h(y_j)$. Then
+\[
+ l(y)=\max\{0,\max_{y_j\leq y}l_j\},\qquad
+ u(y)=\min\{1,\min_{y_j\geq y}u_j\}
+\]
+cover $F_h(y)$ for every real $y$, with the natural empty-set conventions. The proof is monotonicity: each left grid value is a lower bound for the CDF to its right, and each right grid value is an upper bound to its left. Intersecting limits with $[0,1]$ preserves coverage. An inconsistent interval family off the coverage event can be replaced by $[0,1]$.
+This extension provides whole-CDF coverage without a smooth density; it does not identify finite-grid width optimality with continuum-supremum optimality. A sharp growing-grid process result must account for interpolation error and deterioration of the fixed-grid perturbation constants.
+
+\section{Scientific target for the air-monitoring application}
+The supplied manuscript reports 2,814 collocated site-days from seven sites, local humidity targets of 30, 50, and 70 percent, and calendar-week assignment to fitting, selection, and evaluation roles (Section 5.1, pages 23--25).
+No new EPA data analysis is claimed in this note.
+
+Let $Y$ be reference PM$_{2.5}$ and $\widetilde S$ a corrected sensor measurement obtained using a prespecified external correction or a separately trained, frozen calibration. The proposed scientific target is
+\[
+ \Delta_h(t;r)=\frac{\E[K_h(X-r)\{\ind(Y\leq t)-\ind(\widetilde S\leq t)\}]}{\E K_h(X-r)}.
+\]
+It equals sensor-minus-reference exceedance probability at the declared localization scale. Positive values indicate overstatement of exceedance frequency, not an individual-level false-positive rate.
+The paired estimator is
+\[
+ \widehat\Delta_{h,\lambda}(t;r)
+ =\frac{\mathbb P_E K_h(X-r)\{U_{\lambda,t}-\ind(\widetilde S\leq t)\}}{\mathbb P_E K_h(X-r)}.
+\]
+Its reference block is
+\[
+ \Psi^{\Delta}_{0,t}
+ =\sqrt{p/v_h}\,K_h(X-r)
+ \{U_{0,t}-\ind(\widetilde S\leq t)-\Delta_h(t;r)\},
+\]
+and its correction block is the same $\sqrt{p/v_h}K_h B_t$ as before. Thus the entire paired-certification construction applies to the actual scientific difference, retaining all sensor--reference covariances.
+The observable-radius constants in Section 6 must be recalculated for this $[-1,1]$-valued contrast; the $[0,1]$ clipping used there is not applied to $\Delta_h$. The borrowing weight chosen for the reference CDF need not minimize the band for this difference. The criterion should match the quantity ultimately reported.
+
+The empirical outputs are concentration-threshold regions where the sign of $\Delta_h$ is resolved, simultaneous uncertainty at the declared humidity values, high-quantile calibration differences when tail support permits them, and reference-budget requirements for recovering these conclusions.
+The frozen correction, time aggregation, site weighting, threshold grid, and humidity targets must be defined before inspecting new outcome contrasts. Reference-informed cleaning cannot remove errors that would remain invisible under sparse verification.
+Calendar-week dependence requires cluster-level covariance contributions and a corresponding approximation theorem; the independent site-day count must not be substituted for the number of independent blocks. Joint claims across three humidity targets also require an explicit familywise error allocation or a joint process.
+
+\section{Implementation record and the next mathematical deliverable}
+The attached Python module was executed successfully. It performs exact finite-support covariance enumeration; deterministic Gaussian rectangle integration; independent marginal-bound checks for Proposition~\ref{prop:separation}; perturbation checks of the paired anchor identity; exhaustive deterministic safety checks for the binary certificate over possible observed counts; exact binomial adoption calculations; and one smoke test of the observable covariance-ball routine.
+The smoke test is not an empirical confidence-coverage study, and the perturbation checks are not substitutes for Theorem~\ref{thm:paired}.
+
+The completed mathematical objects in this note are the fixed-grid separation, the generic certificate and oracle inequality, the fixed-grid paired perturbation theorem, a concrete covariance confidence ball, the binary information bound and matching certificate, and the conditional coverage-transfer statement.
+The next deliverable is a sharp, computable paired-gain calibration for a growing threshold grid, including its numerical approximation error, and the dependence-aware connection to the manuscript's estimation scheme. That development should preserve the local paired cancellation instead of reverting to two separate absolute critical-value intervals.
+The EPA reanalysis should then use the paired scientific target above. These steps are part of the existing strengthening route, not new research directions.
+
+\begin{thebibliography}{99}
+\bibitem[Angelopoulos et~al.(2024)]{ppi}
+Angelopoulos, A.~N., Duchi, J.~C., and Zrnic, T. (2024).
+PPI++: Efficient prediction-powered inference.
+\emph{arXiv:2311.01453v2}. doi:10.48550/arXiv.2311.01453.
+\bibitem[Sui et~al.(2026)]{ppci}
+Sui, Y., Zhou, J., Zhou, H., and Dai, X. (2026).
+Prediction-powered conditional inference.
+\emph{arXiv:2603.05575v2}. doi:10.48550/arXiv.2603.05575.
+\bibitem[Zhang and Li(2026)]{gpi}
+Zhang, Y. and Li, H. (2026).
+Generation-powered inference for distribution-valued outcomes.
+\emph{arXiv:2608.14542v1}. doi:10.48550/arXiv.2608.14542.
+\bibitem[Li et~al.(2026)]{mppi}
+Li, W., Jiang, F., and Zhang, X. (2026).
+Multi-source prediction-powered inference.
+\emph{arXiv:2606.21232v1}. doi:10.48550/arXiv.2606.21232.
+\bibitem[Mani et~al.(2025)]{nfl}
+Mani, P., Xu, P., Lipton, Z., and Oberst, M. (2025).
+No free lunch: Non-asymptotic analysis of prediction-powered inference.
+\emph{arXiv:2505.20178}. doi:10.48550/arXiv.2505.20178.
+\bibitem[Angelopoulos et~al.(2021)]{ltt}
+Angelopoulos, A.~N., Bates, S., Cand\`es, E.~J., Jordan, M.~I., and Lei, L. (2021).
+Learn then test: Calibrating predictive algorithms to achieve risk control.
+\emph{arXiv:2110.01052}. doi:10.48550/arXiv.2110.01052.
+\bibitem[Chernozhukov et~al.(2015)]{cckanti}
+Chernozhukov, V., Chetverikov, D., and Kato, K. (2015).
+Comparison and anti-concentration bounds for maxima of Gaussian random vectors.
+\emph{Probability Theory and Related Fields}, 162, 47--70.
+doi:10.1007/s00440-014-0565-9.
+\bibitem[Chernozhukov et~al.(2016)]{cckclt}
+Chernozhukov, V., Chetverikov, D., and Kato, K. (2016).
+Central limit theorems and bootstrap in high dimensions.
+\emph{arXiv:1412.3661v4}. doi:10.48550/arXiv.1412.3661.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,95 @@
+\section{Limit of the local efficiency bound}
+\label{sec:supp-efficiency-limit}
+
+\begin{corollary}[Limit of the local efficiency bound]
+\label{cor:limiting-efficiency}
+Suppose the conditions of Theorem~\ref{thm:process} hold and the oracle version of Condition~\ref{cond:covariance} holds for the canonical-gradient covariance. Define
+\begin{align}
+\Gamma_p^{\mathrm{eff}}(y,z)
+&=
+\frac{\kappa_K}{f_X(x_0)}
+E\Bigg[
+\frac{C_{yz}(W)}{e_0(W)}
+\nonumber\\[-2pt]
+&\hspace{22mm}
++
+p\{m_{0,y}(W)-F_0(y\mid x_0)\}
+   \{m_{0,z}(W)-F_0(z\mid x_0)\}
+\,\Bigm|\,X=x_0
+\Bigg].
+\label{eq:limiting-efficiency-kernel}
+\end{align}
+For every finite threshold vector \(\bm y\),
+\begin{equation}
+p_Mh^d\Sigma_{M,h}^{\mathrm{eff}}(\bm y)
+\longrightarrow
+\bm\Gamma_p^{\mathrm{eff}}(\bm y)
+\label{eq:efficiency-bound-limit}
+\end{equation}
+entrywise. Moreover,
+\begin{equation}
+\Gamma_p(y,z)-\Gamma_p^{\mathrm{eff}}(y,z)
+=
+\frac{\kappa_K}{f_X(x_0)}
+E\left[
+\left\{\frac1{e_0(W)}-p\right\}
+\Delta_y(W)\Delta_z(W)
+\,\Bigm|\,X=x_0
+\right],
+\label{eq:limiting-efficiency-regret}
+\end{equation}
+and this difference is positive semidefinite over every finite threshold collection.
+\end{corollary}
+
+\begin{proof}
+For thresholds \(y,z\), the conditional second moment of the canonical gradient in \eqref{eq:efficient-if-threshold} is
+\begin{align*}
+&E\left[
+\{U_y(m_0)-F_{h,0}(y\mid x_0)\}
+\{U_z(m_0)-F_{h,0}(z\mid x_0)\}
+\,\Bigm|\,W
+\right]\\
+&\quad=
+\frac{C_{yz}(W)}{\pi_M(W)}
++
+\{m_{0,y}(W)-F_{h,0}(y\mid x_0)\}
+ \{m_{0,z}(W)-F_{h,0}(z\mid x_0)\}.
+\end{align*}
+Therefore
+\begin{align}
+&p_Mh^dE\{\phi_{M,h,y}^{\mathrm{eff}}
+             \phi_{M,h,z}^{\mathrm{eff}}\}
+\nonumber\\
+&\quad=
+\frac{h^d}{\mu_h^2}
+E\Bigg[
+K_h^2(X-x_0)
+\Bigg\{
+\frac{C_{yz}(W)}{e_M(W)}
+\nonumber\\[-2pt]
+&\hspace{43mm}
++
+p_M\{m_{0,y}(W)-F_{h,0}(y\mid x_0)\}
+      \{m_{0,z}(W)-F_{h,0}(z\mid x_0)\}
+\Bigg\}
+\Bigg].
+\label{eq:scaled-efficiency-bound-proof}
+\end{align}
+The primitive covariance conditions in Proposition~\ref{prop:primitive-covariance}, applied with zero augmentation error, and the kernel change of variables used in Lemma~\ref{lem:covariance-limit} show that \eqref{eq:scaled-efficiency-bound-proof} converges to \(\Gamma_p^{\mathrm{eff}}(y,z)\). Applying this entrywise gives \eqref{eq:efficiency-bound-limit}.
+
+Subtracting \eqref{eq:limiting-efficiency-kernel} from \eqref{eq:cov-limit} gives \eqref{eq:limiting-efficiency-regret}. Since \(\pi_M=p_Me_M\le1\), every local limit satisfies \(pe_0(W)\le1\), and hence
+\[
+\frac1{e_0(W)}-p\ge0.
+\]
+For thresholds \(y_1,\ldots,y_L\) and \(c\in\mathbb R^L\), the quadratic form of the difference matrix is
+\[
+\frac{\kappa_K}{f_X(x_0)}
+E\left[
+\left\{\frac1{e_0(W)}-p\right\}
+\left\{\sum_{j=1}^Lc_j\Delta_{y_j}(W)\right\}^2
+\,\Bigm|\,X=x_0
+\right]
+\ge0.
+\]
+This proves the positive-semidefinite ordering.
+\end{proof}

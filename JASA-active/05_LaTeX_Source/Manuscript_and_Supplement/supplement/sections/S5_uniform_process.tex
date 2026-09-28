@@ -1,0 +1,262 @@
+\section{Uniform local conditional-distribution process}
+\label{sec:supp-process}
+
+Throughout the Supplement, \(\Rightarrow\) denotes weak convergence and \(\Rightarrow_{\mathbb P}\) denotes conditional weak convergence in probability.
+
+Define the path-oracle triangular influence process
+\begin{equation}
+\Psi_{M,y}(O)
+=
+\sqrt{p_Mh^d}
+\frac{K_h(X-x_0)}{\mu_h}
+\{U_y(a_M)-F_{h,0}(y\mid x_0)\}.
+\label{eq:oracle-process}
+\end{equation}
+By Lemma~\ref{lem:augmentation}, \(P\Psi_{M,y}=0\).
+
+\begin{lemma}[Asymptotic linear representation]
+\label{lem:ALR}
+Under Conditions~\ref{cond:sampling}--\ref{cond:path-compatibility},
+\begin{equation}
+\mathbb Z_M(y)
+=
+\frac1{\sqrt M}
+\sum_{i=1}^M\Psi_{M,y}(O_i)
++o_{\mathbb P}(1)
+\label{eq:ALR}
+\end{equation}
+uniformly over \(y\in\mathcal Y\), where \(\mathbb Z_M\) is defined in \eqref{eq:scaled-cdf-process}.
+\end{lemma}
+
+\begin{proof}
+Theorem~\ref{thm:oracle-equivalence} replaces the estimated coefficient by the conditional population minimizer, and Lemma~\ref{lem:nuisance-perturb} replaces each fitted fold-specific augmentation by \(a_M\), with a uniform \(o_{\mathbb P}(1)\) error after scaling. Lemma~\ref{lem:ratio} linearizes each fold-specific ratio. If \(n_k=|I_{E,k}|\) and \(\rho_{M,k}=n_k/M\), then
+\[
+\rho_{M,k}\frac1{n_k}\sum_{i\in I_{E,k}}f(O_i)
+=
+\frac1M\sum_{i\in I_{E,k}}f(O_i).
+\]
+The disjoint evaluation folds therefore combine into the full-sample empirical average in \eqref{eq:ALR}.
+\end{proof}
+
+\begin{lemma}[Covariance limit]
+\label{lem:covariance-limit}
+Under Conditions~\ref{cond:sampling}, \ref{cond:kernel}, and \ref{cond:covariance},
+\[
+E\{\Psi_{M,y}\Psi_{M,z}\}
+\to\Gamma_p(y,z)
+\]
+uniformly on \(\mathcal Y^2\), where
+\begin{align}
+\Gamma_p(y,z)
+&=
+\frac{\kappa_K}{f_X(x_0)}
+E\Bigg[
+\frac{C_{yz}(W)}{e_0(W)}
++
+\left\{\frac1{e_0(W)}-p\right\}
+\Delta_y(W)\Delta_z(W)
+\nonumber\\[-2pt]
+&\hspace{31mm}
++
+p\{m_{0,y}(W)-F_0(y\mid x_0)\}
+  \{m_{0,z}(W)-F_0(z\mid x_0)\}
+\,\Bigm|\,X=x_0
+\Bigg].
+\label{eq:gamma-proof}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Conditional on \(W\), Lemmas~\ref{lem:cov-decomp} and \ref{lem:augmentation} give
+\begin{align*}
+&E\left[
+\{U_y(a_M)-F_{h,0}(y)\}
+\{U_z(a_M)-F_{h,0}(z)\}
+\,\Bigm|\,W
+\right]\\
+&\quad=
+\frac{C_{yz}(W)}{\pi_M(W)}
++
+\left\{\frac1{\pi_M(W)}-1\right\}
+\Delta_{M,y}(W)\Delta_{M,z}(W)\\
+&\qquad+
+\{m_{0,y}(W)-F_{h,0}(y)\}
+\{m_{0,z}(W)-F_{h,0}(z)\}.
+\end{align*}
+Multiplying by \(p_M\) and using \(\pi_M=p_Me_M\) gives \(B_{M,yz}(W)\) in Condition~\ref{cond:covariance}. Consequently,
+\[
+E\{\Psi_{M,y}\Psi_{M,z}\}
+=
+\frac{h^d}{\mu_h^2}
+E\{K_h^2(X-x_0)B_{M,yz}(W)\}.
+\]
+Changing variables \(x=x_0+hu\) writes this expression as
+\[
+\frac{
+\int K^2(u)f_X(x_0+hu)
+E\{B_{M,yz}(W)\mid X=x_0+hu\}\,du
+}{
+\left[\int K(u)f_X(x_0+hu)\,du\right]^2
+}.
+\]
+Condition~\ref{cond:covariance}, continuity and positivity of \(f_X\), and dominated convergence yield \eqref{eq:gamma-proof} uniformly on \(\mathcal Y^2\).
+\end{proof}
+
+\begin{lemma}[Increment semimetric]
+\label{lem:increments}
+Under Conditions~\ref{cond:sampling}, \ref{cond:kernel}, and \ref{cond:entropy},
+\begin{equation}
+\|\Psi_{M,z}-\Psi_{M,y}\|_{P,2}^2
+\le
+C\{|z-y|+|z-y|^{2\alpha}\}
+\label{eq:increment-bound}
+\end{equation}
+uniformly in \(M\) and \(y,z\in\mathcal Y\).
+\end{lemma}
+
+\begin{proof}
+For \(y<z\),
+\begin{equation}
+U_z(a_M)-U_y(a_M)
+=
+\{a_{M,z}-a_{M,y}\}
+\left(1-\frac{R}{\pi_M}\right)
++
+\frac{R}{\pi_M}1(y<Y\le z).
+\label{eq:increment-decomp}
+\end{equation}
+Using \((r+s)^2\le2r^2+2s^2\), conditional expectation, and \(R^2=R\),
+\[
+p_ME[\{U_z-U_y\}^2\mid W]
+\le
+C|a_{M,z}-a_{M,y}|^2
++
+C\Pr(y<Y\le z\mid W).
+\]
+Conditions \eqref{eq:cdf-increment}--\eqref{eq:a-increment} provide the threshold modulus. In addition,
+\[
+|F_{h,0}(z\mid x_0)-F_{h,0}(y\mid x_0)|
+\le C_{\mathcal Y}|z-y|
+\]
+by the same conditional-CDF increment bound and the nonnegative kernel weights. Since
+\[
+\frac{h^dE K_h^2}{\mu_h^2}=O(1),
+\]
+the centered increment satisfies \eqref{eq:increment-bound}.
+\end{proof}
+
+\begin{lemma}[Triangular empirical-process central limit theorem]
+\label{lem:triangular-clt}
+Under Conditions~\ref{cond:sampling}, \ref{cond:kernel},
+\ref{cond:entropy}, and \ref{cond:covariance},
+\[
+\frac1{\sqrt M}
+\sum_{i=1}^M\Psi_{M,\cdot}(O_i)
+\Rightarrow
+\mathbb G_p
+\quad\text{in }\ell^\infty(\mathcal Y),
+\]
+where \(\mathbb G_p\) has covariance kernel \(\Gamma_p\).
+\end{lemma}
+
+\begin{proof}
+Let \(\mathcal F_M=\{\Psi_{M,y}:y\in\mathcal Y\}\) and let \(F_M\) be its envelope. Boundedness of \(a_M\), compact support and boundedness of \(K\), and \(\pi_M\ge p_Mc_e\) give
+\begin{equation}
+\|F_M\|_\infty
+\le
+\frac{C}{\sqrt{p_Mh^d}},
+\qquad
+\sup_M P F_M^2<\infty.
+\label{eq:tri-envelope}
+\end{equation}
+Because \(Mp_Mh^d\to\infty\),
+\begin{equation}
+P\{F_M^2 1(F_M>\eta\sqrt M)\}=0
+\quad\text{for every \(\eta>0\) and all sufficiently large \(M\)}.
+\label{eq:tri-lindeberg}
+\end{equation}
+Thus the row-wise Lindeberg condition holds.
+
+For fixed thresholds \(y_1,\ldots,y_L\) and constants \(c_1,\ldots,c_L\), set
+\[
+S_M=
+\sum_{j=1}^Lc_j\Psi_{M,y_j}.
+\]
+Equation \eqref{eq:tri-lindeberg} gives Lindeberg's condition for \(S_M\), and Lemma~\ref{lem:covariance-limit} gives convergence of its variance. The Lindeberg--Feller theorem and Cram\'er--Wold yield finite-dimensional convergence.
+
+For equicontinuity, define
+\[
+\rho(y,z)
+=
+C\{|y-z|+|y-z|^{2\alpha}\}^{1/2}
+\]
+with \(C\) chosen so that \(\|\Psi_{M,z}-\Psi_{M,y}\|_{P,2}\le\rho(y,z)\). The compact interval \(\mathcal Y\) is totally bounded under \(\rho\). For \(\delta>0\), let
+\[
+\mathcal F_M(\delta)
+=
+\{\Psi_{M,z}-\Psi_{M,y}:\rho(y,z)\le\delta\}.
+\]
+This difference class is VC-type with
+\[
+\sup_{f\in\mathcal F_M(\delta)}\|f\|_{P,2}\le\delta.
+\]
+The VC entropy integral satisfies
+\[
+J(\delta,\mathcal F_M)
+=
+\sup_Q
+\int_0^\delta
+\sqrt{1+\log N\{\epsilon\|F_M\|_{Q,2},\mathcal F_M,L_2(Q)\}}
+\,d\epsilon
+\le C\delta\sqrt{\log(A/\delta)}.
+\]
+The maximal inequality for measurable VC-type classes in Section 2.14 of \citet{VanderVaartWellner1996} therefore gives
+\begin{equation}
+E\left\|
+\frac1{\sqrt M}\sum_{i=1}^M\{f(O_i)-Pf\}
+\right\|_{\mathcal F_M(\delta)}
+\le
+C\delta\sqrt{\log(A/\delta)}
++
+C\frac{\|F_M\|_\infty}{\sqrt M}\log(A/\delta).
+\label{eq:tri-maximal-bound}
+\end{equation}
+For fixed \(\delta\), the second term tends to zero by \eqref{eq:tri-envelope}; the first tends to zero as \(\delta\downarrow0\). Markov's inequality gives asymptotic \(\rho\)-equicontinuity. Finite-dimensional convergence, total boundedness, the Lindeberg condition, and this entropy bound verify the triangular-array functional central limit criteria developed by \citet{Ziegler1997} and \citet{Arcones1999}. Hence the process converges weakly in \(\ell^\infty(\mathcal Y)\).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:process}]
+Lemma~\ref{lem:ALR} gives the uniform asymptotic linear representation. Lemma~\ref{lem:triangular-clt} gives weak convergence of the leading term, and Lemma~\ref{lem:covariance-limit} identifies the covariance kernel. Slutsky's theorem in \(\ell^\infty(\mathcal Y)\) completes the proof.
+\end{proof}
+
+\begin{corollary}[Finite-threshold inference]
+\label{cor:finite-grid}
+Fix \(L<\infty\), thresholds \(y_1<\cdots<y_L\), and a positive transfer measure \(\nu_L=\sum_{j=1}^Lw_j\delta_{y_j}\), where \(w_j>0\). Define
+\[
+\begin{aligned}
+\bm F_{h,0}
+&=
+\{F_{h,0}(y_1\mid x_0),\ldots,F_{h,0}(y_L\mid x_0)\}^{\top},\\
+\widehat{\bm F}_h
+&=
+\{\widehat F_h^{\mathrm{raw}}(y_1\mid x_0),\ldots,
+\widehat F_h^{\mathrm{raw}}(y_L\mid x_0)\}^{\top}.
+\end{aligned}
+\]
+Under Conditions~\ref{cond:sampling}, \ref{cond:kernel},
+\ref{cond:candidates}, \ref{cond:nuisance}, and
+\ref{cond:path-compatibility}, together with finite-dimensional covariance
+convergence,
+\[
+\sqrt{N_{M,h}}
+\{\widehat{\bm F}_h-\bm F_{h,0}\}
+\Rightarrow
+N_L(0,\bm\Gamma_p),
+\]
+where the \((j,\ell)\) entry of \(\bm\Gamma_p\) is \(\Gamma_p(y_j,y_\ell)\). The corresponding Rademacher multiplier vector consistently estimates this law. The result applies to continuous, discrete, and mixed outcomes.
+\end{corollary}
+
+\begin{proof}
+Fix \(\mathcal Y_L=\{y_1,\ldots,y_L\}\). Lemma~\ref{lem:gain-rates} gives the gain-estimation rates on the fixed grid. In the positive-curvature regime, Lemma~\ref{lem:regret} gives \(\widehat\lambda_{h,k}-\lambda_{h,k}^{\mathrm{or}}=o_{\mathbb P}(1)\); in the vanishing-curvature regime, Lemma~\ref{lem:finite-grid-path-compatibility} makes the correction radius vanish on \(\mathcal Y_L\). The same two-regime argument as in Lemma~\ref{lem:coefficient-perturb} therefore replaces the estimated coefficient by its conditional population minimizer on the grid. Condition~\ref{cond:nuisance} and coordinatewise Chebyshev bounds replace the fitted population-minimizing paths by \(a_M\), without a continuum entropy condition. Lemma~\ref{lem:ratio} then gives a finite-dimensional asymptotic linear representation.
+
+The envelope bound \eqref{eq:tri-envelope} implies Lindeberg's condition, and covariance convergence at \((y_j,y_\ell)\) gives the limiting covariance matrix. Cram\'er--Wold proves the Gaussian vector limit. For the multiplier vector, coordinatewise influence-function replacement, empirical covariance convergence, and the conditional multivariate Lindeberg--Feller theorem give the same limit. No threshold-density or continuum equicontinuity condition enters this result.
+\end{proof}

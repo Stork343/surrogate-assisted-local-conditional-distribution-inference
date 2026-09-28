@@ -1,0 +1,515 @@
+\section{Point targets and implementation extensions}
+\label{sec:supp-extensions}
+
+\subsection{Localization bias and conditional quantiles}
+
+\begin{lemma}[Uniform localization bias]
+\label{lem:bias}
+Under Conditions~\ref{cond:kernel} and \ref{cond:bias},
+\[
+\sup_{y\in\mathcal Y}
+|F_{h,0}(y\mid x_0)-F_0(y\mid x_0)|
+=O(h^2).
+\]
+\end{lemma}
+
+\begin{proof}
+Let \(g_y(x)=q_{0,y}(x)f_X(x)\). Then
+\[
+E(K_hZ_y)
+=h^d\int K(u)g_y(x_0+hu)\,du,
+\qquad
+\mu_h=h^d\int K(u)f_X(x_0+hu)\,du.
+\]
+Uniform second-order Taylor expansions and symmetry of \(K\) give
+\begin{align*}
+E(K_hZ_y)
+&=h^d\{\kappa_1g_y(x_0)+O(h^2)\},\\
+\mu_h
+&=h^d\{\kappa_1f_X(x_0)+O(h^2)\},
+\end{align*}
+uniformly in \(y\). Taking the ratio proves the result.
+\end{proof}
+
+\begin{proof}[Proof of the point-target statement in Corollary~\ref{cor:F0}]
+By Lemma~\ref{lem:bias},
+\[
+\sqrt{N_{M,h}}
+\|F_{h,0}-F_0\|_{\mathcal Y}
+=O\{\sqrt{N_{M,h}}h^2\}=o(1).
+\]
+The process and multiplier conclusions follow from Theorems~\ref{thm:process} and \ref{thm:bootstrap} and Slutsky's theorem in \(\ell^\infty(\mathcal Y)\).
+\end{proof}
+
+\begin{proposition}[Increasing rearrangement]
+\label{prop:rearrangement}
+Suppose \(F_0(\cdot\mid x_0)\) is continuously differentiable and strictly increasing on the threshold region, with derivative bounded away from zero and values in \([\eta,1-\eta]\). If
+\[
+r_M(\widehat F_h^{\mathrm{raw}}-F_0)
+\Rightarrow\mathbb G_p
+\quad\text{in }\ell^\infty(\mathcal Y),
+\qquad
+r_M=\sqrt{N_{M,h}},
+\]
+then
+\begin{equation}
+r_M(\widehat F_h^{\mathrm{mon}}-F_0)
+=
+r_M(\widehat F_h^{\mathrm{raw}}-F_0)
++o_{\mathbb P}(1)
+\quad\text{in }\ell^\infty(\mathcal Y),
+\label{eq:rearrangement-equivalence}
+\end{equation}
+and therefore
+\[
+r_M(\widehat F_h^{\mathrm{mon}}-F_0)
+\Rightarrow\mathbb G_p
+\quad\text{in }\ell^\infty(\mathcal Y).
+\]
+For \(1\le r\le\infty\), rearrangement does not increase the \(L_r(\nu)\) distance to the monotone target.
+\end{proposition}
+
+\begin{proof}
+The rearrangement contraction and functional limit result at a strictly increasing target follow from \citet{ChernozhukovEtAl2010}. At such a target, the Hadamard derivative of increasing rearrangement is the identity. Clipping is inactive with probability tending to one on the stated interior probability region. The functional delta method gives \eqref{eq:rearrangement-equivalence} and the asserted weak limit.
+\end{proof}
+
+\begin{proof}[Proof of the conditional-quantile statement in Corollary~\ref{cor:F0}]
+Define the point-target empirical processes
+\[
+\mathbb Z_{M,0}^{\mathrm{raw}}
+=
+\sqrt{N_{M,h}}(\widehat F_h^{\mathrm{raw}}-F_0),
+\qquad
+\mathbb Z_{M,0}^{\mathrm{mon}}
+=
+\sqrt{N_{M,h}}(\widehat F_h^{\mathrm{mon}}-F_0).
+\]
+By \eqref{eq:rearrangement-equivalence},
+\[
+\|\mathbb Z_{M,0}^{\mathrm{mon}}
+ -\mathbb Z_{M,0}^{\mathrm{raw}}\|_{\mathcal Y}
+=o_{\mathbb P}(1).
+\]
+The point-target statement proved above gives
+\[
+\mathbb Z_{M,0}^{\mathrm{raw}}
+\Rightarrow\mathbb G_p
+\quad\text{in }\ell^\infty(\mathcal Y).
+\]
+The inverse-CDF map is Hadamard differentiable at \(F_0\), tangentially to continuous functions, with derivative
+\[
+g\mapsto
+-
+\frac{g\{Q_0(\tau\mid x_0)\}}
+{f_{Y\mid X}\{Q_0(\tau\mid x_0)\mid x_0\}}.
+\]
+The functional delta method, Theorem 3.9.4 of \citet{VanderVaartWellner1996}, yields the uniform Bahadur representation
+\begin{equation}
+\sup_{\tau\in\mathcal T}
+\left|
+\sqrt{N_{M,h}}\{\widehat Q_h(\tau\mid x_0)-Q_0(\tau\mid x_0)\}
++
+\frac{\mathbb Z_{M,0}^{\mathrm{raw}}\{Q_0(\tau\mid x_0)\}}
+{f_{Y\mid X}\{Q_0(\tau\mid x_0)\mid x_0\}}
+\right|
+=o_{\mathbb P}(1).
+\label{eq:uniform-bahadur}
+\end{equation}
+Combining \eqref{eq:uniform-bahadur} with the point-target process limit proves \eqref{eq:quantile-limit}--\eqref{eq:quantile-gaussian-limit}.
+\end{proof}
+
+\subsection{Estimated verification probabilities}
+
+\begin{lemma}[Exact propensity drift]
+\label{lem:propensity-drift}
+Let \(\widehat\pi\) be fitted independently of the observation on which \(U_y(a,\widehat\pi)\) is evaluated. Then
+\begin{equation}
+E\{U_y(a,\widehat\pi)-m_{0,y}\mid W,\widehat\pi\}
+=
+(a_y-m_{0,y})
+\frac{\widehat\pi-\pi_M}{\widehat\pi}.
+\label{eq:supp-pi-drift}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Conditional on \(W\) and \(\widehat\pi\),
+\[
+\begin{aligned}
+E\{U_y(a,\widehat\pi)\mid W,\widehat\pi\}
+&=a_y+\frac1{\widehat\pi}E[R(Z_y-a_y)\mid W]\\
+&=a_y+\frac{\pi_M}{\widehat\pi}(m_{0,y}-a_y).
+\end{aligned}
+\]
+Subtracting \(m_{0,y}\) gives \eqref{eq:supp-pi-drift}.
+\end{proof}
+
+\begin{proposition}[Estimated-propensity process extension]
+\label{prop:pi-extension}
+Suppose the conditions of Theorem~\ref{thm:process} hold for the estimator using \(\pi_M\). Let \(\widehat\pi\) be fitted on a separate fold and satisfy, uniformly over \(y\in\mathcal Y\),
+\begin{align}
+&\sqrt{N_{M,h}}
+\left|
+\frac1{\mu_h}
+E\left[
+K_h(a_y-m_{0,y})
+\frac{\widehat\pi-\pi_M}{\widehat\pi}
+\,\Bigm|\,\mathcal T
+\right]
+\right|
+=o_{\mathbb P}(1),
+\label{eq:pi-drift-cond}\\
+&\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2R(Z_y-a_y)^2
+\left(\frac1{\widehat\pi}-\frac1{\pi_M}\right)^2
+\,\Bigm|\,\mathcal T
+\right]
+=o_{\mathbb P}(1),
+\label{eq:pi-var-cond}
+\end{align}
+and suppose the corresponding random class satisfies Condition~\ref{cond:entropy}. Then replacing \(\pi_M\) by \(\widehat\pi\) leaves the limit in Theorem~\ref{thm:process} unchanged.
+\end{proposition}
+
+\begin{proof}
+Decompose
+\[
+U_y(a,\widehat\pi)-U_y(a,\pi_M)
+=
+R(Z_y-a_y)
+\left(\frac1{\widehat\pi}-\frac1{\pi_M}\right).
+\]
+Lemma~\ref{lem:propensity-drift} identifies the conditional mean. Condition \eqref{eq:pi-drift-cond} removes the localized mean at the process scale. After centering, Condition \eqref{eq:pi-var-cond} and the entropy bound make the empirical process \(o_{\mathbb P}(1)\) by the maximal-inequality argument in Lemma~\ref{lem:nuisance-perturb}. The process expansion using \(\pi_M\) therefore remains unchanged.
+\end{proof}
+
+Define
+\begin{align*}
+r_{a,M,h}^2
+&=
+\sup_y
+\frac1{\mu_h}
+E\{K_h(a_y-m_{0,y})^2\mid\mathcal T\},\\
+r_{\pi,M,h}^2
+&=
+\frac1{\mu_h}
+E\left[
+K_h
+\left(\frac{\widehat\pi-\pi_M}{\widehat\pi}\right)^2
+\Bigm|\mathcal T
+\right].
+\end{align*}
+Cauchy--Schwarz gives
+\[
+\sup_y
+\left|
+\frac1{\mu_h}
+E\left[
+K_h(a_y-m_{0,y})
+\frac{\widehat\pi-\pi_M}{\widehat\pi}
+\Bigm|\mathcal T
+\right]
+\right|
+\le r_{a,M,h}r_{\pi,M,h}.
+\]
+Thus
+\[
+\sqrt{N_{M,h}}\,r_{a,M,h}r_{\pi,M,h}
+=o_{\mathbb P}(1)
+\]
+is sufficient for \eqref{eq:pi-drift-cond}. Along an interior limiting path,
+\[
+a_{\lambda,y}-m_{0,y}
+\to
+(1-\lambda)\{q_{0,y}-m_{0,y}\},
+\]
+so the relevant propensity rate is a localized relative-error rate.
+
+\subsection{Grid approximation}
+
+Let \(\nu\) have a bounded density on \(\mathcal Y\), let
+\[
+\underline y=y_{1,L}<\cdots<y_{L,L}=\overline y,
+\]
+and let \(\nu_L=\sum_{j=1}^Lw_{j,L}\delta_{y_{j,L}}\) be a positive quadrature rule with mesh \(\Delta_L\).
+
+\begin{proposition}[Grid-to-continuum transfer]
+\label{prop:quadrature}
+Under Conditions~\ref{cond:sampling} and \ref{cond:kernel}, suppose, uniformly
+in the local region,
+\[
+|A_yD_y-A_zD_z|+|D_y^2-D_z^2|
+\le C_\beta|y-z|^\beta
+\]
+for some \(\beta>0\) and \(C_\beta<\infty\). Suppose the quadrature rule has order \(\beta\). Let \((G_{M,h},H_{M,h})\) use \(\nu\) and \((G_{M,h,L},H_{M,h,L})\) use \(\nu_L\). Then
+\[
+|G_{M,h,L}-G_{M,h}|+|H_{M,h,L}-H_{M,h}|
+\le
+C\Delta_L^\beta E v_{M,h}.
+\]
+After multiplication by \(p_M\), the right side is \(O(\Delta_L^\beta)\). If \(\inf_M\mathcal H_{M,h}>0\),
+\[
+|\lambda_{h,L}^{\mathrm{or}}-\lambda_h^{\mathrm{or}}|
+=O(\Delta_L^\beta).
+\]
+\end{proposition}
+
+\begin{proof}
+The quadrature error for a uniformly \(\beta\)-H\"older function is \(O(\Delta_L^\beta)\). Apply this result pointwise to \(A_yD_y\) and \(D_y^2\), multiply by \(v_{M,h}\), and take expectation. Since \(p_ME v_{M,h}=O(1)\), the normalized error is \(O(\Delta_L^\beta)\). Projection is nonexpansive and the ratio map is Lipschitz when \(\mathcal H\) is bounded below.
+\end{proof}
+
+\begin{proposition}[Growing-grid approximation of process suprema]
+\label{prop:growing-grid}
+Let \(\mathcal Y_{L_M}\subset\mathcal Y\) be deterministic grids with mesh \(\Delta_{L_M}\to0\). Under Theorems~\ref{thm:process} and \ref{thm:bootstrap},
+\begin{align*}
+\left|
+\|\mathbb Z_M\|_{\mathcal Y}
+-
+\max_{y\in\mathcal Y_{L_M}}|\mathbb Z_M(y)|
+\right|&=o_{\mathbb P}(1),\\
+\left|
+\|\mathbb G_M^\xi\|_{\mathcal Y}
+-
+\max_{y\in\mathcal Y_{L_M}}|\mathbb G_M^\xi(y)|
+\right|&=o_{\mathbb P}(1)
+\end{align*}
+conditionally in probability for the multiplier process. If the reported CDF is extended by piecewise-linear interpolation and \(F_{h,0}\) has a uniformly bounded derivative, the deterministic interpolation error is negligible whenever
+\[
+\sqrt{N_{M,h}}\,\Delta_{L_M}\to0.
+\]
+\end{proposition}
+
+\begin{proof}
+The process and multiplier proofs establish asymptotic equicontinuity under the totally bounded semimetric \(\rho\). The maximal \(\rho\)-distance from any point in \(\mathcal Y\) to the grid tends to zero, and each supremum difference is bounded by the corresponding modulus of continuity. Piecewise-linear interpolation of the target has error at most \(C\Delta_{L_M}\), while stochastic interpolation is controlled by the same process modulus.
+\end{proof}
+
+\subsection{Local-linear equivalent-kernel extension}
+
+The local-constant construction extends to local-polynomial distribution estimation and related boundary-adaptive conditional-density procedures through equivalent-kernel representations; see \citet{CattaneoJanssonMa2024} and \citet{CattaneoEtAl2024}. We give the interior local-linear version for the selective-verification model.
+
+Let
+\[
+r_h(X)=r\{(X-x_0)/h\},
+\qquad
+r(u)=(1,u^\top)^\top,
+\]
+and define
+\begin{align}
+\mathbf S_h
+&=E\{K_h(X-x_0)r_h(X)r_h(X)^\top\},
+\label{eq:ll-gram}\\
+\gamma_{h,y}
+&=E\{K_h(X-x_0)r_h(X)Z_y\},
+\qquad
+\beta_{h,y}=\mathbf S_h^{-1}\gamma_{h,y}.
+\label{eq:ll-beta}
+\end{align}
+The local-linear regularized target is
+\begin{equation}
+F_{h,0}^{\mathrm{LL}}(y\mid x_0)
+=e_1^\top\beta_{h,y},
+\qquad
+e_1=(1,0,\ldots,0)^\top\in\mathbb R^{d+1}.
+\label{eq:ll-target}
+\end{equation}
+For a path \(a\) fixed conditional on data outside the evaluation sample, let
+\begin{align*}
+\widehat{\mathbf S}_h
+&=\mathbb P_M\{K_hr_hr_h^\top\},\\
+\widehat\gamma_{h,y}^{a}
+&=\mathbb P_M\{K_hr_hU_y(a)\},\\
+\widehat\beta_{h,y}^{a}
+&=\widehat{\mathbf S}_h^{-1}\widehat\gamma_{h,y}^{a},\\
+\widehat F_h^{\mathrm{LL},a}(y\mid x_0)
+&=e_1^\top\widehat\beta_{h,y}^{a}.
+\end{align*}
+The sample-split estimator applies this construction foldwise and combines the evaluation folds as in \eqref{eq:final-estimator}. Define the population equivalent weight
+\begin{equation}
+L_h(X;x_0)
+=e_1^\top\mathbf S_h^{-1}r_h(X)K_h(X-x_0).
+\label{eq:ll-weight}
+\end{equation}
+
+\begin{proposition}[Local-linear efficiency, transfer, and process]
+\label{prop:local-linear}
+Under Condition~\ref{cond:sampling}, fix \(M\) and \(h\) such that
+\(\mathbf S_h\) is nonsingular and
+\[
+E\{L_h^2(X;x_0)/\pi_M(W)\}<\infty.
+\]
+For a finite threshold vector, the canonical-gradient components are
+\begin{equation}
+\phi_{M,h,y}^{\mathrm{LL},\mathrm{eff}}(O)
+=
+L_h(X;x_0)
+\left[
+ m_{0,y}(W)
+ +\frac{R}{\pi_M(W)}\{Z_y-m_{0,y}(W)\}
+ -r_h(X)^\top\beta_{h,y}
+\right].
+\label{eq:ll-efficient-if}
+\end{equation}
+For a generic augmentation, set
+\begin{equation}
+\phi_{M,h,y}^{\mathrm{LL},a}(O)
+=
+L_h(X;x_0)
+\{U_y(a)-r_h(X)^\top\beta_{h,y}\},
+\label{eq:ll-influence}
+\end{equation}
+and
+\[
+\Omega_{M,h}^{\mathrm{LL},a}(y,z)
+=
+h^dE\{\phi_{M,h,y}^{\mathrm{LL},a}
+        \phi_{M,h,z}^{\mathrm{LL},a}\}.
+\]
+Under a known verification law, \(\phi^{\mathrm{LL},a}\) is an influence function and
+\begin{equation}
+\Omega_{M,h}^{\mathrm{LL},a}(y,z)
+-
+\Omega_{M,h}^{\mathrm{LL},m_0}(y,z)
+=
+h^dE\left[
+L_h^2(X;x_0)
+\left\{\frac1{\pi_M(W)}-1\right\}
+\delta_y^a(W)\delta_z^a(W)
+\right].
+\label{eq:ll-psd}
+\end{equation}
+The difference is positive semidefinite over every finite threshold collection, and \(\phi^{\mathrm{LL},m_0}=\phi^{\mathrm{LL},\mathrm{eff}}\) remains canonical when the verification law is unrestricted.
+
+Suppose next that Condition~\ref{cond:kernel} holds and that the
+sample-separation, curvature, and candidate-path clauses of
+Condition~\ref{cond:candidates} hold for the local-linear equivalent-kernel
+metric. Suppose that
+\[
+h^{-d}\mathbf S_h\to f_X(x_0)\mathbf S_K,
+\qquad
+\mathbf S_K=\int K(u)r(u)r(u)^\top\,du,
+\]
+where \(\mathbf S_K\) is positive definite. Assume the equivalent-kernel
+versions of Conditions~\ref{cond:nuisance}, \ref{cond:entropy},
+\ref{cond:path-compatibility}, and \ref{cond:covariance} hold for \(L_h\), the
+fitted paths, and their threshold increments. Then
+\begin{equation}
+\sqrt{N_{M,h}}
+\{\widehat F_h^{\mathrm{LL}}(a_M;\cdot\mid x_0)
+-F_{h,0}^{\mathrm{LL}}(\cdot\mid x_0)\}
+\Rightarrow
+\mathbb G_p^{\mathrm{LL}}
+\quad\text{in }\ell^\infty(\mathcal Y).
+\label{eq:ll-process-limit}
+\end{equation}
+The transfer criterion, observable gain representation, coefficient estimator, path-oracle equivalence, and multiplier process remain valid after replacing \(v_{M,h}\) by
+\begin{equation}
+v_{M,h}^{\mathrm{LL}}(W)
+=h^dL_h^2(X;x_0)
+\left\{\frac1{\pi_M(W)}-1\right\}.
+\label{eq:ll-transfer-weight}
+\end{equation}
+If
+\[
+\ell_K(u)=e_1^\top\mathbf S_K^{-1}r(u)K(u),
+\qquad
+\kappa_K^{\mathrm{LL}}=\int\ell_K^2(u)\,du,
+\]
+then the covariance kernel in Theorem~\ref{thm:process} has \(\kappa_K\) replaced by \(\kappa_K^{\mathrm{LL}}\). Under Condition~\ref{cond:bias},
+\[
+\sup_{y\in\mathcal Y}
+|F_{h,0}^{\mathrm{LL}}(y\mid x_0)-F_0(y\mid x_0)|
+=O(h^2),
+\]
+so the point-target and quantile conclusions in Corollary~\ref{cor:F0} apply to the local-linear estimator.
+\end{proposition}
+
+\begin{proof}
+The augmentation identity gives
+\[
+E\{K_hr_hU_y(a)\}=E(K_hr_hZ_y)=\gamma_{h,y},
+\]
+so \(F_{h,0}^{\mathrm{LL}}\) is independent of the augmentation. The parameter \(\beta_{h,y}\) solves
+\[
+E[K_hr_h\{Z_y-r_h^\top\beta_{h,y}\}]=0.
+\]
+Differentiating this moment equation along a full-data parametric submodel with score \(s\) gives
+\[
+\dot\beta_{h,y}
+=
+\mathbf S_h^{-1}
+E[K_hr_h\{Z_y-r_h^\top\beta_{h,y}\}s].
+\]
+Hence the full-data gradient for \(F_{h,0}^{\mathrm{LL}}(y\mid x_0)\) is
+\[
+L_h(X;x_0)\{Z_y-r_h(X)^\top\beta_{h,y}\}.
+\]
+Applying the observed-data tangent decomposition in Section~\ref{sec:supp-efficiency} replaces this gradient by its conditional mean given \(W\) plus the inverse-probability residual, which is exactly \eqref{eq:ll-efficient-if}. The same propensity-tangent calculation as in Theorem~\ref{thm:signed-efficiency} proves canonicality under an unrestricted verification law.
+
+The sample and population normal equations give the exact identity
+\begin{equation}
+\widehat\beta_{h,y}^{a}-\beta_{h,y}
+=
+\widehat{\mathbf S}_h^{-1}
+(\mathbb P_M-P)
+\left[K_hr_h\{U_y(a)-r_h^\top\beta_{h,y}\}\right].
+\label{eq:ll-exact-linearization}
+\end{equation}
+Every entry of \(K_hr_hr_h^\top\) is bounded and supported on a set of probability order \(h^d\). Therefore
+\begin{equation}
+\|\widehat{\mathbf S}_h-\mathbf S_h\|
+=O_{\mathbb P}\{(h^d/M)^{1/2}\},
+\qquad
+\|\mathbf S_h^{-1}(\widehat{\mathbf S}_h-\mathbf S_h)\|
+=O_{\mathbb P}\{(Mh^d)^{-1/2}\}.
+\label{eq:ll-gram-rate}
+\end{equation}
+The matrix inverse expansion is
+\begin{equation}
+\widehat{\mathbf S}_h^{-1}
+=
+\mathbf S_h^{-1}
+-
+\mathbf S_h^{-1}(\widehat{\mathbf S}_h-\mathbf S_h)\mathbf S_h^{-1}
++\mathcal R_{M,h}^{\mathbf S},
+\label{eq:ll-inverse-expansion}
+\end{equation}
+with
+\[
+\|\mathcal R_{M,h}^{\mathbf S}\|
+=O_{\mathbb P}\{h^{-d}(Mh^d)^{-1}\}.
+\]
+The empirical score in \eqref{eq:ll-exact-linearization} is
+\[
+O_{\mathbb P}\{(h^d/(Mp_M))^{1/2}\}
+\]
+in each fixed direction and uniformly over thresholds under Condition~\ref{cond:entropy}. Thus
+\[
+\|\widehat{\mathbf S}_h^{-1}-\mathbf S_h^{-1}\|
+\,
+O_{\mathbb P}\{(h^d/(Mp_M))^{1/2}\}
+=
+O_{\mathbb P}\left\{
+N_{M,h}^{-1/2}(Mh^d)^{-1/2}
+\right\}
+=o_{\mathbb P}(N_{M,h}^{-1/2}).
+\]
+Equation \eqref{eq:ll-influence} is therefore the first-order influence function.
+
+The difference between \(\phi^{\mathrm{LL},a}\) and \(\phi^{\mathrm{LL},m_0}\) is
+\[
+L_h(X;x_0)\delta_y^a(W)
+\left(1-\frac R{\pi_M(W)}\right).
+\]
+It is orthogonal to the known-design tangent space. Lemma~\ref{lem:cov-decomp} gives \eqref{eq:ll-psd}, and its finite-dimensional quadratic forms are nonnegative. Integration over \(\nu\) produces the quadratic transfer criterion with weight \eqref{eq:ll-transfer-weight}; Lemma~\ref{lem:observable-G} gives the observable alignment representation. The gain-estimation, coefficient, path-replacement, and multiplier arguments then apply foldwise with the equivalent weight.
+
+Finally,
+\[
+h^{-d}\mathbf S_h\to f_X(x_0)\mathbf S_K
+\]
+implies
+\[
+L_h(x_0+hu;x_0)
+=
+h^{-d}f_X(x_0)^{-1}\ell_K(u)+o(h^{-d})
+\]
+uniformly on the support of \(K\). The change-of-variables argument in Lemma~\ref{lem:covariance-limit} replaces \(\kappa_K\) by \(\kappa_K^{\mathrm{LL}}\). The envelope, increment, and entropy calculations retain the orders established in Sections~\ref{sec:supp-process}--\ref{sec:supp-bootstrap}, proving the process and multiplier limits. A uniform second-order expansion of \(q_{0,y}(x)\) around \(x_0\), combined with the local-linear moment equations, gives the \(O(h^2)\) bias.
+\end{proof}

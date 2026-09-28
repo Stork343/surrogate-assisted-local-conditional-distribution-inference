@@ -1,0 +1,175 @@
+\section{Inference under scarce reference sampling}
+\label{sec:supp-scarcity}
+
+The normalization
+\[
+p_M=E\{\pi_M(W)\},
+\qquad
+e_M(W)=\pi_M(W)/p_M
+\]
+separates the reference budget from its allocation. It preserves the borrowing coefficient because
+\[
+\frac{p_MG_{M,h}}{p_MH_{M,h}}
+=
+\frac{G_{M,h}}{H_{M,h}},
+\]
+and it preserves the transfer sign because
+\[
+p_M\{2G_{M,h}-H_{M,h}\}
+=
+2\mathcal G_{M,h}-\mathcal H_{M,h}.
+\]
+
+\begin{proposition}[Scarce-reference covariance]
+\label{prop:scarce-covariance}
+Under Theorem~\ref{thm:process}, if \(p_M\to0\), then
+\[
+\mathbb Z_M
+\Rightarrow
+\mathbb G_0
+\quad\text{in }\ell^\infty(\mathcal Y),
+\]
+with covariance kernel
+\begin{equation}
+\Gamma_0(y,z)
+=
+\frac{\kappa_K}{f_X(x_0)}
+E\left[
+\frac{C_{yz}(W)+\Delta_y(W)\Delta_z(W)}{e_0(W)}
+\,\Bigm|\,X=x_0
+\right].
+\label{eq:supp-scarce-cov}
+\end{equation}
+Consequently,
+\[
+\operatorname{Var}\{\widehat F_h(y\mid x_0)\}
+=
+\frac{\Gamma_0(y,y)+o(1)}{Mp_Mh^d}.
+\]
+\end{proposition}
+
+\begin{proof}
+Set \(p=0\) in \eqref{eq:gamma-proof}. The residual-heterogeneity term is multiplied by \(p\) and vanishes, leaving \eqref{eq:supp-scarce-cov}. The variance expansion follows from Lemma~\ref{lem:ALR}.
+\end{proof}
+
+The quantity
+\[
+N_{\mathrm{eff}}(x_0,h)=Mp_Mh^d
+\]
+is the first-order local reference size. The allocation function \(e_0(W)\) changes the covariance constant even when two studies have the same total reference count \(Mp_M\).
+
+\subsection{Target-specific allocation of the reference budget}
+
+For a fixed augmentation path \(a\), define the integrated local residual variation
+\begin{equation}
+V_a(W)
+=
+\int_{\mathcal Y}
+\left[
+C_{yy}(W)+\{\delta_y^a(W)\}^2
+\right]
+\,d\nu(y),
+\qquad
+\delta_y^a=a_y-m_{0,y}.
+\label{eq:allocation-residual}
+\end{equation}
+The allocation-dependent part of the limiting integrated variance is proportional to
+\[
+E\{V_a(W)/e_0(W)\mid X=x_0\}.
+\]
+
+\begin{proposition}[Locally optimal verification intensity]
+\label{prop:optimal-allocation}
+Fix \(x_0\), an augmentation path \(a\), and a local budget
+\[
+E\{e_0(W)\mid X=x_0\}=\bar e(x_0)>0.
+\]
+Assume
+\[
+0<V_a(W)<\infty
+\]
+almost surely under the local law \(W\mid X=x_0\), and
+\[
+0<E\{\sqrt{V_a(W)}\mid X=x_0\}<\infty.
+\]
+Among positive measurable intensities satisfying the local budget, the unique minimizer is
+\begin{equation}
+e_0^{\mathrm{opt}}(W)
+=
+\bar e(x_0)
+\frac{\sqrt{V_a(W)}}
+{E\{\sqrt{V_a(W)}\mid X=x_0\}},
+\qquad X=x_0.
+\label{eq:optimal-e}
+\end{equation}
+The minimum allocation-dependent variance is
+\begin{equation}
+\frac{\{E[\sqrt{V_a(W)}\mid X=x_0]\}^2}{\bar e(x_0)}.
+\label{eq:optimal-allocation-value}
+\end{equation}
+
+Suppose instead that \(c_e\le e_0(W)\le C_e\) and \(c_e\le\bar e(x_0)\le C_e\). The constrained problem has a unique minimizer. If \(c_e<\bar e(x_0)<C_e\), it has the form
+\begin{equation}
+e_0^{\mathrm{opt}}(W)
+=
+\min\{C_e,\max(c_e,c\sqrt{V_a(W)})\},
+\label{eq:clipped-optimal-e}
+\end{equation}
+where \(c>0\) is chosen so that the budget holds. Every such multiplier produces the same minimizing intensity almost surely. At the endpoint budgets \(\bar e(x_0)=c_e\) and \(\bar e(x_0)=C_e\), the minimizers are the corresponding constant intensities.
+\end{proposition}
+
+\begin{proof}
+All expectations in this proof are conditional on \(X=x_0\). Cauchy--Schwarz gives
+\[
+E\left\{\frac{V_a(W)}{e_0(W)}\right\}
+E\{e_0(W)\}
+\ge
+\{E[\sqrt{V_a(W)}]\}^2.
+\]
+Equality holds exactly when \(e_0(W)\) is proportional to \(\sqrt{V_a(W)}\). The budget constraint determines the proportionality constant in \eqref{eq:optimal-e}, and strict convexity of \(v/e\) in \(e>0\) for every \(v>0\) gives uniqueness up to null sets.
+
+Under box constraints, the integral objective is strictly convex on the feasible set and therefore has a unique minimizing intensity. The Karush--Kuhn--Tucker conditions give
+\[
+e_0^{\mathrm{opt}}(W)
+=
+\min\{C_e,\max(c_e,c\sqrt{V_a(W)})\}
+\]
+for a positive multiplier \(c\). The map
+\[
+g(c)=E[\min\{C_e,\max(c_e,c\sqrt{V_a(W)})\}]
+\]
+is continuous and nondecreasing, with \(g(c)\to c_e\) as \(c\downarrow0\) and \(g(c)\to C_e\) as \(c\uparrow\infty\). Hence a multiplier satisfying the interior budget exists. If more than one multiplier satisfies it, the associated clipped intensities coincide almost surely by uniqueness of the minimizer. The endpoint cases follow directly from feasibility.
+\end{proof}
+
+Proposition~\ref{prop:optimal-allocation} links surrogate quality and validation design. Verification is concentrated where conditional threshold variation and augmentation error are large. When \(a=m_0\), the allocation depends only on irreducible reference-outcome variation; for a learned path, it also targets regions where the surrogate correction remains inaccurate.
+
+\subsection{Covariance degeneracy}
+
+\begin{proposition}[Degenerate process directions]
+\label{prop:degenerate-directions}
+For a finite signed measure \(\vartheta\), let
+\[
+Z_\vartheta=\int Z_y\,d\vartheta(y),
+\qquad
+\Delta_\vartheta=\int \Delta_y\,d\vartheta(y).
+\]
+In the scarce-reference regime, the limiting variance of the projected process is zero if and only if
+\[
+\operatorname{Var}(Z_\vartheta\mid W)=0
+\quad\text{and}\quad
+\Delta_\vartheta(W)=0
+\]
+almost surely under the local law \(W\mid X=x_0\). On every subspace with positive projected variance, Theorems~\ref{thm:process} and \ref{thm:bootstrap} apply without modification.
+\end{proposition}
+
+\begin{proof}
+Integrating \eqref{eq:supp-scarce-cov} against \(d\vartheta(y)d\vartheta(z)\) gives
+\[
+\frac{\kappa_K}{f_X(x_0)}
+E\left[
+\frac{\operatorname{Var}(Z_\vartheta\mid W)+\{\Delta_\vartheta(W)\}^2}{e_0(W)}
+\,\Bigm|\,X=x_0
+\right].
+\]
+The integrand is nonnegative and \(e_0\) is bounded away from zero. The expectation is zero exactly under the two stated conditions.
+\end{proof}

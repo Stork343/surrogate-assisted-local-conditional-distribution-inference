@@ -1,0 +1,315 @@
+\section{Notation and conditions}
+\label{sec:supp-assumptions}
+
+This section collects the conditions used in the proofs. Exact efficiency and transfer results use weighted square integrability. Gain estimation and path-oracle equivalence add sample separation and local second moments. The continuum process adds threshold increments and entropy control. Point-target and quantile inference add smoothness in \(x\) and regularity of the inverse-CDF map.
+
+For each \(M\), let
+\[
+O_{Mi}=(W_i,R_i,R_iY_i),\qquad i=1,\ldots,M,
+\]
+be independent and identically distributed within row \(M\). Here \(W\)
+contains \(X\), \(S\), and any other broadly observed variables. The primary
+designs use \(W=(X,S)\), while an additional observed design variable may
+enter the verification probability. Write \(Z_y=1(Y\le y)\),
+\[
+q_{0,y}(X)=E(Z_y\mid X),
+\qquad
+m_{0,y}(W)=E(Z_y\mid W).
+\]
+The joint law of \((W,Y)\) is fixed and the verification law may vary with
+\(M\). The threshold set \(\mathcal Y=[\underline y,\overline y]\) is compact. Define
+\[
+K_h(X-x_0)=K\{(X-x_0)/h\},
+\qquad
+\mu_h=E K_h(X-x_0),
+\]
+and
+\[
+F_{h,0}(y\mid x_0)
+=
+\frac{E\{K_h(X-x_0)Z_y\}}{\mu_h}.
+\]
+For an augmentation \(a=\{a_y:y\in\mathcal Y\}\),
+\[
+U_y(a)=a_y(W)+\frac{R}{\pi_M(W)}\{Z_y-a_y(W)\}.
+\]
+
+\begin{assumption}[Sampling and verification]
+\label{cond:sampling}
+Reference sampling satisfies
+\[
+R\perp Y\mid W.
+\]
+Define
+\[
+p_M=E\{\pi_M(W)\},
+\qquad
+e_M(W)=\pi_M(W)/p_M.
+\]
+Then \(p_M\to p\in[0,1]\), \(E\{e_M(W)\}=1\), and constants \(0<c_e<C_e<\infty\) satisfy
+\[
+c_e\le e_M(W)\le C_e
+\]
+almost surely. The joint local limit of \(e_M\) and the process path is specified in Condition~\ref{cond:covariance}.
+\end{assumption}
+
+\begin{assumption}[Local design and kernel]
+\label{cond:kernel}
+The point \(x_0\) is interior to the support of \(X\). The density \(f_X\) is positive and continuous at \(x_0\). The kernel \(K:\mathbb R^d\to[0,\infty)\) is bounded, symmetric, compactly supported, and of bounded variation, with
+\[
+0<\kappa_1=\int K(u)\,du<\infty,
+\qquad
+0<\kappa_2=\int K^2(u)\,du<\infty.
+\]
+The bandwidth satisfies
+\[
+h\to0,
+\qquad
+Mp_Mh^d\to\infty.
+\]
+\end{assumption}
+
+For a threshold-indexed function \(b\), define
+\begin{equation}
+\|b\|_{\mathrm{ver}}^2
+=
+\sup_{y\in\mathcal Y}
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2(X-x_0)
+\left\{\frac1{\pi_M(W)}-1\right\}
+b_y^2(W)
+\right].
+\label{eq:local-ver-metric}
+\end{equation}
+
+\begin{assumption}[Candidate paths and sample splitting]
+\label{cond:candidates}
+The sample is partitioned into three folds \(I_1,I_2,I_3\), with
+\[
+\rho_{M,j}=|I_j|/M\to\rho_j\in(0,1),
+\qquad
+\rho_1+\rho_2+\rho_3=1.
+\]
+Regression fitting, weight selection, and CDF evaluation are assigned to different folds and rotate across them. For each evaluation fold \(k\), its threshold regressions and borrowing weight are constructed from the other two folds. With probability tending to one,
+\[
+\sup_{k,y,x}|\widehat q_{k,y}(x)|
++
+\sup_{k,y,w}|\widehat m_{k,y}(w)|
+\le B
+\]
+for a finite constant \(B\).
+
+Write
+\[
+\varepsilon_M=p_M\varepsilon_{H,M},
+\qquad
+\mathcal H_{h,k}=p_MH_{M,h,k}.
+\]
+Here and below, dependence on \(M\) is implicit for fold-specific population criterion quantities. The theoretical stabilizer satisfies \(\varepsilon_{H,M}\downarrow0\). For every evaluation fold, \(\mathcal H_{h,k}\to H_{\infty,k}\in[0,\infty)\). If \(H_{\infty,k}>0\), then
+\[
+\varepsilon_M=o(H_{\infty,k});
+\]
+if \(H_{\infty,k}=0\), the fitted correction path satisfies Condition~\ref{cond:path-compatibility}.
+
+Conditional on the fitted regressions, let \(\lambda_{h,k}^{\mathrm{or}}\) minimize their population transfer criterion, with dependence on \(M\) implicit, and set
+\[
+a_{k,y}^{\mathrm{or}}
+=
+\widehat q_{k,y}
++
+\lambda_{h,k}^{\mathrm{or}}
+(\widehat m_{k,y}-\widehat q_{k,y}).
+\]
+There exist deterministic triangular paths \(q_{M,y}(X)\), \(m_{M,y}(W)\), their population-minimizing coefficient \(\lambda_{M,h}\), and
+\[
+a_{M,y}
+=
+q_{M,y}
++
+\lambda_{M,h}
+(m_{M,y}-q_{M,y})
+\]
+such that, uniformly over \(k\),
+\[
+\|a_k^{\mathrm{or}}-a_M\|_{\mathrm{ver}}
+=o_{\mathbb P}(1).
+\]
+There is a bounded deterministic path \(a_\infty=\{a_{\infty,y}:y\in\mathcal Y\}\) such that, for every finite \(C\),
+\begin{equation}
+\sup_{y\in\mathcal Y}\sup_{\|x-x_0\|\le Ch}
+E\{(a_{M,y}-a_{\infty,y})^2\mid X=x\}
+\to0.
+\label{eq:path-limit}
+\end{equation}
+Write
+\[
+\Delta_{M,y}=a_{M,y}-m_{0,y},
+\qquad
+\Delta_y=a_{\infty,y}-m_{0,y}.
+\]
+\end{assumption}
+
+\begin{assumption}[Local regression stability]
+\label{cond:nuisance}
+For each evaluation fold \(k\), conditional on the fitting data,
+\begin{align}
+\|\widehat q_k-q_M\|_{\mathrm{ver}}
+&=o_{\mathbb P}(1),
+\label{eq:q-stability}\\
+\|\widehat m_k-m_M\|_{\mathrm{ver}}
+&=o_{\mathbb P}(1).
+\label{eq:m-stability}
+\end{align}
+The realized difference classes are pointwise measurable and satisfy Condition~\ref{cond:entropy}, with envelopes whose local \(L_2\) norms are \(o_{\mathbb P}(1)\).
+\end{assumption}
+
+\begin{assumption}[Threshold increments and entropy]
+\label{cond:entropy}
+There exist constants \(C_{\mathcal Y}<\infty\) and \(\alpha>0\) such that, locally around \(x_0\),
+\begin{equation}
+\Pr(y<Y\le z\mid W)\le C_{\mathcal Y}|z-y|
+\label{eq:cdf-increment}
+\end{equation}
+for \(y<z\), and
+\begin{equation}
+E\{(a_{M,z}-a_{M,y})^2\mid X=x\}
+\le C_{\mathcal Y}|z-y|^{2\alpha}.
+\label{eq:a-increment}
+\end{equation}
+The path-oracle influence classes and fitted difference classes are VC-type uniformly in \(M\): for every finitely discrete probability measure \(Q\),
+\begin{equation}
+N\{\epsilon\|F_M\|_{Q,2},\mathcal F_M,L_2(Q)\}
+\le (A/\epsilon)^V,
+\qquad 0<\epsilon\le1,
+\label{eq:entropy}
+\end{equation}
+for constants \(A,V<\infty\) independent of \(M\). For the path-oracle envelope,
+\[
+\sup_M P F_M^2<\infty
+\]
+and, for every \(\eta>0\),
+\begin{equation}
+P\{F_M^2 1(F_M>\eta\sqrt M)\}\to0.
+\label{eq:envelope-lindeberg}
+\end{equation}
+The fitted difference classes satisfy the conditional analogues with local \(L_2\) envelopes of order \(o_{\mathbb P}(1)\).
+\end{assumption}
+
+\begin{assumption}[Path-norm compatibility]
+\label{cond:path-compatibility}
+Let \(D_{M,y}=m_{M,y}-q_{M,y}\), and define
+\begin{align*}
+\mathcal H_{M,h}
+&=
+p_ME\{v_{M,h}\|D_M\|_\nu^2\},\\
+\mathcal D_{M,h}^2
+&=
+\sup_{y\in\mathcal Y}
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+D_{M,y}^2
+\right].
+\end{align*}
+There is a deterministic nondecreasing function \(\omega\), continuous at zero with \(\omega(0)=0\), such that
+\[
+\mathcal D_{M,h}^2
+\le \omega(\mathcal H_{M,h})+o(1).
+\]
+The same relation holds in probability for each fitted correction path on its gain and evaluation folds.
+\end{assumption}
+
+\begin{assumption}[Covariance convergence]
+\label{cond:covariance}
+Uniformly over \((y,z)\in\mathcal Y^2\), define
+\begin{align*}
+B_{M,yz}(W)
+&=
+\frac{C_{yz}(W)}{e_M(W)}
++
+\left\{\frac1{e_M(W)}-p_M\right\}
+\Delta_{M,y}(W)\Delta_{M,z}(W)\\
+&\quad+
+p_M\{m_{0,y}(W)-F_{h,0}(y\mid x_0)\}
+   \{m_{0,z}(W)-F_{h,0}(z\mid x_0)\},\\
+B_{0,yz}(W)
+&=
+\frac{C_{yz}(W)}{e_0(W)}
++
+\left\{\frac1{e_0(W)}-p\right\}
+\Delta_y(W)\Delta_z(W)\\
+&\quad+
+p\{m_{0,y}(W)-F_0(y\mid x_0)\}
+   \{m_{0,z}(W)-F_0(z\mid x_0)\}.
+\end{align*}
+For every finite \(C\),
+\begin{equation}
+\sup_{\|x-x_0\|\le Ch}\sup_{y,z\in\mathcal Y}
+\left|
+E\{B_{M,yz}(W)\mid X=x\}
+-
+E\{B_{0,yz}(W)\mid X=x_0\}
+\right|
+\to0.
+\label{eq:cov-local-convergence}
+\end{equation}
+Set
+\begin{equation}
+\Gamma_p(y,z)
+=
+\frac{\kappa_K}{f_X(x_0)}
+E\{B_{0,yz}(W)\mid X=x_0\}.
+\label{eq:gamma-assumption}
+\end{equation}
+The kernel \(\Gamma_p\) is continuous and defines a tight Gaussian process. For supremum inference, the distribution of \(\|\mathbb G_p\|_{\mathcal Y}\) is continuous at the target critical value. Finite-dimensional studentization is applied only to projections with positive limiting variance.
+\end{assumption}
+
+\begin{assumption}[Localization bias and quantiles]
+\label{cond:bias}
+For inference on \(F_0\), the maps \(x\mapsto q_{0,y}(x)\) and \(x\mapsto f_X(x)\) have bounded continuous second derivatives near \(x_0\), uniformly over \(y\in\mathcal Y\). For quantile inference, \(F_0(\cdot\mid x_0)\) is continuously differentiable and strictly increasing on \(\mathcal Y\), its range is contained in \([\eta,1-\eta]\) for some \(\eta>0\), and
+\[
+0<c_f
+\le
+f_{Y\mid X}(y\mid x_0)
+\le C_f<\infty,
+\qquad y\in\mathcal Y.
+\]
+\end{assumption}
+
+\begin{center}
+\begin{tabular}{p{0.46\textwidth}p{0.44\textwidth}}
+\toprule
+Main-article assumption & Detailed Supplement conditions\\
+\midrule
+Assumption~\ref{ass:verification}: observed-data identification and verification
+& Triangular-array setup and \ref{cond:sampling}\\
+Assumption~\ref{ass:localization}: localization and the local-information rate
+& \ref{cond:kernel}\\
+Assumption~\ref{ass:candidates}: candidate paths and sample separation
+& \ref{cond:candidates}, \ref{cond:nuisance}, \eqref{eq:local-ver-metric}, and \eqref{eq:path-limit}\\
+Assumption~\ref{ass:transfer-path}: transfer-path curvature and degeneracy
+& Curvature clauses in \ref{cond:candidates} and \ref{cond:path-compatibility}\\
+Assumption~\ref{ass:process}: threshold-process regularity
+& \ref{cond:entropy} and \ref{cond:covariance}\\
+Assumption~\ref{ass:point-quantile}: point-target and quantile regularity
+& \ref{cond:bias}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Main result & Conditions used\\
+\midrule
+Canonical gradient and efficiency & \ref{cond:sampling}--\ref{cond:kernel}\\
+Transfer criterion & Weighted square integrability of \(J_{M,h}\)\\
+Adaptive path-oracle equivalence & \ref{cond:sampling}--\ref{cond:entropy} and \ref{cond:path-compatibility}\\
+Uniform CDF process & \ref{cond:sampling}--\ref{cond:covariance}\\
+Multiplier process & \ref{cond:sampling}--\ref{cond:covariance}\\
+Point target and quantiles & \ref{cond:sampling}--\ref{cond:bias}\\
+\bottomrule
+\end{tabular}
+\end{center}

@@ -1,0 +1,61 @@
+\section{Normalization of the transfer weight}
+\label{sec:supp-weight-normalization}
+
+The population criterion uses
+\[
+v_{M,h}(W)
+=
+\frac{h^dK_h^2(X-x_0)}{\mu_h^2}
+\left\{\frac1{\pi_M(W)}-1\right\}.
+\]
+The coefficient and transfer sign are invariant to a positive normalization that is common to every observation and threshold.
+
+\begin{lemma}[Weight-normalization invariance]
+\label{lem:weight-normalization}
+Let \(c_{M,h}>0\) and replace \(v_{M,h}\) by \(v_{M,h}^{c}=c_{M,h}v_{M,h}\). Then
+\[
+J_{M,h}^{c}(\lambda)=c_{M,h}J_{M,h}(\lambda),
+\qquad
+G_{M,h}^{c}=c_{M,h}G_{M,h},
+\qquad
+H_{M,h}^{c}=c_{M,h}H_{M,h}.
+\]
+Consequently,
+\[
+\Pi_{[0,1]}(G_{M,h}^{c}/H_{M,h}^{c})
+=
+\lambda_h^{\mathrm{or}},
+\]
+and
+\[
+\operatorname{sign}(2G_{M,h}^{c}-H_{M,h}^{c})
+=
+\operatorname{sign}(2G_{M,h}-H_{M,h}).
+\]
+The same identities hold for the selection-fold empirical criterion under a positive fold-specific constant.
+\end{lemma}
+
+\begin{proof}
+Each criterion quantity is linear in the weight. The ratio and sign conclusions follow because \(c_{M,h}>0\).
+\end{proof}
+
+Taking
+\[
+c_{M,h}=\mu_h^2/h^{2d}
+\]
+produces the equivalent population weight
+\[
+h^{-d}K_h^2(X-x_0)
+\left\{\frac1{\pi_M(W)}-1\right\}.
+\]
+On a selection fold, the implementation uses
+\[
+\widehat v_h(W)
+=
+\frac{h^dK_h^2(X-x_0)}{\widehat\mu_h^{\,2}}
+\left\{\frac1{\pi_M(W)}-1\right\}.
+\]
+This equals the empirical version of the equivalent \(h^{-d}\) weight above
+multiplied by the positive fold-specific constant
+\(h^{2d}/\widehat\mu_h^{\,2}\). The constant changes the numerical scale of
+\(\widehat G_h\) and \(\widehat H_h\), but not their ratio or the transfer sign.

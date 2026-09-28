@@ -1,0 +1,26 @@
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\caption{Finite-sample performance in the main simulation comparisons. ISE values are multiplied by $10^3$.}
+\label{tab:simulation-headline}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrrr}
+\toprule
+Contrast & Setting & Anchor & Full & Adaptive & Gain (\%) & $E(\widehat\lambda_h)$ & NT Adaptive & NT Full \\
+\midrule
+Reference fraction & $p_M=0.05$ & 9.9 & 6.9 & 7.5 & 23.4 & 0.693 & 0.332 & 0.346 \\
+ & $p_M=0.10$ & 4.8 & 3.5 & 3.6 & 24.0 & 0.784 & 0.339 & 0.360 \\
+ & $p_M=0.20$ & 2.4 & 1.8 & 1.9 & 21.5 & 0.850 & 0.362 & 0.383 \\
+Surrogate noise & $\tau_S=0.4$ & 4.9 & 2.3 & 2.5 & 48.5 & 0.835 & 0.203 & 0.222 \\
+ & $\tau_S=0.8$ & 4.7 & 3.5 & 3.6 & 23.7 & 0.787 & 0.337 & 0.370 \\
+ & $\tau_S=1.6$ & 4.7 & 4.3 & 4.4 & 7.6 & 0.683 & 0.429 & 0.443 \\
+Sample size & $M=1{,}000$ & 8.2 & 6.3 & 6.6 & 19.1 & 0.713 & 0.379 & 0.391 \\
+ & $M=4{,}000$ & 2.7 & 2.0 & 2.1 & 25.3 & 0.835 & 0.350 & 0.361 \\
+Local reversal & N5 & 4.9 & 6.7 & 4.9 & -0.1 & 0.002 & 0.015 & 0.823 \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{2pt}
+\parbox{0.98\textwidth}{\footnotesize Gain is the percentage reduction in mean ISE from the anchor. Full uses borrowing weight one. NT is the frequency with which a method has larger ISE than the anchor in the same replication. N5 is the local-reversal setting.}
+\end{table}

@@ -1,0 +1,56 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{booktabs,array,threeparttable,graphicx,float}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage[round,authoryear]{natbib}
+\usepackage{xurl}
+\usepackage{xr-hyper}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+
+\ifdefined\pdfminorversion
+  \pdfminorversion=7
+\fi
+
+\doublespacing
+\setlength{\emergencystretch}{3em}
+\setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
+\setlength{\floatsep}{10pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{assumption}{Condition}
+\newtheorem{highlevelassumption}{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Prj}{\Pi_{[0,1]}}
+\newcommand{\Ycal}{\mathcal Y}
+\newcommand{\Fhat}{\widehat F}
+\newcommand{\Ghat}{\widehat G}
+\newcommand{\Hhat}{\widehat H}
+\newcommand{\lhat}{\widehat\lambda}
+\newcommand{\lstar}{\lambda^\star}
+\newcommand{\op}{o_{\Pp}}
+\newcommand{\Op}{O_{\Pp}}
+\newcommand{\ip}[2]{\langle #1,#2\rangle_{\nu}}
+\newcommand{\normnu}[1]{\lVert #1\rVert_{\nu}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newenvironment{procedurebox}
+{\begin{center}\begin{minipage}{0.94\textwidth}\hrule\vspace{0.6em}}
+{\vspace{0.4em}\hrule\end{minipage}\end{center}}

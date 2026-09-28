@@ -1,0 +1,202 @@
+\subsection{Adaptive borrowing with estimated verification probabilities}
+\label{sec:supp-pi-adaptive}
+
+Proposition~\ref{prop:pi-extension} treats propensity replacement during process evaluation for a fixed cross-fitted augmentation. The adaptive procedure also uses the verification probabilities in the gain criterion and therefore requires control of the selected coefficient.
+
+For evaluation fold \(k\), enlarge \(\mathcal T_k\) to include all data used to fit \(\widehat q_k\), \(\widehat m_k\), and \(\widehat\pi_k\). The propensity regression is fitted outside the gain and evaluation folds. For a verification function \(r\), let
+\[
+(\widehat{\mathcal G}_{h,k}(r),
+ \widehat{\mathcal H}_{h,k}(r),
+ \widehat\lambda_{h,k}(r))
+\]
+denote the gain quantities computed with \(r\) in both the transfer weight and the inverse-probability residual. We compare \(r=\pi_M\) and \(r=\widehat\pi_k\), holding the threshold regressions and selection-fold observations fixed. Write
+\[
+\widehat a_{k,y}(\lambda)
+=
+\widehat q_{k,y}
++
+\lambda\widehat D_{k,y},
+\qquad
+\widehat D_k=\widehat m_k-\widehat q_k,
+\]
+and set
+\[
+\widehat a_k[r]
+=
+\widehat a_k\{\widehat\lambda_{h,k}(r)\}.
+\]
+
+\begin{proposition}[Adaptive process with estimated verification probabilities]
+\label{prop:pi-adaptive}
+Suppose the conditions of Theorems~\ref{thm:process} and \ref{thm:bootstrap} hold for the known-design procedure. Assume, uniformly over the three rotations,
+\begin{equation}
+|\widehat{\mathcal G}_{h,k}(\widehat\pi_k)
+ -\widehat{\mathcal G}_{h,k}(\pi_M)|
++
+|\widehat{\mathcal H}_{h,k}(\widehat\pi_k)
+ -\widehat{\mathcal H}_{h,k}(\pi_M)|
+=o_{\mathbb P}(1).
+\label{eq:pi-gain-perturbation}
+\end{equation}
+Assume Conditions~\eqref{eq:pi-drift-cond}--\eqref{eq:pi-var-cond} hold uniformly over
+\[
+\{\widehat a_k(\lambda):0\le\lambda\le1\}.
+\]
+For the coefficient direction, assume
+\begin{align}
+&\sqrt{N_{M,h}}
+\sup_{y\in\mathcal Y}
+\left|
+\frac1{\mu_h}
+E\left[
+K_h\widehat D_{k,y}(W)
+\frac{\widehat\pi_k(W)-\pi_M(W)}{\widehat\pi_k(W)}
+\Bigm|\mathcal T_k
+\right]
+\right|
+=o_{\mathbb P}(1),
+\label{eq:pi-D-drift}\\
+&\sup_{y\in\mathcal Y}
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2R\widehat D_{k,y}^2(W)
+\left\{\frac1{\widehat\pi_k(W)}-\frac1{\pi_M(W)}\right\}^2
+\Bigm|\mathcal T_k
+\right]
+=o_{\mathbb P}(1).
+\label{eq:pi-D-variance}
+\end{align}
+Assume the propensity-induced evaluation, gain, and direction classes satisfy Condition~\ref{cond:entropy}. Then
+\begin{equation}
+\sqrt{N_{M,h}}
+\left\|
+\widehat F_h[\widehat\pi]
+-
+\widehat F_h[\pi_M]
+\right\|_{\mathcal Y}
+=o_{\mathbb P}(1).
+\label{eq:pi-adaptive-equivalence}
+\end{equation}
+The Gaussian-process and multiplier limits coincide with those of the known-design estimator.
+\end{proposition}
+
+\begin{proof}
+For fold \(k\), decompose
+\begin{align}
+\widehat F_{h,k}[\widehat\pi_k]-\widehat F_{h,k}[\pi_M]
+&=
+\{\widehat F_{h,k}(\widehat a_k[\widehat\pi_k],\widehat\pi_k)
+  -\widehat F_{h,k}(\widehat a_k[\pi_M],\widehat\pi_k)\}
+\label{eq:pi-coefficient-component}\\
+&\quad+
+\{\widehat F_{h,k}(\widehat a_k[\pi_M],\widehat\pi_k)
+  -\widehat F_{h,k}(\widehat a_k[\pi_M],\pi_M)\}.
+\label{eq:pi-evaluation-component}
+\end{align}
+For \eqref{eq:pi-evaluation-component}, Lemma~\ref{lem:propensity-drift}, Conditions~\eqref{eq:pi-drift-cond}--\eqref{eq:pi-var-cond}, and the conditional maximal inequality give a uniform \(o_{\mathbb P}(N_{M,h}^{-1/2})\) bound.
+
+For \eqref{eq:pi-coefficient-component},
+\begin{equation}
+U_y(\widehat a_k[\widehat\pi_k],\widehat\pi_k)
+-
+U_y(\widehat a_k[\pi_M],\widehat\pi_k)
+=
+d_{\lambda,k}
+\widehat D_{k,y}(W)
+\left(1-\frac R{\widehat\pi_k(W)}\right),
+\label{eq:pi-coefficient-signal}
+\end{equation}
+where
+\[
+d_{\lambda,k}
+=
+\widehat\lambda_{h,k}(\widehat\pi_k)
+-
+\widehat\lambda_{h,k}(\pi_M).
+\]
+Its localized conditional mean is
+\begin{equation}
+\frac1{\mu_h}
+E\left[
+K_h\widehat D_{k,y}(W)
+\left\{1-\frac{\pi_M(W)}{\widehat\pi_k(W)}\right\}
+\Bigm|\mathcal T_k
+\right].
+\label{eq:pi-coefficient-drift}
+\end{equation}
+Condition~\eqref{eq:pi-D-drift} makes the scaled mean contribution negligible because \(|d_{\lambda,k}|\le1\).
+
+For the centered component, use
+\[
+1-\frac R{\widehat\pi_k}
+=
+\left(1-\frac R{\pi_M}\right)
++
+R\left(\frac1{\pi_M}-\frac1{\widehat\pi_k}\right).
+\]
+The first term has localized squared radius
+\[
+\sup_y
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+\widehat D_{k,y}^2
+\Bigm|\mathcal T_k
+\right],
+\]
+and Condition~\eqref{eq:pi-D-variance} makes the centered second term negligible. If \(\mathcal H_{h,k}\to H_{\infty,k}>0\), consistency of the known-design gain quantities, \eqref{eq:pi-gain-perturbation}, and local Lipschitz continuity of the projected ratio give
+\[
+d_{\lambda,k}=o_{\mathbb P}(1),
+\]
+while the first radius is \(O_{\mathbb P}(1)\). If \(\mathcal H_{h,k}\to0\), Condition~\ref{cond:path-compatibility} makes this radius tend to zero, while the coefficient difference remains bounded by one. The conditional maximal inequality and the ratio linearization therefore give
+\[
+\sqrt{N_{M,h}}
+\left\|
+\widehat F_{h,k}(\widehat a_k[\widehat\pi_k],\widehat\pi_k)
+-
+\widehat F_{h,k}(\widehat a_k[\pi_M],\widehat\pi_k)
+\right\|_{\mathcal Y}
+=o_{\mathbb P}(1).
+\]
+Summing over the evaluation folds proves \eqref{eq:pi-adaptive-equivalence}.
+
+For the multiplier process, the estimated-propensity minus known-design influence difference has the same mean-plus-centered decomposition. The drift conditions remove its empirical centering at the \(N_{M,h}^{-1/2}\) scale, and the two variance conditions give a uniform empirical \(L_2\) norm of order \(o_{\mathbb P}(1)\). Lemma~\ref{lem:IF-replacement} and the conditional multiplier maximal inequality then transfer the known-design multiplier limit.
+\end{proof}
+
+A lower-level route uses local uniform relative consistency. Let \(C_K\) satisfy \(K(u)=0\) for \(\|u\|>C_K\), and define
+\[
+\epsilon_{\pi,M,h}
+=
+\operatorname*{ess\,sup}_{\|X-x_0\|\le C_Kh}
+\left|\frac{\widehat\pi_k(W)}{\pi_M(W)}-1\right|.
+\]
+If \(\epsilon_{\pi,M,h}=o_{\mathbb P}(1)\), \(\widehat\pi_k/\pi_M\) is bounded above and away from zero on the local region, and the candidate paths are bounded, then direct expansion of the normalized gain integrands gives
+\begin{equation}
+|\widehat{\mathcal G}_{h,k}(\widehat\pi_k)
+ -\widehat{\mathcal G}_{h,k}(\pi_M)|
++
+|\widehat{\mathcal H}_{h,k}(\widehat\pi_k)
+ -\widehat{\mathcal H}_{h,k}(\pi_M)|
+=O_{\mathbb P}(\epsilon_{\pi,M,h}).
+\label{eq:pi-primitive-gain}
+\end{equation}
+Define
+\[
+r_{D,M,h}^2
+=
+\sup_y
+\frac1{\mu_h}
+E\{K_h\widehat D_{k,y}^2\mid\mathcal T_k\}.
+\]
+The same relative-consistency condition makes the left side of \eqref{eq:pi-D-variance} \(O_{\mathbb P}(\epsilon_{\pi,M,h}^2)\). Moreover,
+\[
+\sqrt{N_{M,h}}\,r_{D,M,h}r_{\pi,M,h}
+=o_{\mathbb P}(1)
+\]
+controls \eqref{eq:pi-D-drift}, while
+\[
+\sqrt{N_{M,h}}\,r_{a,M,h}r_{\pi,M,h}
+=o_{\mathbb P}(1)
+\]
+controls the evaluation drift uniformly over the fitted segment. Together with \eqref{eq:pi-primitive-gain}, these conditions yield the adaptive process and multiplier conclusions.

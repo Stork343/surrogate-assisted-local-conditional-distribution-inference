@@ -1,0 +1,107 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Low-cost air sensors record particulate matter almost continuously, whereas
+regulatory or research-grade instruments operate at selected sites and times.
+For exposure assessment, the distribution of the reference measurement at a
+given humidity can be more informative than its conditional mean: upper-tail
+probabilities and quantiles describe episodes that an average conceals. Sensor
+readings are plentiful, but a calibration relation that is adequate overall
+may be inaccurate at that humidity or in that tail.
+
+Pulse oximetry, expert review, and delayed-outcome studies create the same
+statistical problem. Covariates \(X\) and a surrogate \(S\) are observed for
+most units, while the reference outcome \(Y\) is observed only in a verified
+subset. We seek the conditional distribution of \(Y\) at \(X=x_0\). The
+effective reference sample is therefore the verified sample near \(x_0\),
+which may be small even in a large study.
+
+Verified outcomes support a natural estimator that uses an \(X\)-based outcome
+regression but leaves the surrogate out of the augmentation. We use this
+estimator as the anchor. Adding \(S\) to the regression can lower variance when
+it explains the threshold indicators for \(Y\). The same addition can increase
+variance when the fitted surrogate correction is poor in the target
+neighborhood. The relevant comparison is the local variance change induced by
+the correction. A useful method must estimate how much of the correction to
+retain for the distribution at \(x_0\).
+
+The CDF target makes this comparison more demanding than a scalar estimation
+problem. Threshold-by-threshold tuning can produce unrelated borrowing
+decisions along the same distribution. Tuning on the observations used to
+evaluate the final CDF also complicates a simultaneous confidence band. We
+therefore need one borrowing decision across the threshold range and an
+evaluation sample that has played no part in making that decision.
+
+Validation-sample and two-phase methods recover information about variables
+measured in a smaller second-phase sample
+\citep{Pepe1992,TaoZengLin2017}. Augmented inverse-probability methods provide
+the corresponding missing-data representation and efficiency benchmark
+\citep{RobinsRotnitzkyZhao1994,Tsiatis2006,CaoTsiatisDavidian2009}. The data
+layout can also be viewed as semi-supervised: verified \(Y\) values act as
+labels, and the remaining units provide \(X\) and \(S\). Much of the earlier
+semi-supervised and prediction-powered literature targets prediction or a
+finite-dimensional population parameter
+\citep{ChakraborttyCai2018,ZhangBrownCai2019,AzrielEtAl2022,AngelopoulosEtAl2023,AngelopoulosDuchiZrnic2023,ZrnicCandes2024,LiIgnatiadis2025,MiaoEtAl2025}.
+General semi-supervised theory already shows how auxiliary information can be
+weighted without imposing full borrowing. \citet{SongLinZhou2024} derive
+projection-based optimal weights for general M-estimation and cross-validated
+inference, while \citet{DengEtAl2024} construct optimal and safe estimators for
+high-dimensional regression under possible model misspecification.
+\citet{ChenEtAl2025} combine surrogate augmentation with regularized weighting
+and adaptive validation sampling for finite-dimensional estimating equations.
+Related work examines surrogate validity and efficiency in other inferential
+settings \citep{JiLeiZrnic2025,KallusMao2025}.
+These procedures choose or regularize auxiliary-information use for parameter
+estimation rather than for a threshold-indexed local distribution.
+
+\citet{SuiEtAl2026} localize prediction-powered inference for scalar conditional functionals at
+\(x_0\). \citet{TakeishiDingHe2026} use convolution smoothing to develop
+prediction-powered inference for finite-dimensional linear quantile-regression
+coefficients under possible misspecification, using separate labeled and
+unlabeled samples with a widely observed surrogate. \citet{TestaEtAl2025}
+allow missing-at-random labels and decreasing
+overlap for general smooth semiparametric targets. \citet{Wang2026} develops
+uniform inference for transported counterfactual CDFs and quantiles with
+surrogate-assisted missing primary outcomes, whereas local
+regression-distribution methods assume that the outcome is fully observed
+\citep{CattaneoJanssonMa2024,CattaneoEtAl2024}. Here \(X\) and \(S\) are
+broadly observed, \(Y\) is selectively verified with \(p_M\) possibly tending
+to zero, and the target is the full process \(F_0(\cdot\mid x_0)\). The
+effective reference information is \(Mp_Mh^d\); the adaptive decision is one
+weight on an anchor-to-surrogate correction shared across thresholds; and the
+output comprises a uniform CDF process, simultaneous bands, and conditional
+quantile inversion. This combination creates a local, target-specific
+negative-transfer problem.
+
+Finite-dimensional optimal or safe weights do not supply a shared path-oracle
+result when localization and verification both vanish, nor do scalar
+conditional procedures provide one borrowing decision across a CDF followed by
+a post-selection simultaneous band.
+Theorems~\ref{thm:oracle-equivalence}--\ref{thm:bootstrap} establish these
+results for the present data structure.
+
+Our construction uses a property of augmented inverse-probability estimation:
+with the correct verification probability, the outcome regression affects
+variance without changing the target. We fit an anchor regression using \(X\)
+and a second regression using \((X,S)\). Their difference defines a candidate
+surrogate correction. One weight, shared across thresholds, is selected by an
+observable local variance criterion. A weight of zero gives the anchor and a
+weight of one gives full borrowing. Separate samples fit the regressions,
+select the weight, and evaluate the CDF; rotating these roles lets every
+observation contribute to evaluation.
+
+We introduce an adaptive borrowing rule for a local
+reference-outcome CDF: a single estimated weight governs the surrogate
+correction across thresholds while evaluation remains independent of fitting
+and selection. The theory establishes path-oracle equivalence, a uniform
+Gaussian limit and multiplier bands when the verification fraction may
+decrease, together with bias conditions for point-target CDF and quantile
+inference. Simulations test the transfer criterion under aligned and locally
+reversed surrogate relations, and the EPA, VitalDB, and AI-assisted review
+studies examine local distribution recovery under controlled reference
+sampling. Section~\ref{sec:method} develops the estimator,
+Section~\ref{sec:theory} gives the large-sample results,
+Section~\ref{sec:simulation} reports the simulations,
+Section~\ref{sec:applications} presents two empirical applications and a
+controlled review benchmark, and
+Section~\ref{sec:discussion} concludes.

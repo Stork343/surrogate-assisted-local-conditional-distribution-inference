@@ -1,0 +1,219 @@
+\section{Surrogate-assisted local CDF estimation}
+\label{sec:method}
+
+\subsection{Target and reference-outcome benchmark}
+
+We observe independent copies of \(O=(W,R,RY)\), where \(W\) contains \(X\),
+\(S\), and any other broadly observed variables. We assume
+\(R\perp Y\mid W\). In the primary designs \(W=(X,S)\); an application may
+also include an observed variable used only by the verification design. The
+main procedure treats the verification
+probability \(\pi_M(W)\) as known, as in a designed validation sample; the
+Supplement covers estimated probabilities. The reference outcome \(Y\) defines
+the estimand. The surrogate \(S\) enters only through an augmentation used to
+improve precision. For \(Z_y=1(Y\le y)\), let
+\(q_{0,y}(X)=E(Z_y\mid X)\) and \(m_{0,y}(W)=E(Z_y\mid W)\). At an interior point
+\(x_0\), we distinguish the scientific target from the target at the chosen
+localization scale:
+\begin{equation}
+\begin{aligned}
+F_0(y\mid x_0)
+&=\Pr(Y\le y\mid X=x_0),\\
+F_{h,0}(y\mid x_0)
+&=
+\frac{E\{K_h(X-x_0)Z_y\}}{\mu_h},
+\qquad
+\mu_h=E\{K_h(X-x_0)\},
+\end{aligned}
+\label{eq:regular-target}
+\end{equation}
+where \(K_h(X-x_0)=K\{(X-x_0)/h\}\). For a declared bandwidth, our
+confidence bands cover the finite-resolution target \(F_{h,0}\). A symmetric
+second-order kernel gives a uniform \(O(h^2)\) difference from \(F_0\) under the
+smoothness conditions in the Supplement.
+
+Any threshold-indexed augmentation \(a_y(W)\) gives the unbiased signal
+\begin{equation}
+U_y(a)
+=
+a_y(W)+\frac{R}{\pi_M(W)}\{Z_y-a_y(W)\}.
+\label{eq:pseudo}
+\end{equation}
+The signal satisfies \(E\{U_y(a)\mid W\}=m_{0,y}(W)\) and
+\(E\{U_y(a)\mid X\}=q_{0,y}(X)\) for every \(a\). Setting \(a\equiv0\) gives
+inverse-probability weighting. We call an \(X\)-based threshold regression the
+reference-outcome anchor because it can be fitted with the verified outcomes
+without using \(S\) in the augmentation. A regression using \((X,S)\) gives full
+surrogate borrowing.
+
+The augmentation changes variance without changing the target. Write
+\(C_{yz}(W)=\operatorname{Cov}(Z_y,Z_z\mid W)\) and
+\(\delta_y^a(W)=a_y(W)-m_{0,y}(W)\). Then
+\[
+\operatorname{Cov}\{U_y(a),U_z(a)\mid W\}
+=
+\frac{C_{yz}(W)}{\pi_M(W)}
++
+\left\{\frac1{\pi_M(W)}-1\right\}
+\delta_y^a(W)\delta_z^a(W).
+\]
+The first term is verified-outcome noise. The second is a positive-semidefinite
+covariance contribution from augmentation error. Thus a surrogate can predict
+\(Y\) well overall and still fail to reduce variance near \(x_0\). This identity
+motivates an adaptive amount of borrowing.
+
+\subsection{Adaptive surrogate borrowing}
+
+Condition on the regression-fitting sample and suppress hats and fold indices.
+Let \(q_y(X)\) be the anchor candidate and let \(m_y(W)\) use the surrogate. Their
+difference \(D_y=m_y-q_y\) is the proposed correction; the unknown ideal
+correction is \(A_y=m_{0,y}-q_y\). We use
+\(a_{\lambda,y}=q_y+\lambda D_y\) with the same \(\lambda\) at every threshold.
+The measure \(\nu\) specifies which thresholds matter for selection. We use
+equal mass on a fixed grid in the primary analyses, although a tail-focused
+analysis could place more mass in that region. For finite positive \(\nu\), the
+integrated augmentation variance that depends on \(\lambda\) is
+\[
+\begin{aligned}
+J_{M,h}(\lambda)
+&=
+E\{v_{M,h}\|A-\lambda D\|_\nu^2\}\\
+&=
+J_{M,h}(0)-2\lambda G_{M,h}+\lambda^2H_{M,h},\\
+G_{M,h}
+&=E\{v_{M,h}\langle A,D\rangle_\nu\},
+\qquad
+H_{M,h}=E\{v_{M,h}\|D\|_\nu^2\},
+\end{aligned}
+\]
+where
+\[
+v_{M,h}(W)
+=
+\frac{h^dK_h^2(X-x_0)}{\mu_h^2}
+\left\{\frac1{\pi_M(W)}-1\right\}.
+\]
+Here \(H_{M,h}\) measures the local size of the proposed correction and
+\(G_{M,h}\) measures its alignment with the ideal correction. Full borrowing
+reduces integrated augmentation variance exactly when
+\(2G_{M,h}-H_{M,h}>0\).
+
+When \(H_{M,h}>0\), the population choice is
+\begin{equation}
+\lambda_h^{\mathrm{or}}
+=
+\Pi_{[0,1]}
+\left(
+\frac{G_{M,h}}{H_{M,h}}
+\right),
+\label{eq:oracle-lambda}
+\end{equation}
+with \(\lambda_h^{\mathrm{or}}=0\) when \(H_{M,h}=0\). The dependence on \(M\)
+is implicit. Missing-at-random verification gives an observable representation
+of \(G_{M,h}\), even though \(A\) is unknown:
+\[
+G_{M,h}
+=
+E\left[
+v_{M,h}
+\left\langle
+D,\frac{R}{\pi_M}(Z-q)
+\right\rangle_\nu
+\right].
+\]
+One common weight need not minimize variance at each threshold. We therefore
+report lower- and upper-tail errors as well as integrated CDF error.
+
+\subsection{Cross-fitting and simultaneous inference}
+
+We keep weight selection separate from CDF evaluation. The sample is divided
+into three folds: one fits the two regressions, another selects the weight, and
+the third estimates the CDF. We rotate these assignments so that each
+observation appears once in an evaluation fold. In rotation \(k\), the fitted
+functions \(\widehat q_k\) and \(\widehat m_k\) are fixed before the selection
+fold is used.
+
+Let \(\mathbb P_{G,k}\) denote the selection-fold empirical mean and \(\widehat\mu_{h,G,k}=\mathbb P_{G,k}K_h(X-x_0)\). The empirical transfer weight is
+\begin{equation}
+\widehat v_{h,k}(W)
+=
+\frac{h^dK_h^2(X-x_0)}{\widehat\mu_{h,G,k}^{\,2}}
+\left\{\frac1{\pi_M(W)}-1\right\}.
+\label{eq:vhat}
+\end{equation}
+With \(\widehat D_k=\widehat m_k-\widehat q_k\), the selection fold computes
+\[
+\begin{aligned}
+\widehat G_{h,k}
+&=
+\mathbb P_{G,k}
+\left[
+\widehat v_{h,k}
+\left\langle
+\widehat D_k,
+\frac{R}{\pi_M}(Z-\widehat q_k)
+\right\rangle_\nu
+\right],\\
+\widehat H_{h,k}
+&=
+\mathbb P_{G,k}
+\{\widehat v_{h,k}\|\widehat D_k\|_\nu^2\},\\
+\widehat\lambda_{h,k}
+&=
+\Pi_{[0,1]}
+\left\{
+\frac{\widehat G_{h,k}}
+{\max(\widehat H_{h,k},\varepsilon_{H,M})}
+\right\},
+\end{aligned}
+\]
+where \(\varepsilon_{H,M}\downarrow0\).
+
+On the evaluation fold, use the selected path
+\[
+\widehat a_{k,y}
+=
+\widehat q_{k,y}
++
+\widehat\lambda_{h,k}
+(\widehat m_{k,y}-\widehat q_{k,y})
+\]
+inside the augmented signal. Let \(\widehat F_{h,k}\) be the corresponding kernel ratio and let \(\rho_{M,k}\) be the evaluation-fold sample fraction. The combined raw estimator is
+\begin{equation}
+\widehat F_h^{\mathrm{raw}}(y\mid x_0)
+=
+\sum_{k=1}^3\rho_{M,k}\widehat F_{h,k}(y\mid x_0).
+\label{eq:final-estimator}
+\end{equation}
+Conditional on the other two folds, the fitted functions and selected weight
+are fixed when the evaluation-fold mean is formed. This separation is the basis
+for the process limit and multiplier approximation developed below.
+
+\begin{procedurebox}
+\textbf{Algorithm 1: Local CDF estimation with adaptive surrogate borrowing}
+\begin{enumerate}[leftmargin=1.6em,itemsep=0.2em,topsep=0.4em]
+\item Fix \(x_0\), \(h\), the threshold grid, \(\nu\), and three folds.
+\item Fit the \(X\)-based and surrogate-assisted threshold regressions on the fitting fold.
+\item Estimate \(\widehat G_{h,k}\), \(\widehat H_{h,k}\), and \(\widehat\lambda_{h,k}\) on the selection fold.
+\item Estimate the augmented local CDF on the evaluation fold.
+\item Rotate the fold assignments and combine the evaluation-fold estimators using \eqref{eq:final-estimator}.
+\item Construct multiplier critical values from the evaluation-fold influence
+functions, and rearrange the point estimate for reporting and quantile
+inversion.
+\end{enumerate}
+\end{procedurebox}
+
+The raw estimate can leave \([0,1]\) or violate monotonicity. We report
+\[
+\widehat F_h^{\mathrm{mon}}
+=
+\mathcal R\{0\vee\widehat F_h^{\mathrm{raw}}\wedge1\},
+\qquad
+\widehat Q_h(\tau\mid x_0)
+=
+\inf\{y:\widehat F_h^{\mathrm{mon}}(y\mid x_0)\ge\tau\},
+\]
+where \(\mathcal R\) is increasing rearrangement. Inference for \(F_{h,0}\)
+treats \(h\) as the inferential resolution and uses the raw-process band in
+Section~\ref{sec:theory}. Inference for \(F_0\) also requires undersmoothing or
+bias correction.

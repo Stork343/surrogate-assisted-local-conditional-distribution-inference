@@ -1,0 +1,529 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=0.80in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Author Contributions Checklist},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Author Contributions Checklist}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Surrogate-Assisted Local Conditional Distribution Inference
+with Scarce Reference Outcomes}
+\author{}
+\date{\vspace{-2.5em}25 August 2026}
+
+\begin{document}
+\maketitle
+
+This form documents the data and code supporting the computational
+findings in the article and describes how to reproduce those findings.
+
+\section{Part 1: Data}\label{part-1-data}
+
+\begin{itemize}
+\item[$\square$]
+  This paper does not involve analysis of external data.
+\item[$\boxtimes$]
+  I certify that the authors have legitimate access to and permission to
+  use the data analyzed in this manuscript.
+\end{itemize}
+
+\subsection{Abstract}\label{abstract}
+
+The empirical analyses use two public data sources and one
+author-generated synthetic benchmark. The EPA study analyzes 2,814
+collocated air-sensor site-days. The VitalDB study analyzes one matched
+pulse-oximetry and arterial-blood-gas pair for each of 3,178 subjects.
+The synthetic study contains 6,000 evaluation dossiers, of which 5,997
+have valid automated scores; the primary analysis uses 2,998 cases from
+Corpus A. Simulation outputs and derived data supporting all reported
+figures and tables accompany the submission.
+
+\subsection{Availability}\label{availability}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Data \textbf{are} publicly available.
+\item[$\square$]
+  Data \textbf{cannot be made} publicly available.
+\end{itemize}
+
+\subsubsection{Publicly available data}\label{publicly-available-data}
+
+\begin{itemize}
+\item[$\boxtimes$]
+  Data are available online at:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    EPA, \emph{Long term performance of six air sensors across the
+    United States}: \url{https://doi.org/10.23719/1531918} and
+    \url{https://catalog.data.gov/dataset/dataset-long-term-performance-of-six-air-sensors-across-the-united-states}.
+  \item
+    VitalDB: \url{https://vitaldb.net/} and its public Web API,
+    \url{https://api.vitaldb.net/}. The data resource is described in
+    \url{https://doi.org/10.1038/s41597-022-01411-5}.
+  \end{itemize}
+\item[$\boxtimes$]
+  Data are available as part of the paper's supplementary material.
+
+  The anonymous computational supplement contains the author-generated
+  synthetic dossiers, expert outcomes, parsed automated-score tables,
+  derived application data, and numerical summaries used to produce the
+  manuscript tables and figures.
+\item[$\square$]
+  Data are publicly available by request.
+\item[$\square$]
+  Data are available through another mechanism.
+\end{itemize}
+
+\subsubsection{Non-publicly available
+data}\label{non-publicly-available-data}
+
+Not applicable to the data required to reproduce the reported findings.
+Raw API response caches and API credentials are not required for
+reproduction and are not distributed. The parsed automated scores used
+in the analyses are provided.
+
+\subsection{Description}\label{description}
+
+\subsubsection{File format(s)}\label{file-formats}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  CSV or other plain text.
+\item[$\boxtimes$]
+  Software-specific binary format: R data files (\texttt{.rds}).
+\item[$\square$]
+  Standardized binary format such as netCDF or HDF5.
+\item[$\boxtimes$]
+  Other: JSON, JSONL, and YAML files are used for synthetic dossiers,
+  configuration, and provenance records.
+\end{itemize}
+
+\subsubsection{Data dictionary}\label{data-dictionary}
+
+\begin{itemize}
+\item[$\boxtimes$]
+  Provided by the authors in the following files:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{data-raw/README.md};
+  \item
+    \texttt{data-raw/epa\_long\_term/README.md};
+  \item
+    \texttt{analysis/README.md};
+  \item
+    \texttt{reproducibility/reference\_mask\_split\_map.md};
+  \item
+    \texttt{reproducibility/table\_results\_map.csv};
+  \item
+    \texttt{reproducibility/application\_story/source\_manifest.csv}.
+  \end{itemize}
+\item[$\square$]
+  Data files are self-describing standardized binary files.
+\item[$\square$]
+  A separate data dictionary is available at another URL.
+\end{itemize}
+
+\subsubsection{Additional Information}\label{additional-information}
+
+The EPA source archive is retrieved by the supplied analysis code rather
+than redistributed. VitalDB data are retrieved through the public
+VitalDB interface under its access terms. The supplied synthetic
+dossiers contain no real-person records. The computational supplement
+contains no API credential.
+
+\section{Part 2: Code}\label{part-2-code}
+
+\subsection{Abstract}\label{abstract-1}
+
+The supplied R package and analysis scripts implement the proposed
+local-CDF estimators, adaptive borrowing criterion, simulation designs,
+multiplier procedures, empirical analyses, and generation of manuscript
+tables and figures. Python code retrieves and matches the public VitalDB
+measurements. Shell and R entry points validate the numerical evidence
+and rebuild all manuscript displays. Unit tests cover the estimator,
+sample splitting, simulation design, application helpers, and
+claim-to-result correspondence.
+
+\subsection{Description}\label{description-1}
+
+\subsubsection{Code format(s)}\label{code-formats}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Script files
+
+  \begin{itemize}
+  \tightlist
+  \item[$\boxtimes$]
+    R
+  \item[$\boxtimes$]
+    Python
+  \item[$\square$]
+    Julia
+  \item[$\square$]
+    MATLAB
+  \item[$\square$]
+    Other
+  \end{itemize}
+\item[$\boxtimes$]
+  Package
+
+  \begin{itemize}
+  \tightlist
+  \item[$\boxtimes$]
+    R
+  \item[$\square$]
+    Python
+  \item[$\square$]
+    Julia
+  \item[$\square$]
+    MATLAB toolbox
+  \item[$\square$]
+    Other
+  \end{itemize}
+\item[$\square$]
+  Reproducible report
+\item[$\boxtimes$]
+  Shell script
+\item[$\boxtimes$]
+  Other: LaTeX manuscript and Supplement sources.
+\end{itemize}
+
+\subsubsection{Supporting software
+requirements}\label{supporting-software-requirements}
+
+\paragraph{Primary software used}\label{primary-software-used}
+
+\begin{itemize}
+\tightlist
+\item
+  R 4.3.2;
+\item
+  Python 3.12.1;
+\item
+  a POSIX-compatible shell;
+\item
+  TeX Live 2024 and Pandoc 3.1.12.3 for rebuilding the manuscript PDFs.
+\end{itemize}
+
+\paragraph{Libraries and dependencies used by the
+code}\label{libraries-and-dependencies-used-by-the-code}
+
+R package versions are recorded in \texttt{renv.lock},
+\texttt{reproducibility/session\_info.txt}, and
+\texttt{reproducibility/r\_package\_inventory.csv}. The package-level
+requirements are listed in \texttt{DESCRIPTION}. Python packages used
+for figure production are pinned in
+\texttt{reproducibility/requirements-figures.txt}.
+
+\subsubsection{Supporting system/hardware
+requirements}\label{supporting-systemhardware-requirements}
+
+The release was validated on Apple Silicon running macOS 15.4.1. No GPU
+is required. The presentation-only rebuild runs on a standard desktop.
+Full Monte Carlo recomputation benefits from multiple CPU cores and
+substantial elapsed time but does not require a computing cluster.
+
+\subsubsection{Parallelization used}\label{parallelization-used}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  No parallel code used.
+\item[$\boxtimes$]
+  Multi-core parallelization on a single machine/node.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Number of cores used: 4 for the manuscript-facing application and
+    threshold-level recomputations; full simulation scripts accept a
+    user-specified positive core count.
+  \end{itemize}
+\item[$\square$]
+  Multi-machine/multi-node parallelization.
+\end{itemize}
+
+\subsubsection{License}\label{license}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  MIT License.
+\item[$\square$]
+  BSD.
+\item[$\square$]
+  GPL v3.0.
+\item[$\square$]
+  Creative Commons.
+\item[$\square$]
+  Other.
+\end{itemize}
+
+\subsubsection{Additional information}\label{additional-information-1}
+
+The DeepSeek scoring calls are not required for recomputation. The valid
+automated scores used by the manuscript are supplied, and the AI-stage
+scripts reuse those scores without making an external API call.
+
+\section{Part 3: Reproducibility
+workflow}\label{part-3-reproducibility-workflow}
+
+\subsection{Scope}\label{scope}
+
+The provided workflow reproduces:
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Any numbers provided in text in the paper.
+\item[$\boxtimes$]
+  The computational methods presented in the paper.
+\item[$\boxtimes$]
+  All tables and figures in the paper.
+\item[$\square$]
+  Selected tables and figures only.
+\end{itemize}
+
+\subsection{Workflow}\label{workflow}
+
+\subsubsection{Location}\label{location}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  As part of the paper's supplementary material.
+\item[$\square$]
+  In a Git repository disclosed during anonymous review.
+\item[$\square$]
+  Other.
+\end{itemize}
+
+The anonymous supplementary archive is self-contained for source
+inspection, tests, reconstruction of manuscript-facing tables and
+figures, and staged recomputation. A public repository location can be
+added to the accepted version of this form after peer review without
+changing the workflow.
+
+\subsubsection{Format(s)}\label{formats}
+
+\begin{itemize}
+\tightlist
+\item[$\boxtimes$]
+  Single master code file.
+\item[$\boxtimes$]
+  Wrapper shell script(s).
+\item[$\square$]
+  Self-contained Quarto, R Markdown, or Jupyter notebook.
+\item[$\boxtimes$]
+  Text file that documents the workflow.
+\item[$\boxtimes$]
+  Makefile.
+\item[$\boxtimes$]
+  Other: an R package with unit tests and staged analysis scripts.
+\end{itemize}
+
+\subsubsection{Instructions}\label{instructions}
+
+From the root of the uncompressed anonymous supplementary archive:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Review \texttt{reproducibility/ANONYMOUS\_REVIEW\_README.md} and
+  \texttt{renv.lock}.
+\item
+  Restore the R environment if desired with \texttt{renv::restore()} and
+  install the Python figure dependencies from
+  \texttt{reproducibility/requirements-figures.txt}.
+\item
+  Rebuild every main figure, the fixed-sample Supplement figure, the
+  three main tables, and Supplement Tables S5--S6 with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bash}\NormalTok{ reproducibility/rebuild\_submission\_artifacts.sh}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Run the implementation, design-correspondence, and claim-to-evidence
+  checks with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{Rscript}\NormalTok{ reproducibility/run\_correspondence\_gate.R}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Inspect the complete ordered recomputation plan without changing any
+  result file with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{Rscript}\NormalTok{ reproduce.R 4 all}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Full recomputation is staged by simulation, application, and AI
+  components. The exact execution and finalization commands are
+  documented in \texttt{docs/CANONICAL\_RECOMPUTATION\_PLAN.md}. The AI
+  stage uses the supplied automated scores and does not call the
+  external scoring service. After a full recomputation,
+  \texttt{reproducibility/validate\_frozen\_results.R} checks the
+  complete result store.
+\end{enumerate}
+
+\subsubsection{Expected run-time}\label{expected-run-time}
+
+Approximate time needed to reproduce the analyses on a standard desktop
+machine:
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  \textless{} 1 minute.
+\item[$\square$]
+  1-10 minutes.
+\item[$\square$]
+  10-60 minutes.
+\item[$\square$]
+  1-8 hours.
+\item[$\boxtimes$]
+  \textgreater{} 8 hours.
+\item[$\square$]
+  Not feasible to run on a desktop machine.
+\end{itemize}
+
+The display rebuild in Step 3 completes in less than one minute in the
+validated environment. Full Monte Carlo recomputation takes more than
+eight hours and is organized into independent stages. The supplied
+numerical results allow every reported table and figure to be rebuilt
+without rerunning the full Monte Carlo program.
+
+\subsubsection{Additional information}\label{additional-information-2}
+
+\texttt{README.md}, \texttt{reproducibility/README.md},
+\texttt{docs/CANONICAL\_RECOMPUTATION\_PLAN.md}, and the package tests
+document the workflow and provide smaller checks of the proposed
+methods. The anonymous archive omits author identities, affiliations,
+private local paths, and API credentials; the complete unblinded archive
+is retained separately for the editors.
+
+\end{document}

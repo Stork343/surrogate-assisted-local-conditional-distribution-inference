@@ -1,0 +1,267 @@
+{
+  "seed": 20260927,
+  "numpy_version": "2.3.5",
+  "scipy_version": "1.17.0",
+  "omega_exact": [
+    [
+      0.09000000000000004,
+      0.05000000000000002,
+      -0.03600000000000001,
+      -0.02880000000000002
+    ],
+    [
+      0.05000000000000002,
+      0.2500000000000001,
+      0.0,
+      0.0
+    ],
+    [
+      -0.03600000000000001,
+      0.0,
+      0.03600000000000001,
+      0.028800000000000017
+    ],
+    [
+      -0.02880000000000002,
+      0.0,
+      0.028800000000000017,
+      0.02304000000000002
+    ]
+  ],
+  "separation": [
+    {
+      "rule": "Anchor",
+      "weight": 0.0,
+      "trace": 0.34000000000000014,
+      "critical_95": 0.9835619642999893,
+      "covariance": [
+        [
+          0.09000000000000004,
+          0.05000000000000002
+        ],
+        [
+          0.05000000000000002,
+          0.2500000000000001
+        ]
+      ]
+    },
+    {
+      "rule": "Integrated variance",
+      "weight": 0.6097560975609755,
+      "trace": 0.318048780487805,
+      "critical_95": 0.996761141213352,
+      "covariance": [
+        [
+          0.059482450922070225,
+          0.04314693634741226
+        ],
+        [
+          0.04314693634741226,
+          0.2585663295657348
+        ]
+      ]
+    },
+    {
+      "rule": "Band critical value",
+      "weight": 0.11486023802302292,
+      "trace": 0.3325089701597573,
+      "critical_95": 0.9826394883937953,
+      "covariance": [
+        [
+          0.08220500633637579,
+          0.047071979924163676
+        ],
+        [
+          0.047071979924163676,
+          0.2503039638233815
+        ]
+      ]
+    },
+    {
+      "rule": "Full",
+      "weight": 1.0,
+      "trace": 0.32704000000000016,
+      "critical_95": 1.0241690908740424,
+      "covariance": [
+        [
+          0.05400000000000003,
+          0.05000000000000002
+        ],
+        [
+          0.05000000000000002,
+          0.2730400000000001
+        ]
+      ]
+    }
+  ],
+  "analytic_separation_at_c_0_99": {
+    "anchor_union_tail_upper": 0.04867037696778458,
+    "IV_second_coordinate_coverage_upper": 0.9484562663462535
+  },
+  "paired_perturbation_checks": [
+    {
+      "weight": 0.0,
+      "paired_error": 0.0,
+      "error_over_weight_times_perturbation": null
+    },
+    {
+      "weight": 0.0001,
+      "paired_error": 4.3520803294505583e-08,
+      "error_over_weight_times_perturbation": 0.4352080329450558
+    },
+    {
+      "weight": 0.001,
+      "paired_error": 4.3320100628907454e-07,
+      "error_over_weight_times_perturbation": 0.43320100628907454
+    },
+    {
+      "weight": 0.01,
+      "paired_error": 4.131287534292483e-06,
+      "error_over_weight_times_perturbation": 0.4131287534292482
+    },
+    {
+      "weight": 0.1,
+      "paired_error": 2.1238286456504163e-05,
+      "error_over_weight_times_perturbation": 0.21238286456504163
+    },
+    {
+      "weight": 0.5,
+      "paired_error": 0.00032925446963416594,
+      "error_over_weight_times_perturbation": 0.6585089392683319
+    },
+    {
+      "weight": 1.0,
+      "paired_error": 0.001628944866889026,
+      "error_over_weight_times_perturbation": 1.628944866889026
+    }
+  ],
+  "scalar_certification": [
+    {
+      "local_verified_k": 100,
+      "theta": 0.0,
+      "oracle_weight": 0.0,
+      "oracle_critical_gain": 0.0,
+      "exact_adoption_probability": 0.0060164878626817395
+    },
+    {
+      "local_verified_k": 100,
+      "theta": 0.03,
+      "oracle_weight": 0.15,
+      "oracle_critical_gain": 0.0015888588472862774,
+      "exact_adoption_probability": 0.02787027925735145
+    },
+    {
+      "local_verified_k": 100,
+      "theta": 0.06,
+      "oracle_weight": 0.3,
+      "oracle_critical_gain": 0.006370992643131658,
+      "exact_adoption_probability": 0.09455631053114172
+    },
+    {
+      "local_verified_k": 100,
+      "theta": 0.12,
+      "oracle_weight": 0.6,
+      "oracle_critical_gain": 0.02573915165903488,
+      "exact_adoption_probability": 0.4622668142542348
+    },
+    {
+      "local_verified_k": 400,
+      "theta": 0.0,
+      "oracle_weight": 0.0,
+      "oracle_critical_gain": 0.0,
+      "exact_adoption_probability": 0.0070920615959411
+    },
+    {
+      "local_verified_k": 400,
+      "theta": 0.03,
+      "oracle_weight": 0.15,
+      "oracle_critical_gain": 0.0015888588472862774,
+      "exact_adoption_probability": 0.10510693391815344
+    },
+    {
+      "local_verified_k": 400,
+      "theta": 0.06,
+      "oracle_weight": 0.3,
+      "oracle_critical_gain": 0.006370992643131658,
+      "exact_adoption_probability": 0.48072204921524087
+    },
+    {
+      "local_verified_k": 400,
+      "theta": 0.12,
+      "oracle_weight": 0.6,
+      "oracle_critical_gain": 0.02573915165903488,
+      "exact_adoption_probability": 0.9918822366510975
+    },
+    {
+      "local_verified_k": 1600,
+      "theta": 0.0,
+      "oracle_weight": 0.0,
+      "oracle_critical_gain": 0.0,
+      "exact_adoption_probability": 0.007641190373842523
+    },
+    {
+      "local_verified_k": 1600,
+      "theta": 0.03,
+      "oracle_weight": 0.15,
+      "oracle_critical_gain": 0.0015888588472862774,
+      "exact_adoption_probability": 0.49020971013473613
+    },
+    {
+      "local_verified_k": 1600,
+      "theta": 0.06,
+      "oracle_weight": 0.3,
+      "oracle_critical_gain": 0.006370992643131658,
+      "exact_adoption_probability": 0.9915330881631955
+    },
+    {
+      "local_verified_k": 1600,
+      "theta": 0.12,
+      "oracle_weight": 0.6,
+      "oracle_critical_gain": 0.02573915165903488,
+      "exact_adoption_probability": 0.99999999999986
+    }
+  ],
+  "covariance_certificate_smoke_test": {
+    "omega_hat": [
+      [
+        0.07968606974999994,
+        0.041991773750000044,
+        -0.03196315687500004,
+        -0.02557052550000002
+      ],
+      [
+        0.041991773750000044,
+        0.24234349375000133,
+        0.0035009031250000005,
+        0.002800722500000061
+      ],
+      [
+        -0.03196315687500004,
+        0.0035009031250000005,
+        0.03377374999999993,
+        0.027018999999999987
+      ],
+      [
+        -0.02557052550000002,
+        0.002800722500000061,
+        0.027018999999999987,
+        0.021615200000000015
+      ]
+    ],
+    "epsilon": 2.648739847488183,
+    "F_pilot": [
+      0.09054999999997661,
+      0.51775
+    ],
+    "centering_radius": 0.1339516274621854,
+    "kernel_mass_upper": 1.0,
+    "kernel_support": 20000,
+    "verified_kernel_support": 1939,
+    "delta": 0.05,
+    "n_selection": 20000,
+    "N_selection": 2000.0,
+    "realized_operator_error_in_smoke_test": 0.01997173582554969,
+    "interpretation": "One smoke test, not a Monte Carlo estimate of confidence coverage; radius intentionally conservative."
+  },
+  "all_assertions_passed": true
+}

@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+\input{../paper/preamble}
+\externaldocument[][nocite]{../paper/manuscript_blind}
+\makeatletter
+\@ifundefined{r@eq:observable-G}{}{%
+  \expandafter\let\csname r@eq:G-observable\expandafter\endcsname
+  \csname r@eq:observable-G\endcsname}
+\makeatother
+\title{Supplement to ``Surrogate-Assisted Local Conditional Distribution Inference with Scarce Reference Outcomes''}
+\author{}
+\date{}
+
+\begin{document}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\makeatletter
+\renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{3.1em}}
+\makeatother
+\maketitle
+\begingroup
+\small
+\tableofcontents
+\endgroup
+\clearpage
+
+\input{sections/S0_symbol_guide}
+\input{sections/S1_notation}
+\input{sections/S1a_primitive_covariance}
+\input{sections/S2_efficiency_proof}
+\input{sections/S3_borrowing_proof}
+\input{sections/S3a_grid_path_compatibility}
+\input{sections/S3b_weight_normalization}
+\input{sections/S4_oracle_inequality}
+\input{sections/S5_uniform_process}
+\input{sections/S5a_efficiency_limit}
+\input{sections/S6_scarcity}
+\input{sections/S7_bootstrap}
+\input{sections/S7a_cluster_multiplier}
+\input{sections/S8_local_linear}
+\input{sections/S8a_propensity_gain}
+\input{sections/S8b_reference_fraction}
+\input{sections/S9_additional_simulations}
+\input{sections/S10_positioning}
+
+\bibliographystyle{plainnat}
+\bibliography{../paper/references,../paper/references_submission,../paper/references_empirical_process}
+\end{document}

@@ -1,0 +1,106 @@
+{
+  "config": {
+    "seed": 2026092801,
+    "bandwidth": 0.35,
+    "thresholds": 7,
+    "weight_count": 11,
+    "delta": 0.05,
+    "multipliers": 1999,
+    "directions": 2048,
+    "oracle_directions": 8192,
+    "evaluation_directions": 8192,
+    "ridge": 0.0,
+    "remainder": true,
+    "harm_tolerance": 0.0001,
+    "replications": 500,
+    "workers": 4
+  },
+  "cells": [
+    {
+      "scenario": "aligned",
+      "design": "random",
+      "p": 0.05,
+      "n": 6000,
+      "id": 1
+    },
+    {
+      "scenario": "aligned",
+      "design": "random",
+      "p": 0.1,
+      "n": 6000,
+      "id": 2
+    },
+    {
+      "scenario": "aligned",
+      "design": "random",
+      "p": 0.2,
+      "n": 6000,
+      "id": 3
+    },
+    {
+      "scenario": "aligned",
+      "design": "selective",
+      "p": 0.05,
+      "n": 6000,
+      "id": 4
+    },
+    {
+      "scenario": "aligned",
+      "design": "selective",
+      "p": 0.1,
+      "n": 6000,
+      "id": 5
+    },
+    {
+      "scenario": "aligned",
+      "design": "selective",
+      "p": 0.2,
+      "n": 6000,
+      "id": 6
+    },
+    {
+      "scenario": "weak",
+      "design": "random",
+      "p": 0.1,
+      "n": 6000,
+      "id": 7
+    },
+    {
+      "scenario": "reversal",
+      "design": "random",
+      "p": 0.1,
+      "n": 6000,
+      "id": 8
+    },
+    {
+      "scenario": "no_signal",
+      "design": "random",
+      "p": 0.1,
+      "n": 6000,
+      "id": 9
+    },
+    {
+      "scenario": "zero_path",
+      "design": "random",
+      "p": 0.1,
+      "n": 6000,
+      "id": 10
+    },
+    {
+      "scenario": "aligned",
+      "design": "random",
+      "p": 0.1,
+      "n": 12000,
+      "id": 11
+    },
+    {
+      "scenario": "reversal",
+      "design": "selective",
+      "p": 0.1,
+      "n": 6000,
+      "id": 12
+    }
+  ],
+  "created_utc": "2026-09-28T02:27:49Z",
+  "code_sha256": "8568470e02a4f346baf06bd27240b41d26f3eee56379e0e4ca273efe257ff5e2"
+}

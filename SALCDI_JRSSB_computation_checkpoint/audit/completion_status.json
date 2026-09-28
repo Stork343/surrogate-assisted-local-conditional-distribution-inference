@@ -1,0 +1,23 @@
+{
+  "release_type": "completed_computation_checkpoint_not_submission_package",
+  "main_simulation": {
+    "completed_replications": 6000,
+    "run_errors": 0,
+    "rows": 36000,
+    "elapsed_seconds": 404.19789481163025
+  },
+  "unit_tests": true,
+  "rotation_replications": 400,
+  "numerical_audit": {
+    "replications": 60,
+    "selection_agreement": 0.9666666666666667,
+    "max_critical_difference": 0.002683406219457951,
+    "max_gain_difference": 0.003014175421485188,
+    "max_truth_covariance_difference": 2.6615940856303255e-05,
+    "interpretation": "Convergence assessment, not a rigorous uniform quadrature certificate"
+  },
+  "revised_manuscript_completed": false,
+  "revised_supplement_completed": false,
+  "new_EPA_analysis_completed": false,
+  "submission_ready": false
+}

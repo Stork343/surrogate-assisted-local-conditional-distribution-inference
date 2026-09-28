@@ -1,0 +1,6 @@
+{
+  "all_finite_sample_error_bounds_pass": true,
+  "rows": 192,
+  "largest_certification_error": 0.04941089345828242,
+  "computed_exactly": "binomial probabilities, not simulation"
+}

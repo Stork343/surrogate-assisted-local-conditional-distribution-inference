@@ -1,0 +1,102 @@
+\section{Primitive conditions for covariance-kernel convergence}
+\label{sec:supp-primitive-covariance}
+
+Condition~\ref{cond:covariance} is stated directly in terms of the covariance integrand used by the local process. The following proposition gives lower-level sufficient conditions for its kernel-convergence and continuity components.
+
+\begin{proposition}[Primitive covariance-kernel convergence]
+\label{prop:primitive-covariance}
+Suppose Conditions~\ref{cond:sampling}--\ref{cond:candidates} hold. Assume, for every finite \(C\),
+\begin{align}
+&\sup_{\|x-x_0\|\le Ch}
+E\left[
+\left|e_M^{-1}(W)-e_0^{-1}(W)\right|^2
+\Bigm|X=x
+\right]
+\to0,
+\label{eq:primitive-e-convergence}\\
+&\sup_{y\in\mathcal Y}\sup_{\|x-x_0\|\le Ch}
+E\left[
+\{a_{M,y}(W)-a_{\infty,y}(W)\}^2
+\Bigm|X=x
+\right]
+\to0,
+\label{eq:primitive-path-convergence}\\
+&\sup_{y\in\mathcal Y}|F_{h,0}(y\mid x_0)-F_0(y\mid x_0)|
+\to0.
+\label{eq:primitive-target-convergence}
+\end{align}
+Assume the following conditional moment maps are uniformly continuous at \(x_0\), uniformly over \((y,z)\in\mathcal Y^2\):
+\begin{align*}
+x&\longmapsto
+E\left\{\frac{C_{yz}(W)}{e_0(W)}\Bigm|X=x\right\},\\
+x&\longmapsto
+E\left[
+\left\{\frac1{e_0(W)}-p\right\}
+\Delta_y(W)\Delta_z(W)
+\Bigm|X=x
+\right],\\
+x&\longmapsto
+E\left[\{m_{0,y}(W)-F_0(y\mid x_0)\}
+          \{m_{0,z}(W)-F_0(z\mid x_0)\}\Bigm|X=x\right].
+\end{align*}
+At \(x=x_0\), these three conditional moment functions are continuous in \((y,z)\). If \(a_M\) and \(a_\infty\) are uniformly bounded, then the covariance-kernel convergence and continuity requirements in Condition~\ref{cond:covariance} hold. Tight Gaussian realizability and continuity of the supremum law remain the process-level requirements stated separately in that condition.
+\end{proposition}
+
+\begin{proof}
+Write \(B_{M,yz}=T_{1,M,yz}+T_{2,M,yz}+T_{3,M,yz}\) for the three terms in Condition~\ref{cond:covariance}. Since \(|C_{yz}(W)|\le1\) and \(e_M,e_0\) are bounded away from zero, conditional Cauchy--Schwarz and \eqref{eq:primitive-e-convergence} give
+\[
+\sup_{\|x-x_0\|\le Ch}\sup_{y,z}
+\left|
+E(T_{1,M,yz}\mid X=x)
+-
+E\left\{\frac{C_{yz}}{e_0}\Bigm|X=x\right\}
+\right|
+\to0.
+\]
+Uniform continuity of the limiting conditional moment then replaces \(x\) by \(x_0\).
+
+For the augmentation term, boundedness and
+\[
+\Delta_{M,y}-\Delta_y
+=a_{M,y}-a_{\infty,y}
+\]
+imply, uniformly over \(y,z\),
+\[
+|\Delta_{M,y}\Delta_{M,z}
+ -\Delta_y\Delta_z|
+\le
+C\{|a_{M,y}-a_{\infty,y}|
+   +|a_{M,z}-a_{\infty,z}|\}.
+\]
+Equations \eqref{eq:primitive-e-convergence}--\eqref{eq:primitive-path-convergence}, conditional Cauchy--Schwarz, and \(p_M\to p\) therefore give
+\[
+\sup_{\|x-x_0\|\le Ch}\sup_{y,z}
+\left|
+E(T_{2,M,yz}\mid X=x)
+-
+E\left[
+\left\{\frac1{e_0}-p\right\}
+\Delta_y\Delta_z
+\Bigm|X=x
+\right]
+\right|
+\to0.
+\]
+Uniform continuity again replaces \(x\) by \(x_0\).
+
+Finally, \(m_{0,y}\in[0,1]\), \(p_M\to p\), and \eqref{eq:primitive-target-convergence} imply
+\[
+\sup_{\|x-x_0\|\le Ch}\sup_{y,z}
+\left|
+E(T_{3,M,yz}\mid X=x)
+-
+pE\left[
+\{m_{0,y}-F_0(y\mid x_0)\}
+\{m_{0,z}-F_0(z\mid x_0)\}
+\Bigm|X=x
+\right]
+\right|
+\to0.
+\]
+The stated uniform continuity gives the target-stratum limit. Summing the three bounds proves \eqref{eq:cov-local-convergence}; continuity in \((y,z)\) gives continuity of \(\Gamma_p\). These are exactly the covariance-kernel components claimed in the proposition.
+\end{proof}

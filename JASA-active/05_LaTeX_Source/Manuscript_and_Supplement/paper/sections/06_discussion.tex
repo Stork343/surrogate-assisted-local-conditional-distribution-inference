@@ -1,0 +1,88 @@
+\section{Discussion}
+\label{sec:discussion}
+
+The surrogate enters through augmentation and, with a correct verification
+probability, can change variance without changing the local reference-outcome
+distribution being estimated. A shared weight coordinates borrowing across
+thresholds, and separate evaluation folds support simultaneous inference.
+
+The observed-data structure is semi-supervised: verified reference
+outcomes are labels, and the other units contribute covariates and surrogate
+measurements. The inferential task differs from ordinary semi-supervised
+prediction. We estimate a feature of the reference-outcome distribution under
+selective verification, and the surrogate regression is an efficiency device.
+The observable criterion \(2G_h-H_h\) compares Full with the anchor along the
+fitted correction path at \(x_0\).
+
+Full has lower mean ISE when the surrogate correction is well aligned.
+Adaptive loses some efficiency
+in those settings because it estimates the weight on a separate fold. Under
+local reversal, the selected weight is almost zero and the Adaptive CDF stays
+close to the anchor, while Full has larger error. If the candidate correction
+itself vanishes, its
+coefficient is weakly identified, but changing that coefficient has negligible
+effect on the estimated CDF.
+
+The verified fraction and its local allocation both determine precision. In
+\(\pi_M(W)=p_Me_M(W)\), \(p_M\) determines the effective local rate and
+\(e_M\) records how verification is distributed near the target. Studies with
+equal numbers of reference outcomes may therefore have different precision at
+\(x_0\). Simultaneous coverage remains below the nominal level when selective
+verification leaves very little local information. The minimum verified
+kernel-support count across the three role folds is directly observable; the
+simulations flag counts below 10 as low information for simultaneous bands.
+
+The fixed-bandwidth simulations and the synthetic AI study use \(F_{h,0}\),
+the population distribution at the declared localization scale; the EPA and
+VitalDB reference-sampling studies evaluate the corresponding full-data empirical
+benchmark \(F_{h,\mathrm{emp}}\). Bands for \(F_0\) require undersmoothing or
+bias correction. Kernel localization is most practical for a low-dimensional
+conditioning variable.
+
+The reference outcomes define the distribution of interest; the local transfer
+criterion governs how the surrogate enters its estimation.
+
+\section*{Supplementary Materials}
+
+The Supplement contains primitive conditions, complete proofs, finite- and growing-grid results, point-target and quantile theory, estimated-probability and local-linear extensions, independent-cluster inference, optimal local verification allocation, the adjacent-method comparison, and additional numerical and empirical details.
+
+\section*{Data and Code Availability}
+
+The EPA air-sensor and VitalDB data are publicly available from the sources
+cited in Section~\ref{sec:applications}. Code and derived numerical data
+sufficient to reproduce every table and figure accompany the submission. The
+complete computational materials also retain the synthetic dossiers,
+expert-panel outcomes, automated scores, and intermediate simulation results;
+these materials are available to the editors during review.
+
+\ifblinded
+\else
+\section*{Funding}
+
+This work was partially supported by the Beijing Natural Science Foundation, \emph{Theory, Methodology and Applications of Functional Hierarchical Quantile Regression Modeling} (No.~1242005); the Fundamental Research Funds for the Central Universities and the Research Funds of Renmin University of China, \emph{Robust Statistical Inference for Complex Data} (No.~25XNN015); and the Ministry of Education Humanities and Social Sciences Research General Project, \emph{Research on Spatial-temporal Quantile Regression Modeling: Theoretical Methods and Applications} (No.~25YJA910005).
+\fi
+
+\section*{Disclosure Statement}
+
+The authors declare that there are no conflicts of interest.
+
+\section*{Generative AI Use Statement}
+
+DeepSeek models \texttt{deepseek-v4-pro} and
+\texttt{deepseek-v4-flash} were used as automated surrogate evaluators in the
+controlled synthetic AI-assisted review benchmark. They scored the synthetic
+dossiers under a common rubric before the expert-review samples were drawn;
+expert-panel outcomes defined the reference estimand.
+OpenAI Codex (GPT-5) was used during manuscript preparation to assist with code
+debugging, selective editorial revision, language refinement, and checks of
+wording, consistency, citations, and typography. The authors reviewed and verified the research
+design, statistical analyses, all code changes, and all revised text. All
+authors approved these uses and the present disclosure and accept
+responsibility for the article.
+
+\ifblinded
+\else
+\section*{Author Contributions}
+
+Jian Hou conceived the study, developed the main content of the manuscript, and wrote the software. Maozai Tian checked the theoretical arguments and verified the accuracy of the manuscript. Tan Meng identified, obtained, checked, and curated the application data and wrote the code for the empirical analyses.
+\fi

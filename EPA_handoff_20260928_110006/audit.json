@@ -1,0 +1,69 @@
+{
+  "handoff_created_at_local": "2026-09-28T11:00:06+08:00",
+  "handoff_kind": "recovered_complete_pair_snapshot_with_limitations",
+  "source_container": {
+    "path": "JASA-active/04_Data_and_Code/Data_and_Code_Anonymous.zip",
+    "sha256": "3989a58c16a444a489e45a02aea754f12b3f404a3002f21034450fa072813cb9",
+    "bytes": 4842008,
+    "internal_data_path": "SALCDI-SC4-blind-review/reproducibility/application_story/epa_calibration_points.csv",
+    "internal_provenance_script": "SALCDI-SC4-blind-review/reproducibility/build_application_story_evidence.R"
+  },
+  "delivered_data": {
+    "path": "epa_site_day_recovery.csv",
+    "sha256": "2db9989337b1e65dd83fd4ce7c9571c80e729284ef39993d6be0370af597c3f6",
+    "bytes": 163992,
+    "rows": 2814,
+    "columns": 5,
+    "column_names": ["observation_id", "reference_log_pm25", "surrogate_log_pm25", "relative_humidity", "site"],
+    "unique_sites": 7,
+    "missing_count": {
+      "observation_id": 0,
+      "reference_log_pm25": 0,
+      "surrogate_log_pm25": 0,
+      "relative_humidity": 0,
+      "site": 0
+    },
+    "ranges": {
+      "reference_log_pm25": [0.6865, 4.9909],
+      "surrogate_log_pm25": [0.0759, 4.9124],
+      "relative_humidity": [6.4983, 87.23]
+    },
+    "duplicate_observation_id_count": 0,
+    "location_date_duplicate_count": null,
+    "location_date_duplicate_assessment": "Not assessable: date was not retained in the recovered snapshot.",
+    "date_range": null,
+    "date_range_assessment": "Not assessable: date was not retained in the recovered snapshot.",
+    "reference_results_complete": "Yes for the recovered snapshot: no reference_log_pm25 values are missing. The provenance script exports directly from epa$data before reference masks are used in downstream artifacts.",
+    "raw_measurement_scale": "No for PM2.5. reference_log_pm25 and surrogate_log_pm25 are epa$data$y and epa$data$s, respectively.",
+    "humidity_scale": "Original percentage scale preserved as epa$data$x_raw (exported as relative_humidity).",
+    "correction_status": "Uncorrected PurpleAir branch (Make_ID == PAR), according to code/public_application_helpers.R and the archived data-raw/epa_long_term/README.md."
+  },
+  "source_rds_recorded_by_archive_manifest": {
+    "historical_path": "analysis/output/public_application/epa_public_application.rds",
+    "bytes": 2783649,
+    "sha256": "fee5f65c895c1618d91caf0b5002c5954dd7592eb5771d937352335b3908ec70",
+    "present_in_current_checkout_or_archive": false
+  },
+  "expected_processed_source": {
+    "historical_csv_path": "data-raw/epa_long_term/FigureProcessedData/LTPPCleanDataset_12_10_24.csv",
+    "historical_zip_path": "data-raw/epa_long_term/FigureProcessedData.zip",
+    "expected_zip_sha256": "da096a4953ed8878931fe791774b9ac057341e55e888cf603a265c235049d2f3",
+    "present_in_current_checkout_or_archive": false
+  },
+  "checked_paths": [
+    "analysis/output/public_application/epa_public_application.rds",
+    "data-raw/epa_long_term/FigureProcessedData/LTPPCleanDataset_12_10_24.csv",
+    "data-raw/epa_long_term/FigureProcessedData.zip",
+    "JASA-active/04_Data_and_Code/Data_and_Code_Anonymous.zip (full included-file listing inspected)"
+  ],
+  "git": {
+    "repository_detected": false,
+    "commit": null,
+    "uncommitted_changes": "Not assessable: the current workspace and its parents are not a Git working tree."
+  },
+  "actions_not_taken": [
+    "No data download.",
+    "No analysis or simulation rerun.",
+    "No model fitting, aggregation, filtering, masking, imputation, correction, rounding, deduplication, or source-data modification."
+  ]
+}

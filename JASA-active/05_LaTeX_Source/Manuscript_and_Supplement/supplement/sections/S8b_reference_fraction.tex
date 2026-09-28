@@ -1,0 +1,74 @@
+\subsection{Estimating the overall reference fraction}
+\label{sec:supp-p-estimation}
+
+The parameterization
+\[
+p_M=E\{\pi_M(W)\},
+\qquad
+e_M(W)=\pi_M(W)/p_M
+\]
+is used to state the triangular rate and covariance limit. The adaptive coefficient does not require \(p_M\), because multiplying \(G_{M,h}\) and \(H_{M,h}\) by the same positive scalar leaves their ratio unchanged. For process scaling under an estimated verification law, \(p_M\) can be estimated directly from the observed verification indicators.
+
+\begin{proposition}[Reference-fraction estimation]
+\label{prop:p-estimation}
+Let
+\[
+\widehat p_M
+=
+\frac1M\sum_{i=1}^MR_i.
+\]
+Under Conditions~\ref{cond:sampling} and \ref{cond:kernel},
+\begin{equation}
+\frac{\widehat p_M}{p_M}-1
+=
+O_{\mathbb P}\{(Mp_M)^{-1/2}\}
+=o_{\mathbb P}(1).
+\label{eq:p-relative-rate}
+\end{equation}
+Consequently,
+\[
+\sqrt{M\widehat p_Mh^d}
+=
+\sqrt{Mp_Mh^d}\{1+o_{\mathbb P}(1)\},
+\]
+and replacing \(p_M\) by \(\widehat p_M\) in process normalization, multiplier normalization, and the reported local-information rate index leaves the limiting laws unchanged.
+
+If
+\[
+\widehat p_M^{\pi}
+=
+\frac1M\sum_{i=1}^M\widehat\pi(W_i)
+\]
+is formed from cross-fitted propensity predictions and
+\[
+\frac1M\sum_{i=1}^M
+\frac{|\widehat\pi(W_i)-\pi_M(W_i)|}{p_M}
+=o_{\mathbb P}(1),
+\]
+then \(\widehat p_M^{\pi}/p_M\to_{\mathbb P}1\) and the same conclusion holds.
+\end{proposition}
+
+\begin{proof}
+Since \(E(R_i)=p_M\),
+\[
+\operatorname{Var}(\widehat p_M)
+=
+\frac1M\operatorname{Var}(R_i)
+\le
+\frac{p_M}{M}.
+\]
+Chebyshev's inequality gives \eqref{eq:p-relative-rate}. The condition \(Mp_Mh^d\to\infty\), together with \(h^d\le1\) eventually, implies \(Mp_M\to\infty\). The square-root expansion follows from differentiability at one. For \(\widehat p_M^{\pi}\),
+\[
+\left|
+\frac{\widehat p_M^{\pi}}{p_M}-1
+\right|
+\le
+\left|
+\frac{M^{-1}\sum_i\pi_M(W_i)}{p_M}-1
+\right|
++
+\frac1M\sum_i
+\frac{|\widehat\pi(W_i)-\pi_M(W_i)|}{p_M}.
+\]
+The first term is \(O_{\mathbb P}(M^{-1/2})\) because \(e_M=\pi_M/p_M\) is uniformly bounded; the second tends to zero by assumption.
+\end{proof}

@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "gradient_checks": [
+    {
+      "dimension": 1,
+      "relative_error": 3.8428066284623696e-11
+    },
+    {
+      "dimension": 2,
+      "relative_error": 1.219598588786397e-10
+    },
+    {
+      "dimension": 5,
+      "relative_error": 5.638258471218904e-10
+    }
+  ],
+  "radial_quadrature_checks": [
+    {
+      "weight": 0,
+      "radial": 0.9835611098890168,
+      "exact": 0.9835619642999893,
+      "error": -8.544109725283633e-07
+    },
+    {
+      "weight": 0.1,
+      "radial": 0.9826535408289174,
+      "exact": 0.9826544167712236,
+      "error": -8.759423061333038e-07
+    },
+    {
+      "weight": 0.6097560975609756,
+      "radial": 0.9967602658310116,
+      "exact": 0.996761141213352,
+      "error": -8.753823403928607e-07
+    },
+    {
+      "weight": 1,
+      "radial": 1.0241682513106942,
+      "exact": 1.0241690908740424,
+      "error": -8.395633481761422e-07
+    }
+  ],
+  "centering_error": -6.115216666380263e-11,
+  "leakage_test": true,
+  "atomic_envelope": true,
+  "zero_path": true
+}

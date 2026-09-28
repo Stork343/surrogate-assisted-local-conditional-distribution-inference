@@ -1,0 +1,133 @@
+\section{Path-oracle equivalence under sample splitting}
+\label{sec:supp-oracle}
+
+Let \(\mathcal T_k\) collect the fitting-fold and selection-fold data associated with evaluation fold \(k\).
+Write \(\widehat F_{h,k}(b)\) for the evaluation-fold estimator formed with augmentation path \(b\).
+
+\begin{lemma}[Regression-path perturbation]
+\label{lem:nuisance-perturb}
+Under Conditions~\ref{cond:sampling}--\ref{cond:entropy},
+\[
+\sqrt{N_{M,h}}
+\left\|
+\widehat F_{h,k}(a_k^{\mathrm{or}})
+-
+\widehat F_{h,k}(a_M)
+\right\|_{\mathcal Y}
+=o_{\mathbb P}(1),
+\]
+provided
+\[
+\|a_k^{\mathrm{or}}-a_M\|_{\mathrm{ver}}
+=o_{\mathbb P}(1)
+\]
+and the realized difference class satisfies Condition~\ref{cond:entropy}.
+\end{lemma}
+
+\begin{proof}
+For every \(y\),
+\begin{equation}
+U_y(a_k^{\mathrm{or}})-U_y(a_M)
+=
+\{a_{k,y}^{\mathrm{or}}-a_{M,y}\}
+\left(1-\frac{R}{\pi_M}\right).
+\label{eq:nuisance-exact}
+\end{equation}
+Conditional on \(\mathcal T_k\), the right side has conditional mean zero given \(W\). Define
+\[
+\mathbb D_{M,k,y}
+=
+\sqrt{p_Mh^d}
+\frac{K_h}{\mu_h}
+\{a_{k,y}^{\mathrm{or}}-a_{M,y}\}
+\left(1-\frac{R}{\pi_M}\right).
+\]
+Its conditional squared \(L_2(P)\) norm is
+\[
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2
+\left(\frac1{\pi_M}-1\right)
+\{a_{k,y}^{\mathrm{or}}-a_{M,y}\}^2
+\,\Bigm|\,\mathcal T_k
+\right],
+\]
+which is uniformly \(o_{\mathbb P}(1)\). The conditional maximal inequality for VC-type classes gives
+\[
+\left\|
+\frac1{\sqrt{|I_{E,k}|}}
+\sum_{i\in I_{E,k}}
+\mathbb D_{M,k,\cdot}(O_i)
+\right\|_{\mathcal Y}
+=o_{\mathbb P}(1).
+\]
+Because \(|I_{E,k}|/M\to\rho_k\in(0,1)\), replacing \(\sqrt{|I_{E,k}|}\) by \(\sqrt M\) changes only a bounded deterministic factor. Lemma~\ref{lem:ratio} then gives the stated estimator difference.
+\end{proof}
+
+\begin{lemma}[Coefficient perturbation]
+\label{lem:coefficient-perturb}
+Under Conditions~\ref{cond:sampling}--\ref{cond:path-compatibility},
+\[
+\sqrt{N_{M,h}}
+\left\|
+\widehat F_{h,k}(\widehat a_k)
+-
+\widehat F_{h,k}(a_k^{\mathrm{or}})
+\right\|_{\mathcal Y}
+=o_{\mathbb P}(1),
+\]
+where
+\[
+a_{k,y}^{\mathrm{or}}
+=
+\widehat q_{k,y}
++
+\lambda_{h,k}^{\mathrm{or}}
+\widehat D_{k,y},
+\qquad
+\widehat D_{k,y}=\widehat m_{k,y}-\widehat q_{k,y},
+\]
+uses the same fitted regressions as \(\widehat a_k\) and replaces only the estimated coefficient by its conditional population minimizer.
+\end{lemma}
+
+\begin{proof}
+Conditional on \(\mathcal T_k\),
+\begin{equation}
+U_y(\widehat a_k)-U_y(a_k^{\mathrm{or}})
+=
+(\widehat\lambda_{h,k}-\lambda_{h,k}^{\mathrm{or}})
+\widehat D_{k,y}(W)
+\left(1-\frac{R}{\pi_M(W)}\right).
+\label{eq:lambda-exact}
+\end{equation}
+The indexed factor following the coefficient difference is a centered local empirical process. Let \(\widehat{\mathcal D}_{h,k}^2\) be its fitted squared maximal local \(L_2\) radius. Condition~\ref{cond:path-compatibility} gives
+\[
+\widehat{\mathcal D}_{h,k}^2
+\le
+\omega(\mathcal H_{h,k})+o_{\mathbb P}(1).
+\]
+The conditional maximal inequality and Lemma~\ref{lem:ratio} yield
+\[
+\sqrt{N_{M,h}}
+\left\|
+\widehat F_{h,k}(\widehat a_k)
+-
+\widehat F_{h,k}(a_k^{\mathrm{or}})
+\right\|_{\mathcal Y}
+=
+O_{\mathbb P}\left(
+|\widehat\lambda_{h,k}-\lambda_{h,k}^{\mathrm{or}}|
+\widehat{\mathcal D}_{h,k}
+\right)+o_{\mathbb P}(1).
+\]
+If \(\mathcal H_{h,k}\to H_{\infty,k}>0\), Lemma~\ref{lem:regret} gives
+\[
+|\widehat\lambda_{h,k}-\lambda_{h,k}^{\mathrm{or}}|
+=o_{\mathbb P}(1),
+\]
+and \(\widehat{\mathcal D}_{h,k}=O_{\mathbb P}(1)\). If \(\mathcal H_{h,k}\to0\), Condition~\ref{cond:path-compatibility} gives \(\widehat{\mathcal D}_{h,k}\to_{\mathbb P}0\), while the coefficient difference is bounded by one. The product is \(o_{\mathbb P}(1)\) in both regimes.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:oracle-equivalence}]
+The gain-estimation rates and criterion results follow from Lemmas~\ref{lem:gain-rates} and \ref{lem:regret}. Lemma~\ref{lem:coefficient-perturb} replaces the estimated coefficient by the fold-specific conditional population minimizer while holding the fitted regressions fixed. Weighted summation over the three evaluation folds preserves the \(o_{\mathbb P}(1)\) order. Lemma~\ref{lem:nuisance-perturb} then replaces the fitted population-minimizing paths by the common triangular path \(a_M\). The positive-curvature coefficient rate and the interior quadratic regret are the corresponding statements of Lemma~\ref{lem:regret}; the vanishing-curvature result follows from Condition~\ref{cond:path-compatibility}.
+\end{proof}

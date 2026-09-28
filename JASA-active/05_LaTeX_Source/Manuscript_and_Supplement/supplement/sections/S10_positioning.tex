@@ -1,0 +1,90 @@
+\section{Connections to adjacent methods}
+\label{sec:comparison}
+
+\begin{table}[H]
+\centering
+\caption{Comparison with adjacent prediction-assisted, semi-supervised, validation-sample, and local-distribution methods.}
+\label{tab:method-comparison}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{>{\raggedright\arraybackslash}p{1.85cm}>{\raggedright\arraybackslash}p{2.05cm}>{\raggedright\arraybackslash}p{1.25cm}>{\raggedright\arraybackslash}p{1.65cm}>{\raggedright\arraybackslash}p{1.25cm}>{\raggedright\arraybackslash}p{1.65cm}>{\raggedright\arraybackslash}p{1.75cm}}
+\toprule
+Method & Primary target & Fixed continuous $x_0$ & Selective MAR reference sampling & $p_M\to0$ & Entire CDF and simultaneous bands & Transfer or efficiency control\\
+\midrule
+Validation-sample inference \citep{Pepe1992,TaoZengLin2017}
+& Regression parameters under validation or two-phase measurement
+& No shrinking point target
+& Yes
+& Fixed-overlap theory
+& No local CDF result
+& Likelihood and semiparametric efficiency\\
+PPI/PPI++ \citep{AngelopoulosEtAl2023,AngelopoulosDuchiZrnic2023}
+& Means and estimating-equation targets
+& No
+& Labeled and prediction samples
+& Not part of the main theory
+& Scalar or finite-dimensional inference
+& Prediction correction and scalar power tuning\\
+Adaptive and safe semi-supervised inference \citep{SongLinZhou2024,DengEtAl2024,ChenEtAl2025}
+& Finite-dimensional M-parameters or high-dimensional regression coefficients
+& No shrinking point target
+& Labeled and unlabeled, or selectively validated, samples
+& Not combined with local effective information
+& No local CDF process
+& Optimal, safe, or regularized auxiliary-information weights\\
+PPCI \citep{SuiEtAl2026}
+& Conditional functionals at a test point
+& Yes
+& Labeled and unlabeled samples in the main formulation
+& Not part of the main theory
+& Pointwise conditional-functional inference
+& Prediction-assisted localization and variance reduction\\
+PAS \citep{LiIgnatiadis2025}
+& A collection of mean-estimation tasks
+& No
+& Gold-standard outcomes and predictions across tasks
+& Not part of the main theory
+& No conditional-CDF result
+& Empirical-Bayes shrinkage across tasks\\
+Decaying-overlap semi-supervised inference \citep{TestaEtAl2025}
+& General smooth semiparametric targets
+& No shrinking point target
+& Yes
+& Yes
+& Target-specific asymptotic normality
+& General influence-function theory under decaying overlap\\
+Surrogate-assisted transported distribution inference \citep{Wang2026}
+& Transported counterfactual CDFs and quantiles
+& No
+& Source validation subset and target covariates
+& No decaying-validation result
+& Uniform transported CDF and quantile bands
+& Efficient influence functions for transported distributional targets\\
+Local distribution and conditional density \citep{CattaneoJanssonMa2024,CattaneoEtAl2024}
+& Conditional distributions and densities
+& Yes
+& Fully observed outcomes
+& Not applicable
+& Yes
+& Local-polynomial distribution and density estimation\\
+Present method
+& $F_0(\cdot\mid x_0)$ and its kernel-localized version
+& Yes
+& Yes
+& Yes
+& Yes
+& Canonical gradient, exact transfer sign, common borrowing weight, and path-oracle equivalence\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Convolution-smoothed prediction-powered quantile-regression estimators
+\citep{TakeishiDingHe2026} target finite-dimensional coefficients with limited
+gold-standard outcomes, rather than a local CDF process under selective
+verification. The present method estimates a local conditional CDF when the
+reference outcome is selectively observed, a surrogate is broadly available,
+and the verification fraction may decrease. The canonical gradient gives the
+efficiency bound, and the quadratic criterion determines how much surrogate
+information to use. Sample splitting separates weight selection from CDF
+evaluation. The triangular-array limit then supports simultaneous CDF and
+quantile inference.

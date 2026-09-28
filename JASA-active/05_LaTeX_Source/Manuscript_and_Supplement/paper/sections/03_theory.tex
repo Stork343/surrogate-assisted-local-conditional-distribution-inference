@@ -1,0 +1,349 @@
+\section{Large-sample theory for the local CDF}
+\label{sec:theory}
+
+For a fixed bandwidth, the inferential target is the kernel-localized
+distribution \(F_{h,0}(\cdot\mid x_0)\); Section~\ref{sec:applications} uses
+study-specific controlled-sampling benchmarks. We
+establish that estimating the
+borrowing weight has no first-order cost, derive a uniform CDF limit and a
+multiplier approximation, and then characterize the efficiency of surrogate
+borrowing. Replacing \(F_{h,0}\) by the point target
+\(F_0(\cdot\mid x_0)\) requires localization bias to be negligible at the
+stochastic scale.
+
+\subsection{Conditions and local information}
+
+Write
+\[
+N_{M,h}=Mp_Mh^d,
+\qquad
+\kappa_K=
+\frac{\int K^2(u)\,du}{\{\int K(u)\,du\}^2}.
+\]
+The quantity \(N_{M,h}\) is the expected order of the verified sample in the
+target neighborhood. It, rather than \(M\), determines the stochastic rate.
+
+For a threshold-indexed function \(b\), define the local verification metric
+\[
+\|b\|_{\mathrm{ver}}^2
+=
+\sup_{y\in\mathcal Y}
+\frac{p_Mh^d}{\mu_h^2}
+E\left[
+K_h^2(X-x_0)
+\left\{\frac1{\pi_M(W)}-1\right\}b_y^2(W)
+\right].
+\]
+
+\begin{highlevelassumption}[Observed-data identification and verification]
+\label{ass:verification}
+Within each row \(M\), the observations are independent and identically
+distributed, the joint law of \((W,Y)\) is fixed, and \(R\perp Y\mid W\). The
+known verification probability satisfies \(\pi_M(W)=p_Me_M(W)\), where
+\(p_M=E\{\pi_M(W)\}\to p\in[0,1]\), \(E\{e_M(W)\}=1\), and
+\(0<c_e\le e_M(W)\le C_e<\infty\) almost surely.
+\end{highlevelassumption}
+
+\begin{highlevelassumption}[Localization and the local-information rate]
+\label{ass:localization}
+The point \(x_0\) is interior to the support of \(X\), and \(f_X\) is positive
+and continuous there. The nonnegative kernel is bounded, symmetric, compactly
+supported, and of bounded variation, with positive finite first and second
+integrals. The bandwidth satisfies \(h\to0\) and \(N_{M,h}\to\infty\).
+\end{highlevelassumption}
+
+\begin{highlevelassumption}[Candidate paths and sample separation]
+\label{ass:candidates}
+Regression fitting, weight selection, and CDF evaluation use disjoint samples
+whose limiting proportions are positive. The fitted threshold regressions are
+uniformly bounded and converge in the local verification metric to
+deterministic triangular paths \(q_M\) and \(m_M\). The fold-specific oracle
+paths converge in that metric to a common population-minimizing path \(a_M\),
+and \(a_M\) converges locally and uniformly over thresholds in conditional
+\(L_2\) to a bounded path \(a_\infty\).
+\end{highlevelassumption}
+
+\begin{highlevelassumption}[Transfer-path curvature and degeneracy]
+\label{ass:transfer-path}
+For each rotation, the normalized curvature
+\(\mathcal H_{h,k}=p_MH_{M,h,k}\) converges to
+\(H_{\infty,k}\in[0,\infty)\). The stabilizer satisfies
+\(\varepsilon_{H,M}\downarrow0\) and
+\(p_M\varepsilon_{H,M}=o(H_{\infty,k})\) when \(H_{\infty,k}>0\).
+Write \(\mathcal H_{M,h}\) for the analogous normalized curvature of the
+deterministic difference \(m_M-q_M\). Then
+\[
+\|m_M-q_M\|_{\mathrm{ver}}^2
+\le \omega(\mathcal H_{M,h})+o(1),
+\]
+where \(\omega\) is nondecreasing, continuous at zero, and \(\omega(0)=0\).
+The same relation holds in probability after replacing the deterministic
+difference and curvature by \(\widehat m_k-\widehat q_k\) and
+\(\mathcal H_{h,k}\), respectively.
+\end{highlevelassumption}
+
+\begin{highlevelassumption}[Threshold-process regularity]
+\label{ass:process}
+\begin{enumerate}[label=(\alph*),leftmargin=2em]
+\item The threshold set is compact. Conditional CDF increments are locally
+Lipschitz in the threshold, and augmentation-path increments are locally
+H\"older in conditional \(L_2\). The path-oracle and fitted-difference classes
+are uniformly VC-type, have square-integrable envelopes satisfying the
+triangular-array Lindeberg condition, and have fitted-difference envelopes that
+vanish in the local \(L_2\) metric.
+\item The local covariance integrand converges uniformly to a continuous
+kernel \(\Gamma_p\) defining a tight Gaussian process. For simultaneous bands,
+the distribution of \(\|\mathbb G_p\|_{\mathcal Y}\) is continuous at the
+target critical value.
+\end{enumerate}
+\end{highlevelassumption}
+
+Here \(e_0(W)\) denotes the local limit of \(e_M(W)\) entering the covariance
+integrand in Assumption~\ref{ass:process}(b).
+
+\begin{highlevelassumption}[Point-target and quantile regularity]
+\label{ass:point-quantile}
+Uniformly over thresholds, the target CDF and covariate density have bounded
+continuous second derivatives in \(x\) near \(x_0\). For quantile inference,
+\(F_0(\cdot\mid x_0)\) is continuously differentiable and strictly increasing
+on the threshold region, its values remain in an interior probability range,
+and \(f_{Y\mid X}(\cdot\mid x_0)\) is bounded above and away from zero there.
+\end{highlevelassumption}
+
+Supplementary Section S1 gives the primitive conditions and their exact map to
+Assumptions~\ref{ass:verification}--\ref{ass:point-quantile}. Write
+\(\Delta_y(W)=a_{\infty,y}(W)-m_{0,y}(W)\).
+
+\subsection{Adaptive estimation of the local CDF}
+
+We first compare the feasible estimator with a path oracle. Let
+\(\widehat F_h^{\mathrm{or}}\) denote the sample-split estimator that uses the
+same fitted candidate regressions as the feasible estimator and replaces each
+selected weight by its fold-specific population minimizer.
+
+\begin{theorem}[Adaptive path-oracle equivalence]
+\label{thm:oracle-equivalence}
+Under Assumptions~\ref{ass:verification}--\ref{ass:transfer-path} and
+Assumption~\ref{ass:process}(a), the criterion regret after multiplication by
+\(p_M\) is \(O_{\mathbb P}(N_{M,h}^{-1/2}+\varepsilon_M)\), where
+\(\varepsilon_M=p_M\varepsilon_{H,M}\). If the limiting curvature is positive,
+\(\widehat\lambda_{h,k}-\lambda_{h,k}^{\mathrm{or}}=
+O_{\mathbb P}(N_{M,h}^{-1/2})\). If, eventually,
+\(\lambda_{h,k}^{\mathrm{or}}\in[\delta,1-\delta]\) for some fixed
+\(\delta>0\), criterion regret is \(O_{\mathbb P}(N_{M,h}^{-1})\). If
+curvature tends to zero, the
+fitted correction vanishes in the local process metric. In both cases,
+\[
+\sqrt{N_{M,h}}
+\left\|
+\widehat F_h^{\mathrm{raw}}-\widehat F_h^{\mathrm{or}}
+\right\|_{\mathcal Y}
+=o_{\mathbb P}(1).
+\]
+\end{theorem}
+
+The theorem separates adaptation from CDF estimation. The selection step is
+first-order negligible whether the candidate path has positive curvature or
+collapses to the anchor. The remaining stochastic rate depends on local
+verified information even when the overall verification fraction decreases.
+Define
+\begin{align}
+\mathbb Z_M(y)
+&=
+\sqrt{N_{M,h}}
+\{\widehat F_h^{\mathrm{raw}}(y\mid x_0)-F_{h,0}(y\mid x_0)\},
+\label{eq:scaled-cdf-process}\\
+\mathbb Z_M
+&\Rightarrow
+\mathbb G_p
+\quad\text{in }\ell^\infty(\mathcal Y).
+\label{eq:process-limit}
+\end{align}
+
+\begin{theorem}[Uniform convergence of the kernel-localized CDF]
+\label{thm:process}
+Under Assumptions~\ref{ass:verification}--\ref{ass:process},
+\eqref{eq:process-limit} holds for a tight
+mean-zero Gaussian process with covariance kernel
+\begin{align}
+\Gamma_p(y,z)
+&=
+\frac{\kappa_K}{f_X(x_0)}
+E\Bigg[
+\frac{C_{yz}(W)}{e_0(W)}
++
+\left\{\frac1{e_0(W)}-p\right\}
+\Delta_y(W)\Delta_z(W)
+\nonumber\\[-2pt]
+&\hspace{24mm}
++p\{m_{0,y}(W)-F_0(y\mid x_0)\}
+  \{m_{0,z}(W)-F_0(z\mid x_0)\}
+\,\Bigm|\,X=x_0
+\Bigg].
+\label{eq:cov-limit}
+\end{align}
+\end{theorem}
+
+The covariance identifies the part that adaptive borrowing can change: the
+term involving \(\Delta_y\Delta_z\) is the cost of augmentation error. The
+remaining terms come from verified-outcome variation and heterogeneity within
+\(X=x_0\); the latter vanishes when \(p=0\). Scarcity enters through \(p_M\) in
+the rate, while \(e_0^{-1}\) records where verification occurs locally. Equal
+verified counts can therefore yield different precision at \(x_0\).
+
+\subsection{Simultaneous bands and conditional quantiles}
+
+Let \(\mathbb G_M^\xi\) be the evaluation-fold Rademacher multiplier process
+formed from the fitted influence contributions. The Supplement gives its exact
+construction and the estimated-process replacement argument.
+
+\begin{theorem}[Multiplier process]
+\label{thm:bootstrap}
+Under Assumptions~\ref{ass:verification}--\ref{ass:process},
+\begin{equation}
+\mathbb G_M^\xi
+\Rightarrow_{\mathbb P}
+\mathbb G_p
+\quad\text{in }\ell^\infty(\mathcal Y).
+\label{eq:bootstrap-limit}
+\end{equation}
+If \(c_{1-\alpha}^\xi\) is the conditional \((1-\alpha)\)-quantile of the
+multiplier supremum, then
+\begin{equation}
+\Pr\left[
+F_{h,0}(y\mid x_0)
+\in
+\left\{
+\widehat F_h^{\mathrm{raw}}(y\mid x_0)
+\pm
+\frac{c_{1-\alpha}^\xi}{\sqrt{N_{M,h}}}
+\right\}
+\text{ for every }y\in\mathcal Y
+\right]
+\to1-\alpha.
+\label{eq:band}
+\end{equation}
+\end{theorem}
+
+One multiplier critical value therefore gives simultaneous coverage over the
+threshold region. This conclusion concerns \(F_{h,0}\). The next result states
+the additional bias and shape conditions needed for the scientific point
+target and its quantiles.
+
+\begin{corollary}[Point-target CDF and conditional quantiles]
+\label{cor:F0}
+\label{cor:quantile}
+Suppose Theorems~\ref{thm:process} and \ref{thm:bootstrap} and
+Assumption~\ref{ass:point-quantile} hold. If
+\(\sqrt{N_{M,h}}h^2\to0\), the process limit and confidence band remain valid
+with \(F_0(\cdot\mid x_0)\) in place of \(F_{h,0}(\cdot\mid x_0)\). If the point
+target is strictly increasing on the threshold region with conditional density
+bounded above and away from zero, increasing rearrangement is first-order
+neutral and, for compact \(\mathcal T\) in the target probability range,
+\begin{align}
+\sqrt{N_{M,h}}
+\{\widehat Q_h(\cdot\mid x_0)-Q_0(\cdot\mid x_0)\}
+&\Rightarrow
+\mathbb Q_p,
+\label{eq:quantile-limit}\\
+\mathbb Q_p(\tau)
+&=-
+\frac{\mathbb G_p\{Q_0(\tau\mid x_0)\}}
+{f_{Y\mid X}\{Q_0(\tau\mid x_0)\mid x_0\}}.
+\label{eq:quantile-gaussian-limit}
+\end{align}
+\end{corollary}
+
+The fixed-bandwidth simulations evaluate \(F_{h,0}\). In
+Section~\ref{sec:applications}, EPA and VitalDB use the full-data empirical
+analogue \(F_{h,\mathrm{emp}}\), whereas the synthetic AI study uses its
+population target \(F_{h,0}\). The feasible point-estimation experiments compare with
+\(F_0\).
+
+\subsection{Efficiency of surrogate borrowing}
+
+The canonical gradient identifies the efficiency benchmark, and the covariance
+identity below gives the exact cost of augmentation error.
+
+\begin{theorem}[Canonical gradient and local efficiency bound]
+\label{thm:efficiency}
+Fix \(M\) and \(h\). Under Assumption~\ref{ass:verification},
+\(\mu_h>0\), and
+\(E\{K_h^2(X-x_0)/\pi_M(W)\}<\infty\), the canonical gradient for the
+regularized target at threshold \(y\) is
+\begin{equation}
+\phi_{M,h,y}^{\mathrm{eff}}(O)
+=
+\frac{K_h(X-x_0)}{\mu_h}
+\left[
+m_{0,y}(W)
++\frac{R}{\pi_M(W)}\{Z_y-m_{0,y}(W)\}
+-F_{h,0}(y\mid x_0)
+\right].
+\label{eq:efficient-if-threshold}
+\end{equation}
+Its covariance over any finite threshold collection is the semiparametric
+efficiency bound. The same bound applies when the verification law is
+unrestricted because the gradient is orthogonal to its tangent space.
+\end{theorem}
+
+This theorem establishes the efficiency benchmark for any feasible
+augmentation. The bound uses the true threshold regression \(m_0(W)\).
+Orthogonality to the verification-law tangent space gives the same benchmark
+when a designed sampling probability is treated as known.
+
+For augmentation \(a\), let \(\Omega_{M,h}^{a}(y,z)\) denote the covariance of
+the corresponding scaled influence functions.
+
+\begin{corollary}[Covariance cost of augmentation error]
+\label{cor:cov-order}
+Under Assumption~\ref{ass:verification}, if the relevant second moments are
+finite, then
+\begin{equation}
+\Omega_{M,h}^{a}(y,z)-\Omega_{M,h}^{m_0}(y,z)
+=
+\frac{h^d}{\mu_h^2}
+E\left[
+K_h^2(X-x_0)
+\left\{\frac1{\pi_M(W)}-1\right\}
+\delta_y^a(W)\delta_z^a(W)
+\right].
+\label{eq:psd}
+\end{equation}
+The matrix formed by this difference is positive semidefinite over every finite
+threshold set. Hence the oracle augmentation \(m_0\) attains the efficiency
+bound, and augmentation error accounts exactly for the covariance excess.
+\end{corollary}
+
+This identity turns surrogate quality into a covariance comparison at the
+target neighborhood. The adaptive path restricts that comparison to
+augmentations between the anchor and the fitted surrogate regression.
+
+\begin{theorem}[Local transfer criterion]
+\label{thm:transfer}
+Under Assumption~\ref{ass:verification}, conditional on the candidate
+regressions, suppose the weighted squares defining \(J_{M,h}(0)\) and
+\(H_{M,h}\) are integrable. The integrated augmentation variance is the
+quadratic criterion in Section~\ref{sec:method}. Its minimizer is
+\(\lambda_h^{\mathrm{or}}\) when \(H_{M,h}>0\), and full borrowing improves on
+the anchor exactly when \(2G_{M,h}-H_{M,h}>0\). The path-oracle improvement is
+\begin{equation}
+J_{M,h}(0)-J_{M,h}(\lambda_h^{\mathrm{or}})
+=
+\begin{cases}
+0, & H_{M,h}=0\text{ or }G_{M,h}\le0,\\[2pt]
+G_{M,h}^2/H_{M,h}, & 0<G_{M,h}<H_{M,h},\\[2pt]
+2G_{M,h}-H_{M,h}, & G_{M,h}\ge H_{M,h}>0.
+\end{cases}
+\label{eq:oracle-gain}
+\end{equation}
+\end{theorem}
+
+The criterion compares the anchor and Full along the fitted correction path.
+Its sign diagnoses full borrowing, while \(\lambda_h^{\mathrm{or}}\) chooses the
+best point on that path. Neither statement implies finite-sample dominance over
+the anchor, a distinction examined in the numerical studies.
+
+The Supplement gives complete proofs, the finite-threshold specialization, the
+limit of the efficiency bound, estimated-probability conditions, cluster
+inference, and local-linear extensions.

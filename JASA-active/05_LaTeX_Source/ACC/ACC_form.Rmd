@@ -1,0 +1,274 @@
+---
+title: "Author Contributions Checklist"
+subtitle: "Surrogate-Assisted Local Conditional Distribution Inference with Scarce Reference Outcomes"
+date: "25 August 2026"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: false
+fontsize: 10pt
+geometry: margin=0.80in
+header-includes:
+  - \usepackage{enumitem}
+  - \setlist{nosep,leftmargin=*}
+---
+
+This form documents the data and code supporting the computational findings in
+the article and describes how to reproduce those findings.
+
+# Part 1: Data
+
+- [ ] This paper does not involve analysis of external data.
+
+- [x] I certify that the authors have legitimate access to and permission to
+  use the data analyzed in this manuscript.
+
+## Abstract
+
+The empirical analyses use two public data sources and one author-generated
+synthetic benchmark. The EPA study analyzes 2,814 collocated air-sensor
+site-days. The VitalDB study analyzes one matched pulse-oximetry and
+arterial-blood-gas pair for each of 3,178 subjects. The synthetic study contains
+6,000 evaluation dossiers, of which 5,997 have valid automated scores; the
+primary analysis uses 2,998 cases from Corpus A. Simulation outputs and derived
+data supporting all reported figures and tables accompany the submission.
+
+## Availability
+
+- [x] Data **are** publicly available.
+- [ ] Data **cannot be made** publicly available.
+
+### Publicly available data
+
+- [x] Data are available online at:
+
+  - EPA, *Long term performance of six air sensors across the United States*:
+    <https://doi.org/10.23719/1531918> and
+    <https://catalog.data.gov/dataset/dataset-long-term-performance-of-six-air-sensors-across-the-united-states>.
+  - VitalDB: <https://vitaldb.net/> and its public Web API,
+    <https://api.vitaldb.net/>. The data resource is described in
+    <https://doi.org/10.1038/s41597-022-01411-5>.
+
+- [x] Data are available as part of the paper's supplementary material.
+
+  The anonymous computational supplement contains the author-generated
+  synthetic dossiers, expert outcomes, parsed automated-score tables, derived
+  application data, and numerical summaries used to produce the manuscript
+  tables and figures.
+
+- [ ] Data are publicly available by request.
+
+- [ ] Data are available through another mechanism.
+
+### Non-publicly available data
+
+Not applicable to the data required to reproduce the reported findings. Raw
+API response caches and API credentials are not required for reproduction and
+are not distributed. The parsed automated scores used in the analyses are
+provided.
+
+## Description
+
+### File format(s)
+
+- [x] CSV or other plain text.
+- [x] Software-specific binary format: R data files (`.rds`).
+- [ ] Standardized binary format such as netCDF or HDF5.
+- [x] Other: JSON, JSONL, and YAML files are used for synthetic dossiers,
+  configuration, and provenance records.
+
+### Data dictionary
+
+- [x] Provided by the authors in the following files:
+
+  - `data-raw/README.md`;
+  - `data-raw/epa_long_term/README.md`;
+  - `analysis/README.md`;
+  - `reproducibility/reference_mask_split_map.md`;
+  - `reproducibility/table_results_map.csv`;
+  - `reproducibility/application_story/source_manifest.csv`.
+
+- [ ] Data files are self-describing standardized binary files.
+- [ ] A separate data dictionary is available at another URL.
+
+### Additional Information
+
+The EPA source archive is retrieved by the supplied analysis code rather than
+redistributed. VitalDB data are retrieved through the public VitalDB interface
+under its access terms. The supplied synthetic dossiers contain no real-person
+records. The computational supplement contains no API credential.
+
+# Part 2: Code
+
+## Abstract
+
+The supplied R package and analysis scripts implement the proposed local-CDF
+estimators, adaptive borrowing criterion, simulation designs, multiplier
+procedures, empirical analyses, and generation of manuscript tables and
+figures. Python code retrieves and matches the public VitalDB measurements.
+Shell and R entry points validate the numerical evidence and rebuild all
+manuscript displays. Unit tests cover the estimator, sample splitting,
+simulation design, application helpers, and claim-to-result correspondence.
+
+## Description
+
+### Code format(s)
+
+- [x] Script files
+    - [x] R
+    - [x] Python
+    - [ ] Julia
+    - [ ] MATLAB
+    - [ ] Other
+- [x] Package
+    - [x] R
+    - [ ] Python
+    - [ ] Julia
+    - [ ] MATLAB toolbox
+    - [ ] Other
+- [ ] Reproducible report
+- [x] Shell script
+- [x] Other: LaTeX manuscript and Supplement sources.
+
+### Supporting software requirements
+
+#### Primary software used
+
+- R 4.3.2;
+- Python 3.12.1;
+- a POSIX-compatible shell;
+- TeX Live 2024 and Pandoc 3.1.12.3 for rebuilding the manuscript PDFs.
+
+#### Libraries and dependencies used by the code
+
+R package versions are recorded in `renv.lock`,
+`reproducibility/session_info.txt`, and
+`reproducibility/r_package_inventory.csv`. The package-level requirements are
+listed in `DESCRIPTION`. Python packages used for figure production are pinned
+in `reproducibility/requirements-figures.txt`.
+
+### Supporting system/hardware requirements
+
+The release was validated on Apple Silicon running macOS 15.4.1. No GPU is
+required. The presentation-only rebuild runs on a standard desktop. Full Monte
+Carlo recomputation benefits from multiple CPU cores and substantial elapsed
+time but does not require a computing cluster.
+
+### Parallelization used
+
+- [ ] No parallel code used.
+- [x] Multi-core parallelization on a single machine/node.
+    - Number of cores used: 4 for the manuscript-facing application and
+      threshold-level recomputations; full simulation scripts accept a
+      user-specified positive core count.
+- [ ] Multi-machine/multi-node parallelization.
+
+### License
+
+- [x] MIT License.
+- [ ] BSD.
+- [ ] GPL v3.0.
+- [ ] Creative Commons.
+- [ ] Other.
+
+### Additional information
+
+The DeepSeek scoring calls are not required for recomputation. The valid
+automated scores used by the manuscript are supplied, and the AI-stage scripts
+reuse those scores without making an external API call.
+
+# Part 3: Reproducibility workflow
+
+## Scope
+
+The provided workflow reproduces:
+
+- [x] Any numbers provided in text in the paper.
+- [x] The computational methods presented in the paper.
+- [x] All tables and figures in the paper.
+- [ ] Selected tables and figures only.
+
+## Workflow
+
+### Location
+
+- [x] As part of the paper's supplementary material.
+- [ ] In a Git repository disclosed during anonymous review.
+- [ ] Other.
+
+The anonymous supplementary archive is self-contained for source inspection,
+tests, reconstruction of manuscript-facing tables and figures, and staged
+recomputation. A public repository location can be added to the accepted
+version of this form after peer review without changing the workflow.
+
+### Format(s)
+
+- [x] Single master code file.
+- [x] Wrapper shell script(s).
+- [ ] Self-contained Quarto, R Markdown, or Jupyter notebook.
+- [x] Text file that documents the workflow.
+- [x] Makefile.
+- [x] Other: an R package with unit tests and staged analysis scripts.
+
+### Instructions
+
+From the root of the uncompressed anonymous supplementary archive:
+
+1. Review `reproducibility/ANONYMOUS_REVIEW_README.md` and `renv.lock`.
+2. Restore the R environment if desired with `renv::restore()` and install the
+   Python figure dependencies from
+   `reproducibility/requirements-figures.txt`.
+3. Rebuild every main figure, the fixed-sample Supplement figure, the three
+   main tables, and Supplement Tables S5--S6 with:
+
+   ```sh
+   bash reproducibility/rebuild_submission_artifacts.sh
+   ```
+
+4. Run the implementation, design-correspondence, and claim-to-evidence checks
+   with:
+
+   ```sh
+   Rscript reproducibility/run_correspondence_gate.R
+   ```
+
+5. Inspect the complete ordered recomputation plan without changing any result
+   file with:
+
+   ```sh
+   Rscript reproduce.R 4 all
+   ```
+
+6. Full recomputation is staged by simulation, application, and AI components.
+   The exact execution and finalization commands are documented in
+   `docs/CANONICAL_RECOMPUTATION_PLAN.md`. The AI stage uses the supplied
+   automated scores and does not call the external scoring service. After a
+   full recomputation, `reproducibility/validate_frozen_results.R` checks the
+   complete result store.
+
+### Expected run-time
+
+Approximate time needed to reproduce the analyses on a standard desktop
+machine:
+
+- [ ] < 1 minute.
+- [ ] 1-10 minutes.
+- [ ] 10-60 minutes.
+- [ ] 1-8 hours.
+- [x] > 8 hours.
+- [ ] Not feasible to run on a desktop machine.
+
+The display rebuild in Step 3 completes in less than one minute in the
+validated environment. Full Monte Carlo recomputation takes more than eight
+hours and is organized into independent stages. The supplied numerical
+results allow every reported table and figure to be rebuilt without rerunning
+the full Monte Carlo program.
+
+### Additional information
+
+`README.md`, `reproducibility/README.md`,
+`docs/CANONICAL_RECOMPUTATION_PLAN.md`, and the package tests document the
+workflow and provide smaller checks of the proposed methods. The anonymous
+archive omits author identities, affiliations, private local paths, and API
+credentials; the complete unblinded archive is retained separately for the
+editors.

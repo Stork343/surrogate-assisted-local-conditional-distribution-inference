@@ -1,0 +1,86 @@
+\section{Independent-cluster process inference}
+\label{sec:supp-cluster}
+
+The EPA analysis assigns calendar weeks to fitting, weight selection, and CDF evaluation folds and uses one multiplier per week. This section gives the corresponding cluster-level result.
+
+Let \(g=1,\ldots,G\) index independent clusters, with observations \(O_{gj}\), \(j=1,\ldots,m_g\), and total size \(M_G=\sum_{g=1}^Gm_g\). Observations within a cluster may be dependent. Regression fitting, weight selection, and CDF evaluation folds are assigned at the cluster level. For an evaluation observation, let \(\phi_{gj,y}\) denote the oracle influence function before multiplication by \(\sqrt{p_Gh^d}\), and define
+\begin{equation}
+\Psi_{G,g,y}^{\mathrm{cl}}
+=
+\sqrt{\frac{Gp_Gh^d}{M_G}}
+\sum_{j=1}^{m_g}\phi_{gj,y}.
+\label{eq:cluster-influence}
+\end{equation}
+Then
+\[
+\frac1{\sqrt G}
+\sum_{g=1}^G\Psi_{G,g,y}^{\mathrm{cl}}
+=
+\sqrt{M_Gp_Gh^d}
+\left\{
+\frac1{M_G}
+\sum_{g=1}^G\sum_{j=1}^{m_g}\phi_{gj,y}
+\right\}.
+\]
+
+\begin{proposition}[Cluster Gaussian and multiplier processes]
+\label{prop:cluster-bootstrap}
+Suppose:
+
+\begin{enumerate}[leftmargin=1.6em]
+\item the clusters are independent, \(M_G/G\to\bar m\in(0,\infty)\), and \(M_Gp_Gh^d\to\infty\);
+\item fold assignments are made by cluster and the fitted-path replacement results hold for the cluster empirical process;
+\item the cluster influence classes are pointwise measurable and satisfy a uniform polynomial entropy bound;
+\item for a cluster envelope \(F_G^{\mathrm{cl}}\),
+   \[
+   G^{-1}\sum_{g=1}^G
+   E\left[
+   (F_G^{\mathrm{cl}})^2
+   1\{F_G^{\mathrm{cl}}>\eta\sqrt G\}
+   \right]
+   \to0
+   \]
+   for every \(\eta>0\);
+\item the covariance kernels
+   \[
+   \frac1G\sum_{g=1}^G
+   E\{\Psi_{G,g,y}^{\mathrm{cl}}
+      \Psi_{G,g,z}^{\mathrm{cl}}\}
+   \]
+   converge uniformly to a continuous kernel \(\Gamma_p^{\mathrm{cl}}(y,z)\), and the associated increment semimetrics are uniformly totally bounded.
+\end{enumerate}
+
+Then
+\begin{equation}
+\sqrt{M_Gp_Gh^d}
+\{\widehat F_h^{\mathrm{raw}}-F_{h,0}\}
+\Rightarrow
+\mathbb G_p^{\mathrm{cl}}
+\quad\text{in }\ell^\infty(\mathcal Y),
+\label{eq:cluster-process-limit}
+\end{equation}
+where \(\mathbb G_p^{\mathrm{cl}}\) has covariance kernel \(\Gamma_p^{\mathrm{cl}}\).
+
+Let \(\widehat\phi_{gj,y}\) be the fitted influence functions and let \(\xi_1,\ldots,\xi_G\) be independent Rademacher multipliers. If the fitted cluster influence functions converge to their oracle counterparts in empirical cluster \(L_2\), then
+\begin{equation}
+\mathbb G_G^{\mathrm{cl},\xi}(y)
+=
+\sqrt{\frac{p_Gh^d}{M_G}}
+\sum_{g=1}^G\xi_g
+\sum_{j=1}^{m_g}\widehat\phi_{gj,y}
+\label{eq:cluster-multiplier}
+\end{equation}
+converges conditionally in probability to \(\mathbb G_p^{\mathrm{cl}}\) in \(\ell^\infty(\mathcal Y)\). Its supremum quantiles give simultaneous cluster-robust confidence bands.
+\end{proposition}
+
+\begin{proof}
+After ratio and fitted-path replacement, the leading process is the independent triangular array
+\[
+G^{-1/2}\sum_{g=1}^G\Psi_{G,g,\cdot}^{\mathrm{cl}}.
+\]
+Conditions 3--5 give the entropy, Lindeberg, covariance, and equicontinuity requirements in the triangular-array functional central limit frameworks of \citet{Ziegler1997} and \citet{Arcones1999}. This proves \eqref{eq:cluster-process-limit}.
+
+Conditional on the clusters, the summands in \eqref{eq:cluster-multiplier} are independent and centered. The cluster product-class maximal inequality gives empirical covariance consistency, and Condition 4 gives conditional finite-dimensional Lindeberg convergence. The conditional entropy bound and empirical increment semimetric yield asymptotic equicontinuity by the argument in Lemma~\ref{lem:multiplier-clt}. Empirical cluster-\(L_2\) replacement transfers the limit from oracle to fitted cluster influences.
+\end{proof}
+
+If \(\max_gm_g\le m_{\max}<\infty\), the observation-level envelope and entropy conditions used in Theorem~\ref{thm:bootstrap} imply the cluster envelope condition. More general cluster sizes are covered by the displayed Lindeberg condition.
