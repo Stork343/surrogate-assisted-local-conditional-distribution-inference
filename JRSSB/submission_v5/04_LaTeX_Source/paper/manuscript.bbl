@@ -1,0 +1,182 @@
+\begin{thebibliography}{24}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anderson(1955)]{Anderson1955}
+T.~W. Anderson.
+\newblock The integral of a symmetric unimodal function over a symmetric convex
+  set and some probability inequalities.
+\newblock \emph{Proceedings of the American Mathematical Society}, 6\penalty0
+  (2):\penalty0 170--176, 1955.
+\newblock \doi{10.1090/S0002-9939-1955-0069229-1}.
+
+\bibitem[Angelopoulos et~al.(2021)Angelopoulos, Bates, Cand{\`e}s, Jordan, and
+  Lei]{angelopoulos2021learn}
+Anastasios~N. Angelopoulos, Stephen Bates, Emmanuel~J. Cand{\`e}s, Michael~I.
+  Jordan, and Lihua Lei.
+\newblock Learn then test: Calibrating predictive algorithms to achieve risk
+  control.
+\newblock \emph{arXiv preprint arXiv:2110.01052}, 2021.
+\newblock \doi{10.48550/arXiv.2110.01052}.
+
+\bibitem[Angelopoulos et~al.(2023{\natexlab{a}})Angelopoulos, Bates, Fannjiang,
+  Jordan, and Zrnic]{AngelopoulosEtAl2023}
+Anastasios~N. Angelopoulos, Stephen Bates, Clara Fannjiang, Michael~I. Jordan,
+  and Tijana Zrnic.
+\newblock Prediction-powered inference.
+\newblock \emph{Science}, 382\penalty0 (6671):\penalty0 669--674,
+  2023{\natexlab{a}}.
+\newblock \doi{10.1126/science.adi6000}.
+
+\bibitem[Angelopoulos et~al.(2023{\natexlab{b}})Angelopoulos, Duchi, and
+  Zrnic]{AngelopoulosDuchiZrnic2023}
+Anastasios~N. Angelopoulos, John~C. Duchi, and Tijana Zrnic.
+\newblock {PPI++}: Efficient prediction-powered inference.
+\newblock \emph{arXiv preprint arXiv:2311.01453}, 2023{\natexlab{b}}.
+\newblock \doi{10.48550/arXiv.2311.01453}.
+
+\bibitem[Barkjohn et~al.(2025)Barkjohn, Yaga, Thomas, Schoppman, Docherty, and
+  Clements]{Barkjohn2025}
+Karoline~K. Barkjohn, Robert Yaga, Brittany Thomas, William Schoppman,
+  Kenneth~S. Docherty, and Andrea~L. Clements.
+\newblock Evaluation of long-term performance of six {PM2.5} sensor types.
+\newblock \emph{Sensors}, 25\penalty0 (4):\penalty0 1265, 2025.
+\newblock \doi{10.3390/s25041265}.
+
+\bibitem[Cao et~al.(2009)Cao, Tsiatis, and Davidian]{CaoTsiatisDavidian2009}
+Weihua Cao, Anastasios~A. Tsiatis, and Marie Davidian.
+\newblock Improving efficiency and robustness of the doubly robust estimator
+  for a population mean with incomplete data.
+\newblock \emph{Biometrika}, 96\penalty0 (3):\penalty0 723--734, 2009.
+\newblock \doi{10.1093/biomet/asp033}.
+
+\bibitem[Cattaneo et~al.(2024)Cattaneo, Jansson, and Ma]{CattaneoJanssonMa2024}
+Matias~D. Cattaneo, Michael Jansson, and Xinwei Ma.
+\newblock Local regression distribution estimators.
+\newblock \emph{Journal of Econometrics}, 240\penalty0 (2):\penalty0 105074,
+  2024.
+\newblock \doi{10.1016/j.jeconom.2021.01.006}.
+
+\bibitem[Chakrabortty and Cai(2018)]{ChakraborttyCai2018}
+Abhishek Chakrabortty and Tianxi Cai.
+\newblock Efficient and adaptive linear regression in semi-supervised settings.
+\newblock \emph{The Annals of Statistics}, 46\penalty0 (4):\penalty0
+  1541--1572, 2018.
+\newblock \doi{10.1214/17-AOS1594}.
+
+\bibitem[Chernozhukov et~al.(2016)Chernozhukov, Chetverikov, and
+  Kato]{cck2016clt}
+Victor Chernozhukov, Denis Chetverikov, and Kengo Kato.
+\newblock Central limit theorems and bootstrap in high dimensions.
+\newblock \emph{arXiv preprint arXiv:1412.3661}, 2016.
+\newblock \doi{10.48550/arXiv.1412.3661}.
+
+\bibitem[Eyre and Madras(2025)]{Eyre2025}
+Benjamin Eyre and David Madras.
+\newblock Regression for the mean: Auto-evaluation and inference with few
+  labels through post-hoc regression.
+\newblock In \emph{Proceedings of the 42nd International Conference on Machine
+  Learning}, volume 267 of \emph{Proceedings of Machine Learning Research},
+  pages 15596--15612, 2025.
+
+\bibitem[Kallus and Mao(2025)]{KallusMao2025}
+Nathan Kallus and Xiaojie Mao.
+\newblock On the role of surrogates in the efficient estimation of treatment
+  effects with limited outcome data.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 87\penalty0 (2):\penalty0 480--509, 2025.
+\newblock \doi{10.1093/jrsssb/qkae099}.
+
+\bibitem[Li et~al.(2026)Li, Jiang, and Zhang]{li2026multisource}
+Wenhui Li, Fen Jiang, and Xinyu Zhang.
+\newblock Multi-source prediction-powered inference.
+\newblock \emph{arXiv preprint arXiv:2606.21232}, 2026.
+\newblock \doi{10.48550/arXiv.2606.21232}.
+
+\bibitem[Mani et~al.(2025)Mani, Xu, Lipton, and Oberst]{mani2025nofreelunch}
+Pranav Mani, Peng Xu, Zachary Lipton, and Michael Oberst.
+\newblock No free lunch: Non-asymptotic analysis of prediction-powered
+  inference.
+\newblock \emph{arXiv preprint arXiv:2505.20178}, 2025.
+\newblock \doi{10.48550/arXiv.2505.20178}.
+
+\bibitem[Pepe(1992)]{Pepe1992}
+Margaret~Sullivan Pepe.
+\newblock Inference using surrogate outcome data and a validation sample.
+\newblock \emph{Biometrika}, 79\penalty0 (2):\penalty0 355--365, 1992.
+\newblock \doi{10.1093/biomet/79.2.355}.
+
+\bibitem[Robins et~al.(1994)Robins, Rotnitzky, and
+  Zhao]{RobinsRotnitzkyZhao1994}
+James~M. Robins, Andrea Rotnitzky, and Lue~Ping Zhao.
+\newblock Estimation of regression coefficients when some regressors are not
+  always observed.
+\newblock \emph{Journal of the American Statistical Association}, 89\penalty0
+  (427):\penalty0 846--866, 1994.
+\newblock \doi{10.1080/01621459.1994.10476818}.
+
+\bibitem[Song et~al.(2024)Song, Lin, and Zhou]{Song2024}
+Shanshan Song, Yuanyuan Lin, and Yong Zhou.
+\newblock A general {M}-estimation theory in semi-supervised framework.
+\newblock \emph{Journal of the American Statistical Association}, 119\penalty0
+  (546):\penalty0 1065--1075, 2024.
+\newblock \doi{10.1080/01621459.2023.2169699}.
+
+\bibitem[Sui et~al.(2026)Sui, Zhou, Zhou, and Dai]{SuiEtAl2026}
+Yang Sui, Jin Zhou, Hua Zhou, and Xiaowu Dai.
+\newblock Prediction-powered conditional inference.
+\newblock \emph{arXiv preprint arXiv:2603.05575}, 2026.
+\newblock \doi{10.48550/arXiv.2603.05575}.
+
+\bibitem[Tao et~al.(2017)Tao, Zeng, and Lin]{TaoZengLin2017}
+Ran Tao, Donglin Zeng, and Dan-Yu Lin.
+\newblock Efficient semiparametric inference under two-phase sampling, with
+  applications to genetic association studies.
+\newblock \emph{Journal of the American Statistical Association}, 112\penalty0
+  (520):\penalty0 1468--1476, 2017.
+\newblock \doi{10.1080/01621459.2017.1295864}.
+
+\bibitem[Testa et~al.(2025)Testa, Xu, Lei, and Roeder]{TestaEtAl2025}
+Lorenzo Testa, Qi~Xu, Jing Lei, and Kathryn Roeder.
+\newblock Semiparametric semi-supervised learning for general targets under
+  distribution shift and decaying overlap.
+\newblock \emph{arXiv preprint arXiv:2505.06452}, 2025.
+\newblock \doi{10.48550/arXiv.2505.06452}.
+
+\bibitem[Tsiatis(2006)]{Tsiatis2006}
+Anastasios~A. Tsiatis.
+\newblock \emph{Semiparametric Theory and Missing Data}.
+\newblock Springer Series in Statistics. Springer, New York, 2006.
+\newblock \doi{10.1007/0-387-37345-4}.
+
+\bibitem[Wang(2026)]{Wang2026}
+Pengyun Wang.
+\newblock Efficient transported distributional and quantile treatment effects
+  with surrogate-assisted missing primary outcomes.
+\newblock \emph{arXiv preprint arXiv:2605.02154}, 2026.
+\newblock \doi{10.48550/arXiv.2605.02154}.
+
+\bibitem[Zhang et~al.(2019)Zhang, Brown, and Cai]{ZhangBrownCai2019}
+Anru Zhang, Lawrence~D. Brown, and T.~Tony Cai.
+\newblock Semi-supervised inference: General theory and estimation of means.
+\newblock \emph{The Annals of Statistics}, 47\penalty0 (5):\penalty0
+  2538--2566, 2019.
+\newblock \doi{10.1214/18-AOS1756}.
+
+\bibitem[Zhang and Li(2026)]{zhang2026generation}
+Yijiao Zhang and Hongzhe Li.
+\newblock Generation-powered inference for distribution-valued outcomes.
+\newblock \emph{arXiv preprint arXiv:2608.14542}, 2026.
+\newblock \doi{10.48550/arXiv.2608.14542}.
+
+\bibitem[Zrnic and Cand{\`e}s(2024)]{ZrnicCandes2024}
+Tijana Zrnic and Emmanuel~J. Cand{\`e}s.
+\newblock Cross-prediction-powered inference.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 121\penalty0
+  (15):\penalty0 e2322083121, 2024.
+\newblock \doi{10.1073/pnas.2322083121}.
+
+\end{thebibliography}

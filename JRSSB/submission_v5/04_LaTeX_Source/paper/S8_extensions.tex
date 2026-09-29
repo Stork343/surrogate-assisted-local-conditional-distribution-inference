@@ -1,0 +1,98 @@
+\section{Reference efficiency and extensions of the original framework}
+\subsection{Canonical gradient and covariance excess}
+For fixed $h$ and verification law, let $m_{0,y}(W)=\E(Z_y\mid W)$ and $F_h(y)=\E(K_hZ_y)/\mu_h$. The canonical gradient is
+\begin{equation}\label{eq:efficient}
+ \phi^{\mathrm{eff}}_{h,y}(O)=\frac{K_h}{\mu_h}
+ \left\{m_{0,y}(W)+\frac R\pi(Z_y-m_{0,y}(W))-F_h(y)\right\}.
+\end{equation}
+To verify the gradient identity, write an observed-data score as $s_W(W)+Rs_Y(Y,W)$, where $\E s_W=0$ and $\E(s_Y\mid W)=0$. The pathwise derivative of $F_h$ is
+\[
+ \mu_h^{-1}\E\{K_h(Z_y-F_h)(s_W+s_Y)\}.
+\]
+Taking the inner product of \eqref{eq:efficient} with the observed score yields exactly this derivative, by iterated expectation and $\E R\mid W=\pi$. The displayed gradient lies in the observed tangent space: its first component is a mean-zero function of $W$, and its second is $R$ times a conditionally mean-zero residual. If the verification law is unknown, its additional tangent scores have form $(R-\pi)b(W)$; their inner products with \eqref{eq:efficient} vanish. Thus the same efficiency bound applies. This is the standard missing-data tangent-space argument specialised to the local distribution \citep{Tsiatis2006,RobinsRotnitzkyZhao1994}.
+
+For any fixed augmentation $a$, write $\delta_y^a=a_y-m_{0,y}$ and $C_{yz}(W)=\Cov(Z_y,Z_z\mid W)$. Then
+\[
+ U_y(a)=m_{0,y}+\frac R\pi(Z_y-m_{0,y})+(1-R/\pi)\delta_y^a.
+\]
+Conditional cross-covariances between the two residual terms are zero because $\E(Z_y-m_{0,y}\mid W)=0$. Therefore
+\begin{equation}
+ \Cov\{U_y(a),U_z(a)\mid W\}
+ =\frac{C_{yz}(W)}{\pi(W)}+(\pi(W)^{-1}-1)\delta_y^a\delta_z^a.
+\end{equation}
+The conditional means are $m_{0,y}$. Taking total covariance and multiplying by the kernel factors shows that the influence covariance exceeds the efficient one by
+\begin{equation}\label{eq:excess}
+ \mu_h^{-2}\E\{K_h^2(\pi^{-1}-1)\delta_y^a\delta_z^a\}.
+\end{equation}
+Over every finite grid this is positive semidefinite. If an estimator attains the true $m_0$, it dominates other fixed augmentations in covariance and in centred convex Gaussian-set probabilities. The fitted scalar path in the separation example need not contain that estimator; this is why the example does not conflict with operator-efficiency results such as \citet{zhang2026generation}.
+
+\subsection{The integrated-variance rule as a comparison method}
+Put $A=m_0-q$, $D=m-q$, and use a finite threshold measure $\nu$. The augmentation-dependent integrated variance is
+\[
+ J_h(\lambda)=\E\{v_h^*(W)\|A-\lambda D\|_\nu^2\},\quad
+ v_h^*(W)=\frac{h^dK_h^2}{\mu_h^2}(\pi^{-1}-1).
+\]
+Direct expansion gives $J_h(\lambda)=J_h(0)-2\lambda G_h+\lambda^2H_h$, where
+\[
+ G_h=\E\{v_h^*\langle A,D\rangle_\nu\},\qquad
+ H_h=\E\{v_h^*\|D\|_\nu^2\}.
+\]
+Since $\E\{R\pi^{-1}(Z-q)\mid W\}=A$, $G_h$ has an observable inverse-probability representation. For $H_h>0$ the constrained optimum is $\Pi_{[0,1]}(G_h/H_h)$; for $H_h=0$ use zero. Full borrowing improves the anchor exactly when $2G_h-H_h>0$. The improvement is zero when $G_h\leq0$, $G_h^2/H_h$ when $0<G_h<H_h$, and $2G_h-H_h$ when $G_h\geq H_h>0$.
+
+These are retained as efficiency identities and motivate the Trace comparator; they are not counted as new paired-certification principles. Covariance-based trace estimation in the new simulation targets the trace of the full fitted-path covariance, including all terms independent of the weight. Its population minimiser agrees with the equal-weight version of the integrated criterion.
+
+For the earlier ratio selector, bounded moments give normalised estimates $p(\widehat G_h-G_h),p(\widehat H_h-H_h)=O_P(N_G^{-1/2})$. If $pH_h$ is bounded below, the projection map and a ratio expansion imply $\widehat\lambda-\lambda^{\mathrm{or}}=O_P(N_G^{-1/2})$. The correction in an independent evaluation mean has variance of order $(\widehat\lambda-\lambda^{\mathrm{or}})^2$ on the local process scale; it is therefore $o_P(1)$. If the correction collapses in the uniform local verification norm, every bounded difference of weights has the same negligible evaluation effect. With an entropy bound this argument extends from finite thresholds to the whole process. It does not require treating a random fitted regression as the true conditional distribution.
+
+\subsection{Local covariance limit and point-target bias}
+Suppose $h\to0$, $p\to p_\infty\in[0,1]$, $e(W)$ converges locally to $e_0(W)$, and the fitted limiting augmentation is $a_\infty$. Write $\delta=a_\infty-m_0$. Kernel change of variables, uniform local covariance convergence and dominated convergence give the covariance of the $\sqrt{nph^d}$-scaled ratio process:
+\begin{align}
+ \Gamma(y,z)=\frac{\kappa_K}{f_X(x_0)}\E\big[&C_{yz}/e_0+(e_0^{-1}-p_\infty)\delta_y\delta_z\notag\\
+ &+p_\infty\{m_{0,y}-F_0(y\mid x_0)\}\{m_{0,z}-F_0(z\mid x_0)\}\mid X=x_0\big],
+\end{align}
+where $\kappa_K=\int K^2/(\int K)^2$. To see the normalisation, write $\mu_h=h^df_X(x_0)\int K+o(h^d)$ and
+$\E K_h^2b(W)=h^df_X(x_0)\int K^2\E\{b(W)\mid X=x_0\}+o(h^d)$.
+The three terms follow from conditional covariance plus covariance of the conditional mean. Verification scarcity affects the rate and removes the last term when $p_\infty=0$; selective allocation remains through $e_0^{-1}$.
+
+For a symmetric second-order kernel, a twice differentiable covariate density and conditional distribution with uniformly bounded second derivatives,
+\[
+ \E K_hZ_y=h^d\int K(u)F_0(y\mid x_0+hu)f_X(x_0+hu)\,du.
+\]
+Taylor expansion makes first-order terms vanish by symmetry. Expanding the denominator in the same way yields $\sup_y|F_h(y)-F_0(y\mid x_0)|=O(h^2)$. Hence $\sqrt{nph^d}h^2\to0$ transfers the centred process limit and band to the point target. A bias-corrected alternative must also estimate and include the variability of its correction.
+
+If $F_0$ is strictly increasing and has continuous density bounded away from zero on the quantile range, an ordinary inverse-map expansion gives
+\[
+ \sqrt{nph^d}(\widehat Q(\tau)-Q_0(\tau))
+ =-\frac{\sqrt{nph^d}\{\widehat F(Q_0(\tau))-F_0(Q_0(\tau))\}}
+ {f_{Y\mid X}(Q_0(\tau)\mid x_0)}+o_P(1)
+\]
+uniformly in an interior compact probability interval. Rearrangement is first-order neutral under these strict-monotonicity conditions \citep{ChernozhukovEtAl2010}. At atoms, use band inversion from S4 rather than this density formula.
+
+\subsection{Estimated verification probabilities}
+For a separately fitted $\widehat\pi$ and a fixed candidate $a$, the exact conditional drift is
+\begin{equation}
+ \E\left[a+\frac R{\widehat\pi}(Z-a)-Z\,\middle|\,W\right]
+ =\frac{\widehat\pi-\pi}{\widehat\pi}(a-m_0).
+\end{equation}
+For local normalised averaging, put
+\[
+ r_\pi^2=\mu_h^{-1}\E\left[K_h
+ \left\{(\widehat\pi-\pi)/\widehat\pi\right\}^2\right],\qquad
+ r_a^2=\mu_h^{-1}\E[K_h(a-m_0)^2].
+\]
+Cauchy--Schwarz bounds the local drift by $r_\pi r_a$. A sufficient bias condition for pointwise inference is $\sqrt{nph^d}r_\pi r_a=o_P(1)$, uniformly over the reported thresholds. The empirical-process replacement additionally requires the local weighted second moment of the signal difference to vanish, for example
+\[
+ \frac{ph^d}{\mu_h^2}\E\left[K_h^2\pi
+ \{\widehat\pi^{-1}-\pi^{-1}\}^2(Z-a)^2\right]=o_P(1),
+\]
+with an appropriate entropy condition for uniform inference. Positivity bounds must hold for $\widehat\pi/\pi$. A learned propensity also affects covariance-slope calibration, requiring its estimated influence or a nuisance remainder negligible on that calibration scale. The primary simulations and EPA analysis use known probabilities. The training-fold logistic sensitivity in Section S10 additionally measures plug-in performance; it does not treat propensity-model correctness alone as proof of the required drift and calibration-score conditions.
+
+\subsection{Local linear estimation and verification allocation}
+A local linear alternative uses $V_h=(1,(X-x_0)^\top/h)^\top$, $Q_h=\E K_hV_hV_h^\top$ and
+$\beta_h(y)=Q_h^{-1}\E K_hV_hZ_y$. Its intercept influence for fixed $h$ is
+\[
+ e_1^\top Q_h^{-1}K_hV_h\{U_y(a)-V_h^\top\beta_h(y)\}.
+\]
+This follows by differentiating the weighted normal equation; the derivative of $Q_h^{-1}$ supplies the fitted-linear-term subtraction. The same joint path-covariance and paired-gain construction applies when $Q_h$ is nonsingular. Local linear equivalent weights can be negative, so the finite-resolution intercept need not be a cumulative distribution. Monotone whole-distribution envelopes apply to the point target only after the appropriate localisation-bias control establishes grid coverage for that target.
+
+Finally, for an augmentation fixed independently of the audit design, the part of an integrated variance depending on the verification law is of the form $\E[A(W)/\pi(W)]$, $A\geq0$. Under $\E\pi=p$, Cauchy--Schwarz gives
+$\E[A/\pi]\geq\{\E\sqrt A\}^2/p$, with equality at $\pi\propto\sqrt A$ when unconstrained. Under lower and upper probability bounds the pointwise Karush--Kuhn--Tucker equation gives the clipped square-root allocation, with its constant chosen to satisfy the budget. This is an allocation extension of the original variance criterion, not an assertion that it minimises a simultaneous critical value. The present work fixes the known verification design and certifies borrowing conditional on that design.

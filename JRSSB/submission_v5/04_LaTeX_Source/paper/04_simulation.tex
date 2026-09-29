@@ -1,0 +1,108 @@
+\section{Simulation study}
+\label{sec:simulation}
+\subsection{Design, comparators and performance measures}
+The experiments separate three questions about borrowing: improvement in distribution estimation, reduction in simultaneous band width and support for a positive-gain certificate.
+Methods share observations, verification indicators and role assignments within each replication.
+Twelve cells use 500 replications each; Supplementary Table~S1 reports the complete results.
+Table~\ref{tab:simulation} compares all six methods at a common sample size and reference fraction.
+
+We independently generate $X\sim U[-1,1]$, $\varepsilon,\eta\sim N(0,1)$ to form the reference outcome and surrogate:
+\[
+ Y=\mu(X)+\sigma(X)\varepsilon,\quad
+ \mu(x)=1.2x+0.6x^2,\quad \sigma(x)=0.8+0.25x^2,\quad
+ S=\ell(X)Y+\tau\eta.
+\]
+Alignment uses $\ell(x)=1$ and $\tau=0.4$; the weak-surrogate design changes $\tau$ to 1.6.
+The local-reversal design sets $\ell(x)=-1$ for $|x|\leq0.4$ and $\ell(x)=1$ elsewhere.
+The no-signal design takes $\ell(x)=0$; the zero-path design sets the surrogate candidate equal to Anchor.
+
+The target is $F_h(\cdot\mid0)$ with an Epanechnikov kernel, $h=0.35$, and seven thresholds $0.8\Phi^{-1}(u_j)$.
+The $u_j$ are equally spaced from 0.1 to 0.9, with weight grid $\{0,0.1,\ldots,1\}$.
+Sample sizes are 6,000 and 12,000, with reference fractions 0.05, 0.10 and 0.20.
+Bounded selective verification favours larger standardised surrogate readings; Section~S9 gives its probability for comparison with random verification.
+Three equal roles fit Gaussian location--scale regressions, select borrowing and evaluate the distribution.
+Anchor uses mean features $(1,X,X^2)$; the surrogate mean additionally uses $S$.
+
+Anchor and Full fix $\lambda=0$ and 1, respectively, throughout each replication.
+Trace minimises the estimated covariance trace; Plug-in directly minimises the estimated simultaneous critical value.
+Projection estimates a matrix control variate from the same gate covariance, using ridge $0.05\tr(\wh\Omega_{11})/J$.
+Its matrix mixes and reverses threshold corrections, extending the scalar candidate class.
+Paired uses \eqref{eq:rule}, with statistical selection error 0.049 and two numerical selection errors of 0.0005 each.
+Evaluation allocates 0.049 to Gaussian coverage and 0.001 to numerical calibration.
+Radial gradients use 8,192 directions, gate calibration uses 3,999 multiplier draws, and critical-value protection uses 32,768 independent Gaussian draws.
+
+We report simultaneous coverage, within-replication band-width ratios to Anchor, selected weights and grid-integrated squared error (ISE),
+\[
+ \operatorname{ISE}_{J}=J^{-1}\sum_{j=1}^J
+       \{\wh F_h(y_j)-F_h(y_j)\}^2,
+\]
+using the raw estimator on the inferential grid in every comparison.
+Harmful selection means $c_\Omega(\wh\lambda)>c_\Omega(0)+10^{-4}$ for the population covariance of the fitted path.
+Deterministic quadrature evaluates the covariance and its Gaussian criteria for this assessment.
+Continuous summaries use independent-replication Monte Carlo standard errors (MCSE); coverage and harm frequencies receive binomial intervals.
+
+\subsection{Gains, reversal and the cost of certification}
+Across twelve cells, Paired coverage ranges from \SimCovMin{} to \SimCovMax{}, with aligned mean width ratios \SimAlignedWidthMin{}--\SimAlignedWidthMax{}.
+At $n=6,000$ and $p=0.10$ under random verification, grid ISE falls from $3.074\times10^{-3}$ for Anchor to $1.567\times10^{-3}$ for Paired, whose width ratio is 0.747.
+Full, Trace and Plug-in yield width ratios near 0.722 and grid ISE near $1.42\times10^{-3}$.
+Paired's mean weight rises from 0.507 to 0.807 as $p$ increases from 0.05 to 0.20; adoption rises from 0.862 to 1.000.
+Doubling the sample size at $p=0.10$ raises mean weight from 0.718 to 0.822 and reduces the width ratio from 0.747 to 0.731.
+Under selective verification at $p=0.05$, adoption is 0.752 and mean weight is 0.421.
+
+Full has width ratio 0.954 and grid ISE $2.526\times10^{-3}$ against $2.899\times10^{-3}$ for Anchor.
+Paired chooses zero in all 500 replications under the stated budgets.
+
+Full increases mean width by 11.4\% and grid ISE from $3.080\times10^{-3}$ to $3.909\times10^{-3}$, with harmful-selection frequency 0.994.
+Paired returns Anchor; Trace and Plug-in select positive borrowing in only 0.6\% of replications.
+Projection has width ratio 0.805 and grid ISE $1.901\times10^{-3}$ in this setting.
+Under no signal, Trace and Plug-in have harmful-selection frequencies 0.310 and 0.312 and mean Gaussian gains $-0.000217$ and $-0.000232$, respectively.
+Their width ratios are near 1.000, and Paired records no harmful selections.
+Projection has width ratio 1.013 and mean gain $-0.007431$; every method reduces to Anchor in the exact zero-path cell.
+
+\input{figure_simulation_v2}
+
+\subsection{Pairing, dense thresholds and robustness}
+Six additional cells with 500 replications each compare Paired with Unpaired under a matched design.
+Unpaired separately bounds the Anchor critical value and the candidate-critical-value maximum; Section~S3.5 establishes error control.
+Both selectors share fitted candidates, samples, weight meshes, numerical critical-value intervals and the total $0.05$ selection-error budget.
+Unpaired adds two absolute-error bounds; Paired calibrates their difference using the gate scores.
+Under alignment at $p=0.05,0.10,0.20$, Paired's width ratios are 0.802, 0.747 and 0.769 against 1.000, 1.000 and 0.993 for Unpaired.
+Adoption probabilities are 0.858, 0.998, 1.000 for Paired and 0.000, 0.000, 0.032 for Unpaired.
+Both rules return Anchor under reversal and the no-signal correction.
+Paired coverage is 0.928--0.958, with low Anchor coverage in the weakest cell; Section~S10 gives exact binomial intervals and all six-method comparisons.
+
+The dense-grid experiment uses 21, 51 and 101 nested thresholds spanning probabilities $0.02$--$0.98$ under alignment and selective local reversal.
+Each mechanism uses 200 datasets shared across resolutions and covariance enlargement $10^{-8}I_J$.
+Paired coverage is 0.935 to 0.965, with aligned width ratios 0.765, 0.782 and 0.798; it retains Anchor under reversal.
+The common 1,001-point grid evaluates monotone envelopes beyond the seven-coordinate primary experiment.
+
+Seven further cells with 300 replications each examine standardised $t_3$, skewed and mixture errors, a ten-category outcome, two-dimensional localisation, neighbour-distribution candidates and fitted logistic verification probabilities.
+The six known-design cells give Paired coverage 0.950--0.970 and width ratios 0.686--0.841.
+The learned-probability sensitivity gives coverage 0.963 and width ratio 0.768 under the nuisance-drift conditions in Section~S8.
+Each generating distribution supplies the complete conditional CDF, including ordinal cutpoints.
+
+\input{figure_validation_v3}
+
+\subsection{Exact operating characteristics, rotation and numerical checks}
+Theorem~\ref{th:boundary} permits exact binary calculations independently of covariance quadrature and its numerical precision.
+With $p=0.1$, correction amplitude $d=0.2$ and certification error 0.05, we evaluate eight verified counts from 25 to 3,200.
+Eight associations run from $-0.04$ to 0.15; the 192 method--configuration entries are binomial probability sums.
+Figure~\ref{fig:binary_certification} shows error control and adoption across the evaluated configurations.
+At zero association, Plug-in harmful-selection probability is 0.444 for $k=50$ and 0.493 for $k=3,200$.
+The exact binomial rule gives 0.032 and 0.047, and Hoeffding gives approximately 0.008 and 0.007.
+The largest error among both lower-bound rules over the grid is 0.0494.
+For $\theta=0.04$, exact-binomial adoption rises from 0.100 at $k=50$ to 0.727 at $k=800$ and 0.998 at $k=3,200$.
+Corresponding Hoeffding adoption probabilities are 0.031, 0.430 and 0.981 across those counts.
+
+\input{figure_binary_v2}
+
+A separate 400-replication experiment uses 200 aligned and 200 reversed datasets with the dependence-valid intersection of three role-specific bands.
+Under alignment, Anchor and Paired coverage is 0.960 and 0.970, with mean widths 0.264 and 0.202.
+Under reversal, both methods have coverage 0.975 and mean width 0.263.
+Convex endpoint aggregation is wider and covers in every replication; Section~S5 defines this separate experiment's construction.
+
+All 6,000 primary replications finished successfully, and none required an information fallback.
+Across 60 checks, increasing radial directions from 8,192 to 32,768 preserved every Paired selection, with largest critical-value change $3.935\times10^{-4}$.
+The additional 6,300 design--grid replications use 5,500 distinct datasets because dense resolutions share samples.
+Refinement in 30 dense-grid cases changes the selected mesh point in 5 cases, with largest evaluation-width change 3.26\% and estimated CDF change 0.0063.
+Section~S10 retains all numerical comparisons, including every observed selection disagreement.

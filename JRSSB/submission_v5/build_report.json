@@ -1,0 +1,20 @@
+{
+  "source_files_verified": 45,
+  "statistical_analyses_rerun": false,
+  "frozen_v3_archive_uploaded": false,
+  "commit": "cf862d5aace5b0505e8eab6f0314d4bd9baf8190",
+  "documents": {
+    "01_Manuscript/manuscript.pdf": {
+      "pages": 29,
+      "sha256": "e0c35cc53d0184cfa3bb3b68c8e6cbd67f316f78d9733e586c7faa0bcbaf94b3"
+    },
+    "02_Supplementary_Material/supplement.pdf": {
+      "pages": 53,
+      "sha256": "fa31fe5d0d94430bca5fc21524d4d7a7c61c07095d47c54adee4bf920fa80004"
+    },
+    "03_Cover_Letter/cover_letter.pdf": {
+      "pages": 1,
+      "sha256": "486417f6367a0e3d220bdb9f8805c2d58bfc5a64a7cfe25aa02eb267f20c3382"
+    }
+  }
+}

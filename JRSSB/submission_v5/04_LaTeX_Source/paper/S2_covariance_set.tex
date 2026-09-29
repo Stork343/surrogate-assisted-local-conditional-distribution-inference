@@ -1,0 +1,56 @@
+\section{An observable covariance confidence set}
+The finite-sample benchmark can be instantiated without unknown second moments. We give one deliberately conservative construction for independent observations, a nonnegative compactly supported kernel and known verification probabilities. This construction is separate from the tighter asymptotic calibration used in the experiments.
+
+Suppose $0\leq K_h\leq K_{\max}$ and $\pi\geq pc_e$, with $c_e\leq1$. Put $L=2J+1$, and define the raw vector and its second moment by
+\[
+ X_i=\sqrt{p/v_h}(K_i,K_iU_{0,i}^\top,K_iB_i^\top)^\top,
+ \quad Q=\E X_iX_i^\top,\quad \wh Q=n^{-1}\sum_iX_iX_i^\top.
+\]
+For $f\in[0,1]^J$, let
+\[
+ A_f=\begin{pmatrix}-f&I_J&0\\0&0&I_J\end{pmatrix}.
+\]
+Then $\Omega=A_{F_h}QA_{F_h}^\top$. Set $\wh\mu=\PP_GK_h$ and let $\wh f$ be the coordinatewise clipping of $\PP_GK_hU_0/\wh\mu$ to $[0,1]$. If $\wh\mu=0$, take $\wh f_j=1/2$. The benchmark estimate is $\wh\Omega_b=A_{\wh f}\wh Q A_{\wh f}^\top$.
+
+Split $\delta$ into positive $\delta_K,\delta_Q,\delta_N,\delta_\mu$. For $s=\Pr(K_h>0)$, let $s^+$ be its one-sided Clopper--Pearson upper confidence limit with error $\delta_K$. Put
+\[
+ t_Q=\log(2L^2/\delta_Q),\quad t_N=\log(2J/\delta_N),\quad t_\mu=\log(2/\delta_\mu),
+\]
+\begin{align*}
+ M_X&=K_{\max}/(c_e\sqrt{pv_h}),&
+ V_Q^+&=2K_{\max}^4s^+/(pc_e^3v_h^2),\\
+ V_N^+&=2K_{\max}^2s^+/(pc_e),&
+ V_\mu^+&=K_{\max}^2s^+.
+\end{align*}
+Use the radii
+\begin{align*}
+ r_Q&=\sqrt{2V_Q^+t_Q/n}+4M_X^2t_Q/(3n),\\
+ r_N&=\sqrt{2V_N^+t_N/n}+4K_{\max}t_N/(3npc_e),\\
+ r_\mu&=\sqrt{2V_\mu^+t_\mu/n}+2K_{\max}t_\mu/(3n).
+\end{align*}
+For $\wh\mu>0$, define $\zeta=\min\{1,(r_N+r_\mu)/\wh\mu\}$; otherwise let $\zeta=1$. Finally, set
+\begin{equation}\label{eq:ball}
+ \varepsilon_G=(J+1)Lr_Q+
+ 2\sqrt{J(J+1)}\zeta\{\|\wh Q\|_\op+Lr_Q\}.
+\end{equation}
+Then
+\begin{equation}\label{eq:ballcoverage}
+ \Pr\{\|\wh\Omega_b-\Omega\|_\op\leq\varepsilon_G\mid\sT\}\geq1-\delta.
+\end{equation}
+
+To prove this, note that $|U_0|,|B|\leq1$ if $R=0$, and both are at most $1/\pi$ if $R=1$. Hence $\|X_i\|_\infty\leq M_X$ and
+\[
+ \E\|X_i\|_\infty^4\leq2K_{\max}^4s/(pc_e^3v_h^2).
+\]
+Entrywise Bernstein inequalities and a union bound give $\|\wh Q-Q\|_{\max}\leq r_Q$. The analogous mean inequalities give numerator error $r_N$ and denominator error $r_\mu$. The event $s\leq s^+$ is intersected with the inequalities using the \emph{true} support probability before substituting $s^+$; no independence between this confidence bound and the moments is assumed.
+
+Since $\E K_hU_{0,j}=\mu_h F_h(y_j)$, the ratio error is at most $(r_N+r_\mu)/\wh\mu$, and clipping cannot increase it. The operator bounds
+\[
+ \|A_f\|_\op\leq\sqrt{J+1},\quad
+ \|A_{\wh f}-A_{F_h}\|_\op\leq\sqrt J\zeta,\quad
+ \|\wh Q-Q\|_\op\leq Lr_Q
+\]
+now yield \eqref{eq:ball} by expanding the difference of the two matrix products. The union error is at most the four allocated errors.
+
+For fixed $J$, $\mu_h\asymp v_h$, $s\asymp v_h$, and $N_G=npv_h\to\infty$, this radius is
+$O_P\{\sqrt{\log(J/\delta)/N_G}+\log(J/\delta)/N_G\}$, with dimension-dependent constants. Intersect the positive semidefinite ball with a known compact parameter class to obtain $\mathcal C_G$. If an imposed class produces an empty intersection, return the anchor. An intersection with $\mathcal K_{\kappa,B}$ requires the corresponding population condition; it cannot be used to discard an inconvenient covariance without that assumption.

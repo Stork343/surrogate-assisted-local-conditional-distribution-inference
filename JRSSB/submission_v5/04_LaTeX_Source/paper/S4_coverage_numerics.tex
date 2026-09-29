@@ -1,0 +1,53 @@
+\section{Post-selection bands and numerical calibration}
+\subsection{Proof of Theorem 4}
+Conditional on training, consider the evaluation scores $H_\lambda\Psi_i$. Their means are zero and their covariances are $\Sigma_\lambda$. Bounded candidates, known $\pi\geq pc_e$ and a compact kernel imply an envelope of order $(pv_h)^{-1/2}$. Their second moments are bounded. If output marginal variances are bounded below and $N_E\to\infty$, the fixed-dimensional Lindeberg central limit theorem holds. For a fixed finite grid of weights, it holds uniformly over that grid. For the compact interval, use the joint $2J$-dimensional central limit theorem for $\Psi_i$ and $H_\lambda\Psi_i$. Its continuous linear maps have uniformly bounded norms. A finite $\lambda$-net, stochastic equicontinuity from that linear representation, and the uniform lower output-variance bound give the asserted uniform approximation. The same argument applies to covariance estimation. This supplies the interval version of the main theorem rather than extending a finite-grid assumption to an arbitrary random weight.
+
+Let $\widehat\Sigma_{E,\lambda}$ be the evaluation second moment centred by its own estimated distribution. The expansion in S3, without the need to estimate the selection covariance influence function, gives uniform consistency. Gaussian continuity at the critical quantile yields conditional consistency of its plug-in critical value, or of a Gaussian evaluation multiplier. With an upper numerical order-statistic critical value, the additional probability of numerical under-calibration is at most $\eta_E$.
+
+Now condition on both training and gate data. Evaluation observations retain their original conditional law and $\widehat\lambda$ is fixed. Apply the uniform approximation to this realised weight and integrate over the conditioning samples. The exact ratio identity cancels the positive evaluation kernel denominator. No argument conditions simultaneously on all rotating gate choices. If the denominator is zero, the full distribution band is used and covers automatically. This proves the claimed lower coverage bound. A numerical upper critical value can be conservative at a fixed simulation size; nominal equality requires its numerical interval width to vanish.
+
+A usual sufficient high-dimensional condition follows by appending positive and negative score coordinates, so the sup norm becomes a coordinate maximum. The bounded envelope has square of order $1/(pv_h)$; Gaussian rectangle approximation then follows from $\log^7(n_EJ)/N_E\to0$ under a lower marginal variance bound \citep{cck2016clt}. The cited rate is a sufficient condition, not a necessary local sample-size threshold.
+
+For a continuous threshold process assume a compact $\mathcal Y$, locally bounded conditional density or an equivalent threshold-increment modulus, and fitted candidate classes of uniform VC type with bounded envelopes. Increments satisfy a local $L^2$ modulus tending to zero. The localised, inverse-probability weighted envelopes satisfy a triangular Lindeberg condition because $N_E\to\infty$. Finite-dimensional convergence follows as above; the entropy bound and the local increment modulus give asymptotic equicontinuity. Conditional multiplier equicontinuity follows from the same envelopes and entropy bound. These ingredients yield uniform process and multiplier convergence when the covariance kernels converge uniformly to a tight Gaussian limit \citep{VanderVaartWellner1996,cck2015empirical}. The finite-grid envelope construction below avoids imposing this continuous-density condition on discrete outcomes.
+
+\subsection{Monotone envelopes and quantile inversion}
+Suppose $l_j\leq F_h(y_j)\leq u_j$ for all $j$. For $y_j\leq y$, monotonicity gives $l_j\leq F_h(y)$. For $y_j\geq y$, it gives $F_h(y)\leq u_j$. Maximising the former and minimising the latter gives the whole-distribution envelope, with bounds $0$ and $1$ outside the extreme thresholds. Intersection with $[0,1]$ preserves coverage. If the envelopes are inconsistent, replace them by $[0,1]$; inconsistency can occur only outside the joint coverage event.
+
+At probability $\tau$, define extended-real bounds
+\[
+ q_L(\tau)=\sup\{y_j:u_j<\tau\},\qquad
+ q_U(\tau)=\inf\{y_j:l_j\geq\tau\},
+\]
+with empty bounds $-\infty,+\infty$. On the coverage event, $F_h(y_j)<\tau$ for every point in the first set and $F_h(y_j)\geq\tau$ for every point in the second. Hence
+$q_L(\tau)\leq Q_h(\tau)\leq q_U(\tau)$ simultaneously for all requested probabilities. This argument is valid for atoms and does not rely on an estimated density.
+
+These monotone operations apply to a cumulative distribution. They are not applied directly to a difference of two distributions. A fixed known sensor distribution can be subtracted from the reference limits; a random superpopulation sensor distribution requires a joint process or a separate simultaneous error allocation.
+
+\subsection{Exact order-statistic protection for Gaussian critical values}
+Let $T_1,\ldots,T_B$ be independent draws from a continuous distribution $F$, conditional on all matrices and candidate weights. For $u\in(0,1)$ and $q=F^{-1}(u)$, the number of draws below $q$ is $K\sim\operatorname{Binomial}(B,u)$. If integers $l,r$ satisfy
+\[
+ \Pr(K<l)\leq\eta/2,\qquad\Pr(K\geq r)\leq\eta/2,
+\]
+then
+\begin{equation}\label{eq:ordstat}
+ \Pr\{T_{(l)}\leq q\leq T_{(r)}\mid F\}\geq1-\eta.
+\end{equation}
+Here $T_{(0)}=0$ for nonnegative maxima and $T_{(B+1)}=+\infty$. The code takes $l$ as the lower binomial quantile and $r$ as one plus the upper binomial quantile. A one-sided upper critical value uses only the second inequality. Degenerate all-zero Gaussian maxima are handled exactly; repeated observations otherwise only make the bracketing conservative.
+
+Apply \eqref{eq:ordstat} to Gaussian sup norms generated from $\widehat\Sigma_\lambda$, dividing $\eta_c$ across the finite family of weights. Gaussian draws may be shared across weights: independence is needed across the $B$ replicates for each marginal, not across weights. A union bound establishes simultaneous numerical intervals, even when the final weight is chosen using those intervals. The candidate grid must be fixed before these fresh draws. The multiplier maximum is another nonnegative random variable with a known conditional Gaussian sampling law; its upper order statistic is protected in the same way. The statistical bootstrap approximation and its Monte Carlo approximation are separate errors.
+
+For a fixed well-conditioned Gaussian law with positive density at its target quantile, these interval widths have order $B^{-1/2}$ for fixed failure probability. Thus a gain of order $N_G^{-1}$ requires $B/N_G^2\to\infty$ for numerical error to be negligible unless an analytic or sharper paired numerical calculation is used. The scalar binary construction uses the exact normal quantile and has no such Monte Carlo floor.
+
+\subsection{Radial integration and its derivative}
+For $Z\sim N(0,I_J)$ write $Z=RV$, with $R\sim\chi_J$ independent of the uniform spherical direction $V$. For a Cholesky factor $L$, the conditional event $\|LRV\|_\infty\leq t$ is $R\leq t/m(V)$, where $m(V)=\|LV\|_\infty$. This proves the radial representation. A spherical sample gives a smooth-in-$t$ average of chi distribution functions; its quantile is found by bracketed root search.
+
+At a direction with a unique maximising coordinate $j^\star$, put $v=(LV)_{j^\star}$ and $m=|v|$. Ties have spherical probability zero for a positive definite output covariance. The derivative of $F_{\chi_J}(t/m)$ with respect to $L$ is supported on row $j^\star$ and equals
+\[
+ -f_{\chi_J}(t/m)\frac{t}{m^2}\operatorname{sign}(v)V^\top.
+\]
+The derivative with respect to $t$ is $f_{\chi_J}(t/m)/m$. Reverse differentiation through $\Sigma=LL^\top$, followed by division by the negative $t$ derivative, gives the quantile gradient. The code validates this derivative against central finite differences and, in two dimensions, validates the quantile against deterministic rectangle integration.
+
+The radial average is a Rao--Blackwellised distribution estimate, not an empirical distribution of independent scalar observations. An ordinary empirical-distribution Dvoretzky--Kiefer--Wolfowitz bound is therefore not invoked for it. Fresh direct Gaussian draws supply the rigorous numerical intervals. This distinction removes the unsupported numerical-confidence interpretation of the earlier exploratory quadrature check.
+
+\subsection{Declared covariance enlargement}
+If output covariance is singular, one may specify a common $\rho I_J$, $\rho>0$, and define the criterion using $\Sigma_\lambda+\rho I_J$. All derivatives and paired gains then refer to this enlarged criterion. Adding an independent centred Gaussian vector decreases the probability of a centred convex symmetric set: its probability is maximised when the translation is zero \citep{Anderson1955}. Consequently the enlarged Gaussian critical value is conservative for the original Gaussian error law. The same $\rho$ is used for every candidate, including the anchor. The EPA analysis sets $\rho=10^{-8}$ in the stated covariance normalisation and does not claim unregularised critical-value optimality from this enlargement.

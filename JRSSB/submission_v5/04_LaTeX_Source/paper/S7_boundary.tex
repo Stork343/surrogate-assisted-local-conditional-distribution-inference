@@ -1,0 +1,34 @@
+\section{Weak-signal information boundary}
+Let $S\in\{-1,1\}$ equally likely, $\Pr_\theta(Z=1\mid S)=1/2+\theta S$, $|\theta|<1/4$, and $R\sim\operatorname{Bernoulli}(p)$ independently. The augmentation path is $a_\lambda=1/2+\lambda dS$, $0<d<1/4$. Conditioning on $(S,Z)$ gives $\E U_\lambda=1/2$.
+
+Write $V=Z-1/2$, so $\E V^2=1/4$ and $\E SV=\theta$. The centred augmented signal is $R V/p+(1-R/p)\lambda dS$. Expanding its square gives
+\[
+ p\Var(U_\lambda)=\tfrac14+(1-p)(d^2\lambda^2-2d\theta\lambda).
+\]
+For $p<1$ and $\theta\leq0$, every positive weight increases variance. For $0<\theta<d$, the optimum is $\lambda^\star=\theta/d$ and
+\[
+ g_\theta^\star=z_{1-\alpha/2}\left\{\tfrac12-
+ \sqrt{\tfrac14-(1-p)\theta^2}\right\}
+ =z_{1-\alpha/2}(1-p)\theta^2+O(\theta^4).
+\]
+The expansion is uniform for $p$ bounded away from one. At $p=1$ all augmentation corrections are zero and no gain exists.
+
+The observed laws of $(S,R)$ coincide under $\theta$ and zero. Conditional on $R=1$, the Bernoulli relative entropy to success probability $1/2$ is at most its chi-squared divergence $4\theta^2$. Thus
+\[
+ \operatorname{KL}(P_\theta^{n_G},P_0^{n_G})\leq4n_Gp\theta^2.
+\]
+Pinsker's inequality gives total variation at most $\sqrt{2n_Gp}|\theta|$. For any event $A$ with $P_0(A)\leq\delta$,
+\[
+ P_\theta(A)\leq\delta+\sqrt{2n_Gp}|\theta|.
+\]
+To obtain a local model, take an independent $X$ and let the association be $\theta$ only within the box-kernel neighbourhood. If its probability is $r_h$, each observation contributes at most $4pr_h\theta^2$ to divergence. The effective information is therefore $n_Gpr_h\asymp n_Gph^d$. All unverified covariate and surrogate distributions agree across the alternatives.
+
+For the converse certificate, conditional on $k$ verified observations, each $S_i(2Z_i-1)/2$ lies in $[-1/2,1/2]$ with mean $\theta$. Hoeffding's one-sided inequality implies $\Pr(\theta_L>\theta)\leq\delta$. On the complementary event, a positive chosen weight satisfies $0<d\widehat\lambda\leq\theta_L\leq\theta$. Consequently
+\[
+ p\Var(U_{\widehat\lambda})-p\Var(U_0)
+ =(1-p)d\widehat\lambda(d\widehat\lambda-2\theta)
+ \leq-(1-p)(d\widehat\lambda)^2<0.
+\]
+Another one-sided Hoeffding bound gives adoption probability at least $1-\beta$ under the signal inequality in the main theorem. Intersecting adoption with the valid lower-bound event gives probability at least $1-\beta-\delta$ of positive, beneficial borrowing. For $k=0$ use zero borrowing. This establishes matching fixed-submodel signal orders $k^{-1/2}$ and corresponding squared critical-gain order $k^{-1}$. Constants and multiplicity change with the requested confidence levels.
+
+The target $P_\theta(Z=1)=1/2$ is constant in this submodel. Its role is to distinguish information needed to certify a variance reduction from information needed to estimate an otherwise known target; it is not a minimax lower bound for estimating $F_h$ across a general nonparametric model. The exact binomial enumeration in the reproduction code computes the certificate's adoption and harmful-selection probabilities without simulation error.
