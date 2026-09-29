@@ -1,0 +1,38 @@
+\documentclass[12pt,a4paper]{article}
+\input{preamble}
+\input{results_macros}
+\title{Surrogate-assisted local conditional distribution inference\\with certified simultaneous gains}
+\author{Jian Hou\textsuperscript{a}, Tan Meng\textsuperscript{b}, and Maozai Tian\textsuperscript{b}\thanks{Corresponding author: mztian@ruc.edu.cn.}\\[.4em]
+\normalsize\textsuperscript{a}College of Systems Engineering,\\
+\normalsize National University of Defense Technology, Changsha 410073, China\\
+\normalsize\textsuperscript{b}Center for Applied Statistics, School of Statistics,\\\normalsize Renmin University of China, Beijing 100872, China}
+\date{}
+\begin{document}
+\begin{center}\setstretch{1.0}
+{\Large\bfseries Surrogate-assisted local conditional distribution inference\par
+with certified simultaneous gains\par}
+\vspace{0.8em}
+{\normalsize Jian Hou\textsuperscript{a}, Tan Meng\textsuperscript{b}, and Maozai Tian\textsuperscript{b}\par}
+\vspace{0.4em}
+\begin{minipage}{\textwidth}\centering\normalsize\setstretch{1.0}
+\textsuperscript{a}College of Systems Engineering,\\
+National University of Defense Technology, Changsha 410073, China\\[0.4em]
+\textsuperscript{b}Center for Applied Statistics, School of Statistics,\\
+Renmin University of China, Beijing 100872, China\\[0.4em]
+Correspondence: mztian@ruc.edu.cn
+\end{minipage}
+\end{center}
+\begin{abstract}\normalsize
+Low-cost surrogates can improve inference from scarce reference measurements, but minimising average estimation variance need not shorten a simultaneous confidence band. We study this distinction for a local conditional distribution under selective verification. A common borrowing path joins a surrogate-free reference estimator to a surrogate-assisted estimator. We choose its weight by a lower confidence bound on the paired reduction in a Gaussian simultaneous critical value. The gain vanishes exactly at the reference estimator, and its covariance-estimation error decreases with the borrowing weight. This cancellation yields an anchor-adaptive oracle bound without a unique optimal weight. We develop an implementable multiplier calibration, independent numerical guards, and simultaneous inference after selection, including a dependence-valid aggregation of sample rotations. A local binary submodel identifies a reference-information scale for certifying weak improvements. Simulations compare average-variance, direct-band, projection and certified borrowing. An air-monitoring application separates historical mean calibration from subsequent distributional verification and measures the reference budget needed to recover humidity-specific exceedance discrepancies.
+\end{abstract}
+\noindent\textbf{Keywords:} Augmented estimation; Conditional distributions; Gaussian approximation; Negative transfer; Selective verification; Simultaneous inference.
+\input{01_introduction}
+\input{02_method}
+\input{03_theory}
+\input{04_simulation}
+\input{05_application}
+\input{06_discussion}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\clearpage\input{tables_and_figures}
+\end{document}

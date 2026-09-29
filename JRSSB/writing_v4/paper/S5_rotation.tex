@@ -1,0 +1,18 @@
+\section{Rotating roles and independent blocks}
+Let the observations be divided into disjoint folds $I_1,I_2,I_3$. Rotation $k$ trains on $I_k$, selects on $I_{k+1}$, and evaluates on $I_{k+2}$, with indices taken modulo three. For each rotation separately, the other two folds are independent of its evaluation fold. This conditional argument gives a valid marginal band for that rotation. It does not justify conditioning jointly on all three fitted selections: a gate in one rotation is an evaluation fold in another.
+
+Suppose $\mathcal B_k(y)=[l_k(y),u_k(y)]$ covers the common population target at all thresholds with probability at least $1-\alpha_k-\epsilon_k$, for $k=1,2,3$. On the intersection of the three coverage events,
+\begin{equation}
+ \max_k l_k(y)\leq F_h(y)\leq\min_k u_k(y)\quad\hbox{for every }y.
+\end{equation}
+The union bound gives probability at least $1-\sum_k(\alpha_k+\epsilon_k)$, regardless of dependence among the bands. If the intersection is empty anywhere, the full $[0,1]$ band replaces it. This replacement cannot reduce coverage. For fixed nonnegative $\rho_k$ summing to one,
+\[
+ \sum_k\rho_kl_k(y)\leq F_h(y)\leq\sum_k\rho_ku_k(y)
+\]
+holds on the same event. These are respectively the intersection and convex-aggregation procedures in the rotation experiment. The point estimate may still be the weighted mean of role-specific point estimates; the intersection interval need not be centred on that mean.
+
+Separate gain certificates can also be allocated errors $\delta_k$; a union bound controls the probability of any role selecting a harmful gain by $\sum_k\delta_k+o(1)$. This is a family of role-specific covariance comparisons. Without an additional covariance argument it does not certify the Gaussian width of the \emph{average estimator} formed from dependent rotations. No such pooled width certificate is claimed.
+
+For the covariance-set version, let $U_k(\lambda)=\sup_{Q\in\mathcal C_k}c_Q(\lambda)$. On choosing a nonnegative paired lower bound, $c_Q(\widehat\lambda_k)\leq c_Q(0)$ for every $Q\in\mathcal C_k$, hence $U_k(\widehat\lambda_k)\leq U_k(0)$. The individual protected half-width is no larger than its equally protected anchor half-width. The convex sum preserves the half-width ordering; the intersection can move its centre, so a pointwise set inclusion is not implied merely by a width comparison.
+
+For genuinely independent clusters, one can replace the individual score by a cluster sum and apply the same proofs with the number of clusters and cluster-level moment conditions. Within-cluster dependence is then unrestricted subject to those conditions. Calendar weeks in a time series are not automatically independent clusters. With a known absolute-regularity bound and separated blocks, a coupling argument can transfer an independent-block result with an explicit total-variation remainder; without such a bound a numerical week-block bootstrap is a dependence sensitivity analysis, not a finite-sample theorem. The main EPA experiment conditions on its observed time series and instead uses independent verification randomisation, as proved next.

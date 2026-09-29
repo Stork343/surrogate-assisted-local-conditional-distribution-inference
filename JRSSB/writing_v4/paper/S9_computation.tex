@@ -1,0 +1,40 @@
+\section{Reproduction, numerical diagnostics and complete results}
+\subsection{Frozen protocols and provenance}
+The source archive is pinned to commit \texttt{70c47c5}; the complete identifier is recorded in the source manifest. The date mapping was transferred losslessly: its 43,937 bytes have Git blob hash \texttt{aaab1595ce2f0848783ff4015009ac6218caf5d3}. The reconstructed analysis table preserves all 2,814 supplied observation identifiers, concentrations and humidities. Joining the mapping produces no missing dates or duplicate station--date pairs. The recovery script supplied by the authors checked the three numerical columns and station identity against the archived RDS before extracting its dates. The reproduction package records these source checks separately from the new analyses.
+
+The revised primary simulation contains 6,000 independently generated replications and 36,000 method-level records. Every replication ran successfully; no failed-information fallback occurred in the primary grid. The code keeps the earlier exploratory simulation in \texttt{results/prior\_checkpoint}; it is not pooled with the guarded simulation. New results reside in \texttt{results/guarded\_main}. The exact binary calculations and original technical note are retained with their own provenance.
+
+The simulation verification law is random or
+\[
+ \pi(x,s)=p\left[1+0.4\tanh\left\{
+ \frac{s-\ell(x)\mu(x)}{\sqrt{\ell(x)^2\sigma(x)^2+\tau^2}}
+ \right\}\right].
+\]
+The conditional standardised surrogate has a symmetric distribution, so this design has mean $p$ without using reference outcomes to calibrate the probability. Mean regression uses $1,x,x^2$ for the anchor and adds $s$ for the surrogate candidate; residual standard deviation is estimated within the training role. The anchor fit uses inverse-probability weights and the surrogate fit uses equal weights. Their outputs are bounded Gaussian distribution predictions even under misspecification. The matrix-projection comparator uses the stated fixed relative ridge and is not restricted to the scalar path.
+
+All reported primary bands cover the raw estimator on the declared grid. Integrated squared error is also computed for this raw grid estimator. This differs from earlier archived comparisons of rearranged point estimates. The inferential and risk targets are recorded in the manifest, rather than inferred from a figure label.
+
+\subsection{Numerical accuracy and software checks}
+The radial Gaussian derivative is checked by central finite differences in dimensions one, two and five. The largest relative discrepancy is below $6\times10^{-10}$. The two-threshold separation calculation is compared against deterministic Gaussian rectangle integration; the largest discrepancy in the four tested critical values is below $9\times10^{-7}$. An independent perturbation of the empirical distribution verifies the covariance-centring influence term to absolute error below $7\times10^{-11}$.
+
+The new numerical audit compares 8,192 and 32,768 radial directions in 60 fitted-data replications. All 60 paired selections agree. The largest change in a radial critical value is $3.935\times10^{-4}$; the largest change in a paired radial gain is $4.475\times10^{-4}$. Refining population-covariance integration from 48 by 24 quadrature points to 96 by 64 changes a covariance entry by at most $2.662\times10^{-5}$. These are deterministic refinement checks on the evaluated cases. The fresh Gaussian order-statistic intervals, not these observed differences, provide the numerical probability guarantees used by the selector.
+
+Thirty additional revision checks verify date provenance, historical/audit separation, concentration reconstruction, exact binomial quantile ranks, positive-semidefinite covariance handling, the unique-reference budget identity, exact finite-frame covariance enumeration, unbiased gate moments, gate-score variance and whole-distribution envelopes at atoms. Hidden reference outcomes are changed while keeping all visible variables and masks fixed; the EPA selected weights, point estimates and confidence limits remain unchanged. The code treats materially negative eigenvalues as an error and clips only negative values within its stated floating-point tolerance. All checks pass.
+
+An observed zero harmful-selection count is not a probability guarantee. For zero events in 500 independent replications, the exact two-sided 95\% binomial upper limit is approximately $0.00735$; the one-sided 95\% upper limit is approximately $0.00597$. Machine-readable exact intervals accompany every simulation coverage and numerical-harm entry. The primary harm threshold is $10^{-4}$ in the normalised population Gaussian critical value, and the quadrature audit quantifies, but does not rigorously bound, its residual assessment error.
+
+\subsection{Three-role rotation}
+A separate 400-replication experiment allocates error across three role-specific bands. Each evaluation role uses Gaussian tail probability $0.047/3$ plus numerical error $0.001$, for a total no greater than $0.05$ across rotations. Gate certificates allocate $0.047/3$ to statistical calibration and $0.001$ to the two numerical events. There are 200 aligned and 200 locally reversed replications.
+
+In the aligned design, the intersection band has coverage $0.960$ for Anchor and $0.970$ for Paired, with mean widths $0.264$ and $0.202$. Under local reversal both methods have coverage $0.975$ and mean width $0.263$. No empty intersections occur. Convex aggregation covers in every observed replication and is wider: aligned widths are $0.358$ and $0.273$, respectively. These results illustrate the price of dependence-valid rotation without relying on a pooled Gaussian approximation for jointly selected role estimates.
+
+\subsection{EPA decisions and reference support}
+The six EPA design--budget combinations contain 1,200 audit masks and 18,000 method--target records, with no computation failures. The complete audit frame is held fixed. Monte Carlo coverage variation is therefore variation over designed reference selection, not environmental population sampling.
+
+At $30\%$ humidity and concentration 5, the complete-frame exceedance discrepancy is $18.602$ percentage points. Under random auditing, Paired's simultaneous interval resolves its positive sign in $1.0\%$, $9.5\%$ and $68.0\%$ of masks at the 5\%, 10\% and 20\% budgets. At concentration 15 the smaller upper-tail differences are generally unresolved: at the 20\% random budget, the resolution rates are $0\%$, $0.5\%$ and $0\%$ at the three humidity targets. This separates a precise description available with all reference measurements from what a sparse audit can establish. It does not convert absence of a resolved sign into evidence of exact calibration.
+
+All pointwise decisions are recovered from the retained selected weights, evaluation widths and reference-mask seeds, without rerunning a selector or choosing new thresholds. Their reconstructed estimates and limits match the stored example bands to floating-point precision. The resulting 126,000 pointwise records and all sign-resolution summaries are retained in the code archive. For an evaluation neighbourhood with fewer than three reference values, the procedure reports the full feasible distribution band translated by the known sensor distribution; all such cases are explicitly flagged.
+
+The next two tables provide every main simulation and EPA comparison. Monte Carlo standard errors for additional metrics and exact binomial intervals are in the machine-readable tables. The full-reference legacy VitalDB and controlled synthetic review results remain in the original project archive; they are not represented as evaluations of the new paired selector.
+\input{tableS_simulation}
+\input{tableS_epa}

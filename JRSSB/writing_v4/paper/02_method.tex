@@ -1,0 +1,88 @@
+\section{Local estimation and paired borrowing}
+\subsection{The reference distribution and augmentation path}
+We observe $O=(W,R,RY)$, where $W$ includes $X$ and $S$. Assume $R\perp Y\mid W$ and initially treat $\pi(W)=p e(W)$ as known, with $e$ bounded above and away from zero. Let $Z_y=\ind(Y\leq y)$. For a bounded nonnegative kernel $K_h(X-x_0)=K\{(X-x_0)/h\}$, put
+\begin{equation}\label{eq:target}
+ \mu_h=\E K_h,\quad v_h=h^d,\quad f_h=\mu_h/v_h,\quad
+ F_h(y)=\frac{\E(K_hZ_y)}{\mu_h}.
+\end{equation}
+This is the reference-outcome distribution at the declared resolution $h$. The point target $F_0(y\mid x_0)$ additionally requires localisation-bias control.
+
+An independent training sample produces bounded candidate distribution functions $q_y(X)$ and $m_y(W)$. The anchor omits the surrogate from its outcome regression. Define $D_y=m_y-q_y$ and $a_{\lambda,y}=q_y+\lambda D_y$, $0\leq\lambda\leq1$. The augmented signal has the linear representation
+\begin{equation}\label{eq:signal}
+ U_{\lambda,y}=q_y+\frac R\pi(Z_y-q_y)
+       +\lambda\left(1-\frac R\pi\right)D_y
+       =U_{0,y}+\lambda B_y.
+\end{equation}
+Conditional on the training sample, $\E(U_{\lambda,y}\mid W)=\E(Z_y\mid W)$ and $\E(B_y\mid W)=0$. Candidate accuracy changes covariance, not the target.
+
+On a threshold grid $\Yset_J=\{y_1,\ldots,y_J\}$, form
+\begin{equation}\label{eq:psi}
+ \Psi=\sqrt{p/v_h}\,K_h
+       \binom{U_0-F_h}{B},\qquad
+ \Omega=\E(\Psi\Psi^\top),\qquad H_\lambda=(I_J,\lambda I_J).
+\end{equation}
+The covariance path is quadratic:
+\begin{equation}\label{eq:path}
+ \Sigma_\lambda=H_\lambda\Omega H_\lambda^\top
+ =\Omega_{00}+\lambda(\Omega_{01}+\Omega_{10})+\lambda^2\Omega_{11}.
+\end{equation}
+For evaluation sample $\se$, the kernel ratio satisfies the exact identity
+\begin{equation}\label{eq:identity}
+ \wh F_{\se,\lambda}=\frac{\PP_{\se}K_hU_\lambda}{\PP_{\se}K_h},\qquad
+ \sqrt{n_{\se}pv_h}(\wh F_{\se,\lambda}-F_h)
+ =\frac{n_{\se}^{-1/2}\sum_{i\in\se}H_\lambda\Psi_i}{\wh f_{h,\se}}.
+\end{equation}
+Here $\wh f_{h,\se}=\PP_{\se}K_h/v_h$. A zero denominator gives the full $[0,1]$ distribution band.
+
+\subsection{The uncertainty criterion}
+For $G_\lambda\sim N(0,\Sigma_\lambda)$, let
+\begin{equation}\label{eq:gain}
+ c_\Omega(\lambda)=\operatorname{Quantile}_{1-\alpha}\norm{G_\lambda}_\infty,
+ \qquad g_\Omega(\lambda)=c_\Omega(0)-c_\Omega(\lambda).
+\end{equation}
+A positive gain shortens the Gaussian raw band at the same resolution, sample size and confidence level. A fixed positive band shape is allowed by rescaling both score blocks before forming $\Omega$; the shape is common to all weights. The trace rule minimises $\tr(\Sigma_\lambda)$ instead.
+
+\begin{proposition}[Separation of the criteria]\label{prop:separation}
+There is a valid distributional augmentation path for which the trace minimiser $25/41$ reduces $\tr(\Sigma_\lambda)$ from $0.340$ to $0.318$, but increases its 95\% simultaneous critical value from $0.983562$ to $0.996761$.
+\end{proposition}
+The construction takes $S\sim\operatorname{Bernoulli}(0.2)$, with $Y\mid S=0$ uniform on $\{1,2\}$ and $Y\mid S=1$ uniform on $\{0,2\}$. At thresholds $(0,1)$, use $q=(0.1,0.5)$, $m(S)=\{0.5S,0.5+0.4(S-0.2)\}$ and independent verification with $p=0.1$. Figure~\ref{fig:separation} displays the two criteria. The proof uses marginal Gaussian probability inequalities, not the accuracy of a numerical optimiser.
+
+\input{figure_separation_v2}
+
+\subsection{An implementable paired calibration}
+A second, independent sample $\sg$ estimates $\Omega$. Write $\wh F=\PP_{\sg}K_hU_0/\PP_{\sg}K_h$, $\wh r_i=(U_{0,i}-\wh F,B_i)^\top$ and
+\begin{equation}\label{eq:moments}
+ \wh\Omega=\frac p{v_h}\PP_{\sg}(K_h^2\wh r\wh r^\top),\quad
+ \wh A=\frac p{v_h}\PP_{\sg}(K_h^2\wh r),\quad
+ \wh\ell_i=\frac{K_{h,i}(U_{0,i}-\wh F)}{\PP_{\sg}K_h}.
+\end{equation}
+The covariance influence contribution is
+\begin{equation}\label{eq:covif}
+ \wh C_i=\wh\Psi_i\wh\Psi_i^\top-\wh\Omega
+       -E_0\wh\ell_i\wh A^\top-\wh A\wh\ell_i^\top E_0^\top,
+       \qquad E_0=\binom{I_J}{0}.
+\end{equation}
+The last two terms account for estimating the anchor centring. Omitting them changes the covariance uncertainty being calibrated.
+
+Let $\Lset$ be a finite weight grid containing zero. For $\lambda>0$, define
+\begin{equation}\label{eq:gradient}
+ D_\lambda(\Omega)=\nabla_\Omega\{g_\Omega(\lambda)/\lambda\},\qquad
+ \wh s_{i\lambda}=\inner{D_\lambda(\wh\Omega)}{\wh C_i}.
+\end{equation}
+Centre these scores across observations. Independent standard normal multipliers approximate
+$\max\{0,\max_{\lambda>0}n_{\sg}^{-1}\sum_i\xi_i\wh s_{i\lambda}\}$.
+Let $\wh t_\delta$ be an upper simulated quantile at probability $1-\delta$. We add a nonnegative second-order cushion $b_N$ and use fresh Gaussian draws to obtain simultaneous numerical intervals $[\underline c_\lambda,\overline c_\lambda]$ for the plug-in critical values. Set
+\begin{equation}\label{eq:rule}
+ \wh L(0)=0,\quad
+ \wh L(\lambda)=\underline c_0-\overline c_\lambda
+                       -\lambda(\wh t_\delta+b_N),\quad
+ \wh\lambda\in\argmax_{\lambda\in\Lset}\wh L(\lambda).
+\end{equation}
+Ties at zero select the anchor. All critical-value comparisons share the same estimated joint covariance. In the numerical studies $b_N=\wh c_0\log(1+k_G)/k_G$, where $k_G$ is the verified kernel-support count, with $k_G$ replaced by one when zero. Under localisation this cushion is of order $\log N_G/N_G$, where $N_G=n_Gph^d$.
+
+The score gradient is evaluated by radial Gaussian integration. For a Cholesky factor $L$ and a uniform direction $V$ on the unit sphere in $\R^J$,
+\begin{equation}\label{eq:radial}
+ \Pr\{\norm{N(0,\Sigma)}_\infty\leq t\}
+ =\E_V F_{\chi_J}\{t/\norm{LV}_\infty\}.
+\end{equation}
+The Supplement derives its gradient and numerical conditions. Fresh \emph{independent} Gaussian draws, rather than a repeated quasi-Monte Carlo calculation, provide the order-statistic intervals in \eqref{eq:rule}. Their error probability is included separately in the certificate. The overall procedure fits two candidates, estimates one joint covariance, calibrates one score process, and searches a one-dimensional path.

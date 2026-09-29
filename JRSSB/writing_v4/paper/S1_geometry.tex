@@ -1,0 +1,78 @@
+\section{Geometry of paired critical values}
+\subsection{Notation and exact local identities}
+All expectations in Sections S1--S5 are conditional on the independent training sample. Dependence on the triangular row is suppressed. The threshold grid is $y_1<\cdots<y_J$. Set $Z_j=\ind(Y\leq y_j)$, $D=m-q$, $a_\lambda=q+\lambda D$, and
+\[
+ U_\lambda=a_\lambda+R\pi^{-1}(Z-a_\lambda),\qquad
+ B=(1-R/\pi)D.
+\]
+With $R\perp Y\mid W$ and $\E(R\mid W)=\pi$, conditioning on $(W,Y)$ gives
+$\E(U_\lambda\mid W,Y)=Z$ and $\E(B\mid W,Y)=0$.
+Consequently $\E K_h(U_\lambda-F_h)=0$. For $n$ evaluation observations,
+\begin{align}
+ \sqrt{npv_h}(\wh F_\lambda-F_h)
+ &=\frac{\sqrt{npv_h}\,n^{-1}\sum_i K_i(U_{\lambda,i}-F_h)}{\overline K}\notag\\
+ &=\frac{n^{-1/2}\sum_i\sqrt{p/v_h}K_i(U_{\lambda,i}-F_h)}{\overline K/v_h}.
+\end{align}
+Thus denominator estimation need not be approximated for the coverage event: multiplying the estimated half-width by the same positive denominator cancels it exactly.
+
+\subsection{Proof of the separation proposition}
+The four $(S,Y)$ states $(0,1),(0,2),(1,0),(1,2)$ have probabilities $0.4,0.4,0.1,0.1$. The two candidate vectors are $(0,0.42)$ and $(0.5,0.82)$; each extends to a genuine cumulative distribution by taking value zero below zero and one at and above two. Enumerating these states and the independent verification indicator gives
+\begin{equation}\label{eq:s-separation}
+ \Sigma_\lambda=
+ \begin{pmatrix}
+ .09-.072\lambda+.036\lambda^2&.05-.0288\lambda+.0288\lambda^2\\
+ .05-.0288\lambda+.0288\lambda^2&.25+.02304\lambda^2
+ \end{pmatrix}.
+\end{equation}
+Its trace is $.34-.072\lambda+.05904\lambda^2$, with minimiser $25/41$. At zero borrowing, the union bound gives
+\[
+ \Pr(\|G_0\|_\infty>.99)
+ \leq2\overline\Phi(.99/.3)+2\overline\Phi(.99/.5)
+ =.04867037697<.05.
+\]
+At $25/41$, the second variance is $.25856632957$, so
+\[
+ \Pr(\|G_{25/41}\|_\infty\leq.99)
+ \leq2\Phi\{.99/\sqrt{.25856632957}\}-1
+ =.94845626635<.95.
+\]
+Therefore $c_\Omega(0)<.99<c_\Omega(25/41)$. Deterministic bivariate integration gives the values in the main text; numerical minimisation of the band criterion gives $\lambda=0.114860$ and $c=0.982639$. These latter values are not needed for the strict separation. An independent continuous $X$ and a common kernel embed the example into a local conditional distribution, multiplying every covariance by the same positive constant.
+
+\subsection{Gaussian-quantile differentiability}
+Let $q_\alpha(\Sigma)$ denote the $(1-\alpha)$ quantile of $\|N(0,\Sigma)\|_\infty$. Define
+\[
+ H(t,\Sigma)=\int_{[-t,t]^J}\phi_\Sigma(z)\,dz,\qquad t>0.
+\]
+On any compact subset of the positive definite cone, Gaussian density derivatives of every finite order are dominated by a polynomial times an integrable Gaussian. Differentiation under the integral is therefore valid. Substitution $z=tu$, $u\in[-1,1]^J$, gives joint smoothness in $t$ and $\Sigma$. The derivative in $t$ is a sum of strictly positive face integrals, so $H_t(t,\Sigma)>0$. Also $H(0,\Sigma)=0$ and $H(t,\Sigma)\to1$. The implicit function theorem applied to $H(q,\Sigma)=1-\alpha$ shows that $q_\alpha$ is infinitely continuously differentiable.
+
+For a symmetric direction $E$, its first derivative is
+\begin{equation}\label{eq:gradientq}
+ Dq_\alpha(\Sigma)[E]=-
+ \frac{\frac12\int_{[-q,q]^J}\phi_\Sigma(z)
+ \{z^\top\Sigma^{-1}E\Sigma^{-1}z-\tr(\Sigma^{-1}E)\}\,dz}
+ {H_t(q,\Sigma)}.
+\end{equation}
+The quantile remains in a compact positive interval when the eigenvalues of $\Sigma$ range over $[\kappa,2B]$. Continuity and compactness give finite bounds $M_r$ for its derivatives of orders $r=1,2,3$. They depend on $J,\alpha,\kappa,B$.
+
+\subsection{Proofs of Theorems 1 and 2}
+On $\Omega\in\mathcal C_G$, the true gain dominates its lower bound at every weight. Since zero is a candidate, $L_G(\lambda_G)\geq L_G(0)=0$. This proves the certificate. Moreover,
+\[
+ g_\Omega(\lambda_G)\geq L_G(\lambda_G)
+ \geq L_G(\lambda^\star)
+ \geq g_\Omega(\lambda^\star)-\sup_{Q\in\mathcal C_G}|g_Q(\lambda^\star)-g_\Omega(\lambda^\star)|.
+\]
+Optimality of $\lambda^\star$ supplies the lower side of the regret inequality. A finite grid guarantees existence and measurability after deterministic tie-breaking.
+
+For Theorem 2, write $f_\lambda(Q)=q_\alpha(H_\lambda QH_\lambda^\top)$ and $\Sigma_\lambda=H_\lambda QH_\lambda^\top$. Since $\|H_\lambda\|_\op^2\leq2$,
+\[
+ \|H_\lambda EH_\lambda^\top-H_0EH_0^\top\|_\op\leq3\lambda\|E\|_\op,
+ \qquad \|\Sigma_\lambda-\Sigma_0\|_\op\leq3B\lambda.
+\]
+The chain rule and the bounds $M_1,M_2$ yield
+\[
+ |D(f_0-f_\lambda)(Q)[E]|
+ \leq(3M_1+6BM_2)\lambda\|E\|_\op.
+\]
+The class $\mathcal K_{\kappa,B}$ is convex, so integrating along the segment between $Q$ and $Q'$ proves the paired Lipschitz bound. The confidence-set diameter is at most $2\varepsilon_G$, giving the stated regret. A third derivative bound similarly shows that the Hessian of $(f_0-f_\lambda)/\lambda$ is uniformly bounded, including its continuous extension at zero. This supplies the second-order remainder used in Section S3.
+
+A local numerical minimiser of $\inf_{Q\in\mathcal C_G}g_Q(\lambda)$ is generally an \emph{upper} bound on the infimum. It cannot replace the lower bound in Theorem 1 without a global bound or a controlled approximation error. The implementation instead uses the influence calibration in the main algorithm.

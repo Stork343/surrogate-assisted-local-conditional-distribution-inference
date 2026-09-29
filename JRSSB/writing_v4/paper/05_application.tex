@@ -1,0 +1,54 @@
+\section{Humidity-specific air-monitor calibration}
+\label{sec:application}
+\subsection{Scientific question and historical calibration}
+Can a mean-calibrated low-cost particle sensor recover the reference instrument's exceedance frequencies, and which discrepancies can a limited reference sample establish? The EPA long-term study collocated six particulate-matter sensor types with reference instruments at seven United States sites \citep{Barkjohn2025}. We use its processed PurpleAir series: 2,814 complete site-days from 22 July 2019 to 1 January 2021, spanning 530 dates and 76 calendar weeks. Date recovery preserves the original observation identifiers and confirms unique site--date combinations, and the target is the processed collocation series with the source quality-control exclusions left unchanged.
+
+We separate historical calibration from subsequent distributional verification. All 985 site-days in 2019 fit the linear correction
+\begin{equation}\label{eq:epacal}
+ \widetilde S=3.098+0.486S-1.127(X-50)/20,
+\end{equation}
+where $S$ is uncorrected sensor concentration in micrograms per cubic metre and $X$ is relative humidity in percent. Full-precision coefficients are retained in the code. The remaining 1,829 site-days form the 2020--2021 audit frame. The same historical sample fits the anchor and surrogate distribution regressions, whose predictions and the calibration equation are frozen before reference sampling in the audit frame, so the historical sample costs 985 reference measurements in addition to any subsequent audit budget.
+
+The outcome regressions model $\log(1+Y)$, with $Y$ the reference concentration. The anchor uses humidity terms, and the surrogate candidate additionally uses sensor concentration and its interactions with a fitted scale regression. Concentration thresholds are transformed inside these regressions, while scientific effects and intervals are reported in the original concentration units. Fixed historical training evaluates temporal transport of the correction without refitting on the audit outcomes; the archived whole-series leave-one-site-out diagnostic addresses a different training design and is not pooled with this analysis.
+
+\subsection{The distributional target and complete-frame discrepancies}
+For $K_i(r)=K\{(X_i-r)/10\}$, define
+\begin{equation}\label{eq:epatarget}
+ \Delta_H(t;r)=\frac{\sum_{i\in H}K_i(r)
+       \{\ind(Y_i\leq t)-\ind(\widetilde S_i\leq t)\}}
+       {\sum_{i\in H}K_i(r)}.
+\end{equation}
+This is corrected-sensor minus reference exceedance frequency in the humidity neighbourhood, with positive values indicating overstatement. The targets are $r=30\%,50\%,70\%$ with seven inferential thresholds $5,10,15,20,25,30,40$, which describe concentration levels rather than a regulatory classification. The nonzero kernel supports contain 379, 783 and 482 site-days, and the kernel effective sample sizes $(\sum K_i)^2/\sum K_i^2$ are 315.889, 658.420 and 403.199 before reference subsampling.
+
+Table~\ref{tab:epa_science} reports complete-frame calibration. At $30\%$ humidity, the mean corrected-minus-reference concentration difference is $-0.191$ while the 0.90-quantile difference is $-1.612$, and at concentration 15 the corrected and reference exceedance frequencies are $6.068\%$ and $9.307\%$, a difference of $-3.239$ percentage points. At $70\%$ humidity the mean difference is $-0.227$, the 0.90-quantile difference is $+0.471$, and the exceedance discrepancy at 15 is $+1.157$ percentage points. The sign of the average error therefore does not describe the upper tail.
+
+Figure~\ref{fig:epa} displays the complete discrepancy curves. At $30\%$ humidity the discrepancy is positive at low thresholds and negative above the crossing, reaching 18.602 percentage points at concentration 5. The local station mixtures also differ, with Colorado receiving 43.462\% of kernel weight at $30\%$ humidity and 0.793\% at $70\%$. These are conditional distributions of the recorded station--day mixture, so comparisons across humidity do not isolate a causal humidity effect. Complete-frame values describe what all reference measurements establish, and the subsequent experiment measures which statements remain possible when most audit outcomes are hidden.
+
+\input{figure_epa_science_v2}
+
+\subsection{Designed verification and finite-frame intervals}
+We condition on the audit frame and independently randomise gate and evaluation masks, so the uncertainty is design-based for the specified frame. With a unit-specific union probability $p_i$,
+\begin{equation}\label{eq:twomasks}
+ \pi_{G,i}=p_i/2,\qquad
+ \pi_{E,i}=\frac{p_i-\pi_{G,i}}{1-\pi_{G,i}},
+\end{equation}
+so $\Pr(R_{G,i}\vee R_{E,i}=1)=p_i$. Random auditing uses $p_i=p$ and selective auditing uses the code's bounded sensor-level score normalised to mean $p$, with budgets $p=0.05,0.10,0.20$. Common uniforms nest each role's samples across budgets, all five methods share the same masks, and a unit selected by both roles is measured once. Conditional on the fixed frame, the masks remain independent even though they can overlap.
+
+The evaluation estimate replaces the reference indicators in \eqref{eq:epatarget} by $U_{\lambda,t}$ using $R_E/\pi_E$. With $w_i=K_i/\overline K$, $d_i=m_i-q_i$ and $r_i=(q_i-Z_i,d_i)^\top$, the joint matrix generating its design covariance, scaled by $np$, is
+\begin{equation}\label{eq:epacov}
+ \Omega_H=\frac pn\sum_{i\in H}w_i^2(\pi_{E,i}^{-1}-1)r_ir_i^\top.
+\end{equation}
+The gate multiplies each summand by $R_{G,i}/\pi_{G,i}$ to estimate this matrix and uses Bernoulli-design covariance-influence scores for paired calibration; Section~S6 derives the calculation. The corrected-sensor indicators are known throughout the fixed frame and cancel from its randomisation error, which is why the audit uses its own covariance construction rather than the independent-observation formula for consecutive site-days.
+
+Two hundred masks in each of six design--budget cells give 1,200 reference-sampling repetitions. Error budgets are allocated across the three humidity targets for a joint statement over all 21 threshold--humidity combinations, and the common Gaussian enlargement $10^{-8}I$ handles tail-grid singularities without changing point estimates. Complete audit outcomes enter only performance evaluation, and a neighbourhood with fewer than three evaluation references receives a full feasible distribution band that is recorded rather than dropped from coverage.
+
+Supplementary Figure~S1 shows estimates and simultaneous limits from the first retained random-audit mask at the 20\% budget, with 369 unique reference measurements, gate and evaluation counts 31/39, 72/104 and 48/66, and Paired weights 0, 0.8 and 0. Its width at $50\%$ humidity is 15.881 percentage points against 27.632 for Anchor and 14.831 for Full, while at $30\%$ and $70\%$ humidity it retains the anchor and the $70\%$ interval at concentration 10 misses the complete-frame value. Repeated-mask coverage rather than this individual illustration measures calibration.
+
+Table~\ref{tab:epa_budget} compares all five methods, including the two unprotected adaptive selectors. Paired joint coverage is 0.935--0.970 across the six cells, with the 0.935 value carrying Monte Carlo standard error 0.017 and exact binomial intervals retained. Full often produces shorter intervals in this informative-surrogate application: under random auditing its width ratios averaged across humidity are 0.679, 0.667 and 0.660, against 0.985, 0.942 and 0.828 for Paired. Local reference support explains part of this cost. At the 5\% random budget the $30\%$ humidity gate averages 9.93 reference observations and Paired adopts a correction in 1.5\% of masks; at the 20\% budget mean gate support rises to 38.46 and adoption to 40.5\%, while at $50\%$ humidity the counts are 19.67 and 77.37 with adoption rates 10.5\% and 81.5\%. A useful historical correction can therefore remain uncertified in a sparsely monitored neighbourhood, and the mean unique audit budgets are about 91, 183 and 365 measurements on top of the historical 985.
+
+\subsection{Reference budgets and upper-tail precision}
+A sign is resolved only when its simultaneous interval excludes zero in the correct direction. At $30\%$ humidity and concentration 5, Paired resolves the positive discrepancy in 1.0\%, 9.5\% and 68.0\% of random masks at budgets 5\%, 10\% and 20\%, against 1.0\%, 8.0\% and 52.0\% for Anchor and 32.0\%, 55.0\% and 89.0\% for Full. At concentration 15 and the 20\% budget, Paired's resolution frequencies are 0\%, 0.5\% and 0\% at the three humidity targets, because the complete-frame discrepancies there are much smaller than at concentration 5. Sparse auditing therefore leaves measurable upper-tail discrepancies unresolved, and the reported probabilities quantify that gap. All 126,000 method--mask--threshold records, including false-sign events, are retained for the full evaluated grid.
+
+\input{figure_epa_budget_v3}
+
+The upper-tail non-resolution motivates a fixed follow-up at budgets 40\%, 60\%, 80\% and 95\% with 400 nested random-audit masks per budget. Historical regressions, thresholds, humidity targets and the selector are unchanged, and all low-budget results are retained. The new experiment contributes 1,600 budget--mask combinations, with four budgets sharing each of 400 independent uniform-draw families. At concentration 15, Paired's sign-resolution probabilities at $p=0.80$ are 0.615, 0.158 and 0.010 for the three humidity targets, and at $p=0.95$ they are 1.000, 0.968 and 0.412, the last with exact 95\% Monte Carlo interval [0.364, 0.462]. Among evaluated subcensus budgets, 95\% is the first to exceed 80\% observed resolution at 30\% and 50\% humidity, and none does so at 70\%; a complete reference census determines the finite-frame contrast exactly as a separate endpoint. Joint coverage over all 21 combinations in the added cells is 0.948--0.975, and Figure~\ref{fig:epa_budget} displays the complete budget trajectory. The 95\% budget uses about 1,737 distinct audit references in addition to the historical 985, so a one-percentage-point upper-tail discrepancy can require nearly complete verification under a familywise raw band even when the sensor correction reduces width. This precision requirement holds for the stated frame and interval shape, and all thresholds, incorrect-sign events and Monte Carlo intervals are retained.

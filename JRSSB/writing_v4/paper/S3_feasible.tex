@@ -1,0 +1,136 @@
+\section{Feasible paired calibration and local information}
+\subsection{Primitive conditions and covariance expansion}
+The following conditions make the asymptotic assertions precise. For each row, the three samples consist of independent identically distributed observations with known $\pi=pe$, $c_e\leq e\leq C_e$ and $0<p\leq1$. The kernel satisfies $0\leq K_h\leq K_{\max}$, $\Pr(K_h>0)\asymp v_h$, $\mu_h\asymp v_h$, and $n_Gpv_h\to\infty$. The trained candidates lie in $[0,1]^J$. Conditional constants in these assumptions are uniform on training events with probability tending to one. Fixed $h$ is allowed with $v_h$ interpreted as a fixed positive constant.
+
+Let $f=F_h$, $r=(U_0-f,B)^\top$, $a_i=(p/v_h)K_i^2r_i$, $A=\E a_i$, $E_0=(I_J,0)^\top$, and
+\[
+ \ell_i=K_i(U_{0,i}-f)/\mu_h,
+ \quad C_i=\Psi_i\Psi_i^\top-\Omega
+       -E_0\ell_iA^\top-A\ell_i^\top E_0^\top.
+\]
+Both $\ell_i$ and $C_i$ have mean zero; $A$ is generally nonzero. Boundedness and verification give, with constants depending on $J,c_e,K_{\max}$,
+\[
+ \E\|\Psi\|^2=O(1),\quad
+ \E\|\Psi\|^4=O((pv_h)^{-1}),\quad
+ \E\|\ell\|^2=O((pv_h)^{-1}),
+\]
+\[
+ \|\wh f-f\|=O_P(N_G^{-1/2}),\qquad
+ \|\overline a-A\|=O_P(pN_G^{-1/2}),\qquad \|A\|=O(p).
+\]
+The last bound follows from $\E(U_0\mid W)=m_0$, $\E(B\mid W)=0$ and $\Pr(K_h>0)=O(v_h)$.
+
+Write $\Delta=\wh f-f$. The exact expansion of the centred second moment is
+\begin{align}
+ \wh\Omega-\Omega
+ &=\PP_G(\Psi\Psi^\top-\Omega)
+   -E_0\Delta\overline a^\top-\overline a\Delta^\top E_0^\top\notag\\
+ &\quad +(p/v_h)\PP_G K_h^2 E_0\Delta\Delta^\top E_0^\top.
+\end{align}
+The ratio expansion gives $\Delta=\PP_G\ell+O_P(N_G^{-1})$ because the relative kernel-mean error is $O_P((n_Gv_h)^{-1/2})$. Substitution yields
+\begin{equation}\label{eq:covexpansion}
+ \wh\Omega-\Omega=\PP_G C+O_P(N_G^{-1}),\qquad
+ \|\wh\Omega-\Omega\|_\op=O_P(N_G^{-1/2}).
+\end{equation}
+The covariance-influence formula in the main text is the empirical version of this expansion. In particular, subtracting only $\wh\Omega$ from $\wh\Psi\wh\Psi^\top$ would miss the two centring derivatives.
+
+\subsection{Score central limit theorem and multiplier calibration}
+For the $L_+=|\Lset\setminus\{0\}|$ nonzero weights, form the vector
+$s_i=(\langle D_\lambda(\Omega),C_i\rangle:\lambda>0)$.
+For a non-collapsing path assume that
+\begin{equation}\label{eq:scorecltconditions}
+ pv_h\E(s_is_i^\top)\to V_s,\qquad
+ \E\{\|\sqrt{pv_h}s_i\|^2\ind(\|\sqrt{pv_h}s_i\|>\epsilon\sqrt{n_G})\}\to0
+\end{equation}
+for every $\epsilon>0$. The limiting Gaussian maximum, after adjoining zero, is assumed continuous at its positive $(1-\delta)$ quantile. It suffices that at least one limiting score has positive variance and that this quantile is positive. The empirical score covariance is assumed consistent after multiplication by $pv_h$; the bounded setup above gives this when the normalised score fourth moments are $O((pv_h)^{-1})$. No full-rank condition on $V_s$ is needed.
+
+Since $L_+$ is fixed, Cram\'er--Wold and the Lindeberg--Feller theorem give
+\[
+ \sqrt{N_G}\PP_Gs\ \Rightarrow\ N(0,V_s).
+\]
+Conditional Gaussian multipliers have covariance $n_G^{-2}\sum_i\wh s_i\wh s_i^\top$. Consistency of that matrix, Gaussian continuity and the continuous mapping theorem therefore establish conditional weak convergence of their maximum. The difference caused by replacing $D_\lambda(\Omega)$ by $D_\lambda(\wh\Omega)$ and $C_i$ by its empirical version is negligible under \eqref{eq:covexpansion}, compact covariance conditioning and the moment bounds.
+
+For numerically evaluated gradients $\widetilde D_\lambda$, the required additional condition is
+\begin{equation}\label{eq:numericalgradient}
+ pv_h\PP_G\left[
+ \left\{\langle\widetilde D_\lambda(\wh\Omega)-D_\lambda(\wh\Omega),\wh C_i\rangle\right\}^2
+ \right]=o_P(1)
+\end{equation}
+uniformly over the finite weight grid. A sufficient condition for a fixed non-collapsing path is $\max_\lambda\|\widetilde D_\lambda-D_\lambda\|_\op=o_P(1)$ and the displayed score moments. Radial integration satisfies this when its integration size increases and the derivative quadrature converges uniformly on the relevant compact covariance set. A fixed number of integration points is a numerical implementation choice, not an asymptotic theorem. The finite numerical checks in Section S9 assess this approximation separately from the exact order-statistic guard for critical values.
+
+For $D=s_N\widetilde D$, $s_N>0$, the same argument is applied to $s_i/s_N$. Require the analogues of \eqref{eq:scorecltconditions} and \eqref{eq:numericalgradient} after this normalisation. If cancellation makes these normalised scores degenerate at another rate, their own nonzero scale must be used and checked. This condition explicitly distinguishes vanishing correction size from complete disappearance of information about its value. At $s_N=0$, $B=0$ and every critical value is identical; the algorithm returns zero.
+
+\subsection{Proof of Theorem 3}
+Section S1 shows that $f_\lambda(Q)=g_Q(\lambda)/\lambda$ has a uniformly bounded Hessian for fixed $J$ and covariances in the compact class. Taylor expansion and \eqref{eq:covexpansion} imply
+\[
+ f_\lambda(\wh\Omega)-f_\lambda(\Omega)
+ =\langle D_\lambda(\Omega),\PP_G C\rangle+O_P(N_G^{-1})
+\]
+uniformly over nonzero weights. This proves the linear expansion. The maximum of the leading score errors is bounded by the conditional multiplier quantile with probability at least $1-\delta-o(1)$. Its numerical upper-quantile construction costs an additional $\eta_t$. A cushion with $N_Gb_N\to\infty$ absorbs the $O_P(N_G^{-1})$ remainder without affecting the first-order scale because $\sqrt{N_G}b_N\to0$.
+
+On the numerical interval event, $\underline c_0-\overline c_\lambda\leq g_{\wh\Omega}(\lambda)$ for every weight. Intersect this event with the preceding statistical event. Then $\wh L(\lambda)\leq g_\Omega(\lambda)$ simultaneously, including the exact equality at zero. Maximisation gives $g_\Omega(\wh\lambda)\geq\wh L(\wh\lambda)\geq0$. The union of the three failure probabilities gives Theorem 3.
+
+For regret, on the same event,
+\[
+ g_\Omega(\wh\lambda)\geq\wh L(\wh\lambda)\geq\wh L(\lambda^\star).
+\]
+The loss between $g_\Omega(\lambda^\star)$ and $\wh L(\lambda^\star)$ is at most the absolute statistical gain-estimation error, $\lambda^\star(\wh t_\delta+b_N)$ and the two numerical interval widths. Each statistical term has order $\lambda^\star N_G^{-1/2}$. Define
+\[
+ R_N=\max_{\lambda\in\Lset\setminus\{0\}}
+ \left|\{g_{\widehat\Omega}(\lambda)-g_\Omega(\lambda)\}/\lambda\right|.
+\]
+The expansion gives $R_N=O_P(N_G^{-1/2})$. On the intersection of the statistical and numerical events the preceding inequality gives the explicit regret bound in the main theorem. At $\lambda^\star=0$, safety and optimality force zero regret on that event. Because its error probability need not vanish, this argument does not assert an unconditional zero regret at the anchor oracle.
+
+The software sets $b_N=\wh c_0\log(1+k_G)/\max(k_G,1)$. For a nondegenerate baseline, $\wh c_0$ stays bounded above and away from zero, and $k_G\asymp_P N_G$; the two cushion conditions follow. It is a diverging second-order cushion for an asymptotic statement, not a numerical value for the unknown finite-sample Taylor constant.
+
+\subsection{Increasing thresholds and weights}
+The fixed-grid theorem does not hide a dimension-free covariance derivative. One transparent growing-grid formulation is the following. Let $J=J_N$, let the derivative bounds from S1 be $M_{r,N}$, and put $C_N=3M_{1,N}+6B_NM_{2,N}$. Suppose a covariance confidence set has error $\delta_N$ and radius $\varepsilon_N$. The exact finite-set certificate remains valid at every $N$, and
+\[
+ c_\Omega(\lambda_G)-\min_{\lambda\in\Lset_N}c_\Omega(\lambda)
+ \leq2C_N\lambda_N^\star\varepsilon_N
+\]
+on its coverage event. Thus $C_N\varepsilon_N\to0$ is an explicit sufficient condition for vanishing regret, without asserting that $C_N$ is bounded.
+
+For the feasible implementation require a simultaneous covariance expansion remainder $r_{\Omega,N}$, a slope Hessian bound $T_N$, and
+\[
+ \sup_{\lambda>0}|\text{Taylor remainder in the slope}|
+ \leq O_P\{C_Nr_{\Omega,N}+T_N\varepsilon_N^2\}=o_P(b_N).
+\]
+Require a Gaussian approximation for the normalised score-vector maximum and covariance consistency at the corresponding logarithmic dimension rate, together with numerical score error small on its approximation scale. These are verifiable sufficient conditions rather than a sharp universal growth rate. For bounded normalised scores with envelope $B_{s,N}$ and marginal variances bounded below, the high-dimensional rectangle criterion $B_{s,N}^2\log^7(n_GL_N)/n_G\to0$ is one sufficient route \citep{cck2016clt}. Output covariance singularity and low tail probabilities can deteriorate $C_N,T_N$ and must be included in this check.
+
+If a compact continuum of weights is approximated by a mesh of size $\Delta_\lambda$, bounded $\partial_\lambda c_\Omega$ adds at most $C'\Delta_\lambda$ to oracle regret. Coverage of the whole distribution follows from the monotone envelope even for a fixed threshold grid. A claim of sharp continuum critical-value optimality would additionally need a quantitative modulus for the Gaussian threshold process; it is not used in the numerical studies.
+
+
+\subsection{A matched unpaired certification comparator}
+The ablation holds the fitted path, gate and evaluation data, weight mesh, numerical critical-value intervals and total error budget fixed. It changes only how statistical uncertainty in the two critical values is controlled. Let
+\[
+ A_\lambda(\Omega)=\nabla_\Omega c_\Omega(\lambda),\qquad
+ v_{i\lambda}=\langle A_\lambda(\Omega),C_i\rangle.
+\]
+Use centred empirical versions of these scores. Conditional Gaussian multipliers approximate separately the upper errors
+\[
+ \max\{0,n_G^{-1}\sum_i\xi_i\widehat v_{i0}\},\qquad
+ \max\{0,\max_{\lambda>0}-n_G^{-1}\sum_i\xi_i\widehat v_{i\lambda}\}.
+\]
+Let $t_0,t_1$ be their upper simulated $(1-\delta/2)$ quantiles. Each receives numerical quantile error $\eta_t/2$; the joint critical-value interval budget remains $\eta_c$. Define
+\[
+ L_U(0)=0,\qquad
+ L_U(\lambda)=\underline c_0-\overline c_\lambda-t_0-t_1-2b_N
+ \quad (\lambda>0),
+ \qquad \widehat\lambda_U\in\argmax_{\lambda\in\Lset}L_U(\lambda),
+\]
+with ties at zero resolved in favour of the anchor. If the correction is identically zero, return the anchor directly.
+
+\begin{proposition}[Unpaired comparison under a matched error budget]
+Under the fixed-grid conditions for the feasible paired calibration, with the corresponding nonzero absolute-score Lindeberg and covariance-consistency conditions, the unpaired selector satisfies
+\[
+ \Pr\{g_\Omega(\widehat\lambda_U)<0\mid\sT\}
+ \leq\delta+\eta_c+\eta_t+o(1).
+\]
+\end{proposition}
+\begin{proof}
+The absolute critical-value expansions are
+$c_{\widehat\Omega}(\lambda)-c_\Omega(\lambda)
+=P_Gv_\lambda+O_P(N_G^{-1})$. The first multiplier controls $c_{\widehat\Omega}(0)-c_\Omega(0)$; the second controls all $c_\Omega(\lambda)-c_{\widehat\Omega}(\lambda)$, $\lambda>0$. The two Taylor remainders are absorbed by $2b_N$ under the same cushion conditions as the paired theorem. Their simultaneous upper bound fails with probability at most $\delta+\eta_t+o(1)$ by a union bound. On this event and the shared numerical interval event, $L_U(\lambda)\leq g_\Omega(\lambda)$ for every candidate. Maximising a family containing zero completes the proof.
+\end{proof}
+The two absolute errors are computed from the same sample, but their separate upper bounds discard their statistical cancellation. Their penalty is generally of order $N_G^{-1/2}$ even as $\lambda$ approaches zero, whereas the paired statistical penalty is multiplied by $\lambda$. This proposition gives both competitors the same advertised error budget. It does not assert that every lower-bound realisation or every chosen weight must be ordered. The ablation reports paired differences of realised performance.
