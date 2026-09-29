@@ -1,0 +1,104 @@
+\section{Local estimation and paired borrowing}
+\subsection{The reference distribution and augmentation path}
+We observe $O=(W,R,RY)$, where $W$ includes broadly observed $X$ and $S$.
+Assume $R\perp Y\mid W$ and initially treat $\pi(W)=p e(W)$ as known, with $e$ bounded above and away from zero.
+Let $Z_y=\ind(Y\leq y)$ and use the bounded nonnegative localisation kernel $K_h(X-x_0)=K\{(X-x_0)/h\}$ for the target neighbourhood.
+The kernel mass normalises the local CDF and determines its inferential scale:
+\begin{equation}\label{eq:target}
+ \mu_h=\E K_h,\quad v_h=h^d,\quad f_h=\mu_h/v_h,\quad
+ F_h(y)=\frac{\E(K_hZ_y)}{\mu_h}.
+\end{equation}
+Localisation-bias control connects this distribution at resolution $h$ to the point target $F_0(y\mid x_0)$.
+
+Independent training produces bounded candidates $q_y(X)$ for Anchor and $m_y(W)$ for surrogate-assisted estimation.
+We define the common correction path by $D_y=m_y-q_y$ and $a_{\lambda,y}=q_y+\lambda D_y$, $0\leq\lambda\leq1$.
+The augmented signal separates Anchor from its weighted surrogate correction:
+\begin{equation}\label{eq:signal}
+ U_{\lambda,y}=q_y+\frac R\pi(Z_y-q_y)
+       +\lambda\left(1-\frac R\pi\right)D_y
+       =U_{0,y}+\lambda B_y.
+\end{equation}
+Conditional on training, $\E(U_{\lambda,y}\mid W)=\E(Z_y\mid W)$ and $\E(B_y\mid W)=0$, so borrowing preserves the target.
+
+On the threshold grid $\Yset_J=\{y_1,\ldots,y_J\}$, the stacked score combines Anchor fluctuation and correction; the linear map selects their weighted sum:
+\begin{equation}\label{eq:psi}
+ \Psi=\sqrt{p/v_h}\,K_h
+       \binom{U_0-F_h}{B},\qquad
+ \Omega=\E(\Psi\Psi^\top),\qquad H_\lambda=(I_J,\lambda I_J).
+\end{equation}
+This quadratic covariance path determines simultaneous uncertainty at every borrowing weight:
+\begin{equation}\label{eq:path}
+ \Sigma_\lambda=H_\lambda\Omega H_\lambda^\top
+ =\Omega_{00}+\lambda(\Omega_{01}+\Omega_{10})+\lambda^2\Omega_{11}.
+\end{equation}
+For evaluation sample $\se$, the kernel ratio defines the estimator and expresses its error through the projected score:
+\begin{equation}\label{eq:identity}
+ \wh F_{\se,\lambda}=\frac{\PP_{\se}K_hU_\lambda}{\PP_{\se}K_h},\qquad
+ \sqrt{n_{\se}pv_h}(\wh F_{\se,\lambda}-F_h)
+ =\frac{n_{\se}^{-1/2}\sum_{i\in\se}H_\lambda\Psi_i}{\wh f_{h,\se}}.
+\end{equation}
+Here $\wh f_{h,\se}=\PP_{\se}K_h/v_h$; a zero denominator gives the full $[0,1]$ distribution band.
+
+\subsection{The uncertainty criterion}
+For $G_\lambda\sim N(0,\Sigma_\lambda)$, the critical-value difference measures simultaneous precision gained over Anchor:
+\begin{equation}\label{eq:gain}
+ c_\Omega(\lambda)=\operatorname{Quantile}_{1-\alpha}\norm{G_\lambda}_\infty,
+ \qquad g_\Omega(\lambda)=c_\Omega(0)-c_\Omega(\lambda).
+\end{equation}
+Positive gain shortens the Gaussian raw band at fixed resolution, sample size and confidence level.
+Rescaling both score blocks before forming $\Omega$ permits a fixed positive band shape common to all weights.
+Trace instead minimises $\tr(\Sigma_\lambda)$, producing the distinction in the following example.
+
+\begin{proposition}[Separation of the criteria]\label{prop:separation}
+There is a valid distributional augmentation path for which the trace minimiser $25/41$ reduces $\tr(\Sigma_\lambda)$ from $0.340$ to $0.318$, but increases its 95\% simultaneous critical value from $0.983562$ to $0.996761$.
+\end{proposition}
+Take $S\sim\operatorname{Bernoulli}(0.2)$, with $Y\mid S=0$ uniform on $\{1,2\}$ and $Y\mid S=1$ uniform on $\{0,2\}$.
+At thresholds $(0,1)$, use $q=(0.1,0.5)$, $m(S)=\{0.5S,0.5+0.4(S-0.2)\}$ and independent verification with $p=0.1$.
+Figure~\ref{fig:separation} compares the criteria; the proof uses marginal Gaussian probability inequalities.
+
+\input{figure_separation_v2}
+
+\subsection{An implementable paired calibration}
+An independent gate sample $\sg$ estimates $\Omega$ and accounts for Anchor centring.
+The centred gate residuals use $\wh F=\PP_{\sg}K_hU_0/\PP_{\sg}K_h$ and $\wh r_i=(U_{0,i}-\wh F,B_i)^\top$.
+The gate estimates the covariance, centring derivative and Anchor influence contribution:
+\begin{equation}\label{eq:moments}
+ \wh\Omega=\frac p{v_h}\PP_{\sg}(K_h^2\wh r\wh r^\top),\quad
+ \wh A=\frac p{v_h}\PP_{\sg}(K_h^2\wh r),\quad
+ \wh\ell_i=\frac{K_{h,i}(U_{0,i}-\wh F)}{\PP_{\sg}K_h}.
+\end{equation}
+The covariance influence contribution explicitly incorporates the estimation of Anchor centring:
+\begin{equation}\label{eq:covif}
+ \wh C_i=\wh\Psi_i\wh\Psi_i^\top-\wh\Omega
+       -E_0\wh\ell_i\wh A^\top-\wh A\wh\ell_i^\top E_0^\top,
+       \qquad E_0=\binom{I_J}{0}.
+\end{equation}
+
+Let $\Lset$ be a finite weight grid containing zero, with normalised gain gradients defined for $\lambda>0$.
+These gradients convert covariance influence contributions into scores for calibrating gain uncertainty:
+\begin{equation}\label{eq:gradient}
+ D_\lambda(\Omega)=\nabla_\Omega\{g_\Omega(\lambda)/\lambda\},\qquad
+ \wh s_{i\lambda}=\inner{D_\lambda(\wh\Omega)}{\wh C_i}.
+\end{equation}
+Centre the scores across observations; independent standard normal multipliers approximate $\max\{0,\max_{\lambda>0}n_{\sg}^{-1}\sum_i\xi_i\wh s_{i\lambda}\}$.
+Let $\wh t_\delta$ be an upper simulated quantile at probability $1-\delta$.
+A nonnegative second-order cushion $b_N$ and fresh Gaussian intervals $[\underline c_\lambda,\overline c_\lambda]$ protect the plug-in critical-value comparison.
+Paired selects the weight with the largest lower bound on simultaneous critical-value gain:
+\begin{equation}\label{eq:rule}
+ \wh L(0)=0,\quad
+ \wh L(\lambda)=\underline c_0-\overline c_\lambda
+                       -\lambda(\wh t_\delta+b_N),\quad
+ \wh\lambda\in\argmax_{\lambda\in\Lset}\wh L(\lambda).
+\end{equation}
+Ties at zero select Anchor; comparisons share the same estimated joint covariance.
+The numerical studies use $b_N=\wh c_0\log(1+k_G)/k_G$, where $k_G$ counts verified kernel-support observations, with $k_G$ replaced by one when zero.
+Its asymptotic order under localisation is $\log N_G/N_G$, with local information index $N_G=n_Gph^d$.
+
+Radial Gaussian integration evaluates the score gradient using the following probability representation.
+For a Cholesky factor $L$ and a uniform direction $V$ on the unit sphere in $\R^J$,
+\begin{equation}\label{eq:radial}
+ \Pr\{\norm{N(0,\Sigma)}_\infty\leq t\}
+ =\E_V F_{\chi_J}\{t/\norm{LV}_\infty\}.
+\end{equation}
+The Supplement derives the gradient and numerical conditions; fresh independent Gaussian draws provide the order-statistic intervals in \eqref{eq:rule}.
+Their error probability enters the certificate separately from statistical calibration uncertainty.

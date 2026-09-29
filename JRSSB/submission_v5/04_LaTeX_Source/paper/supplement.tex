@@ -1,0 +1,32 @@
+\documentclass[12pt,a4paper]{article}
+\input{preamble}
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{0em}{2.8em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{2.8em}{3.3em}}
+\makeatother
+\input{results_macros}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thetheorem}{S\arabic{theorem}}
+\renewcommand{\theproposition}{S\arabic{proposition}}
+\renewcommand{\thelemma}{S\arabic{lemma}}
+\renewcommand{\thecorollary}{S\arabic{corollary}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\title{Supplement to ``Surrogate-assisted local conditional distribution inference with certified simultaneous gains''}
+\author{Jian Hou, Tan Meng, and Maozai Tian}\date{}
+\begin{document}\maketitle
+\noindent This Supplement supplies proofs and implementation details for the revised method. References to numbered theorems without an S prefix refer to the main manuscript. The independent-role population experiment and the fixed-frame Bernoulli audit have different covariance estimators; both are derived explicitly.
+\tableofcontents
+\input{S1_geometry}
+\input{S2_covariance_set}
+\input{S3_feasible}
+\input{S4_coverage_numerics}
+\input{S5_rotation}
+\input{S6_design}
+\input{S7_boundary}
+\input{S8_extensions}
+\input{S9_computation}
+\input{S10_validation}
+\bibliographystyle{plainnat}\bibliography{references}
+\end{document}

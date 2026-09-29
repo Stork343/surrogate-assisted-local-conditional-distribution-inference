@@ -1,0 +1,81 @@
+\section{Finite-frame verification of a distributional contrast}
+\subsection{Target and independent masks}
+Condition on an arbitrary finite frame $\{(W_i,Y_i):i=1,\ldots,n\}$ and on historically trained candidates. No independence, stationarity or exchangeability of the frame values is assumed. Let $K_i\geq0$, $\overline K>0$, $w_i=K_i/\overline K$, $Z_i=(\ind(Y_i\leq t_j):j=1,\ldots,J)$, and $C_i^S=(\ind(\widetilde S_i\leq t_j):j=1,\ldots,J)$. The target is
+\[
+ \Delta_H=n^{-1}\sum_iw_i(Z_i-C_i^S).
+\]
+Generate independent Bernoulli indicators $R_{G,i}$ and $R_{E,i}$ with probabilities $\pi_{G,i},\pi_{E,i}$, independent across frame indices and across roles. With $\pi_{G,i}=p_i/2$ and $\pi_{E,i}=(p_i-\pi_{G,i})/(1-\pi_{G,i})$,
+\[
+ \Pr(R_{G,i}\lor R_{E,i}=1)=\pi_{G,i}+\pi_{E,i}-\pi_{G,i}\pi_{E,i}=p_i.
+\]
+Thus an overlapping observation counts only once towards the unique reference budget. Conditional on the frame, the two roles are independent despite possible overlap of realised labels. A historical sample used to learn the candidates must be accounted for separately; it is not silently charged to either random audit mask.
+
+\subsection{Exact evaluation error and covariance}
+For a gate-measurable weight, put $a_i=q_i+\lambda D_i$. The evaluation estimator is
+\[
+ \widehat\Delta_\lambda=n^{-1}\sum_iw_i
+ \{a_i+R_{E,i}\pi_{E,i}^{-1}(Z_i-a_i)-C_i^S\}.
+\]
+Its error is exactly
+\begin{equation}\label{eq:designerror}
+ \widehat\Delta_\lambda-\Delta_H
+ =n^{-1}\sum_iw_i(1-R_{E,i}/\pi_{E,i})(a_i-Z_i).
+\end{equation}
+The known sensor part cancels. Hence, for any positive scaling constant $p_*$,
+\[
+ np_*\Var_E(\widehat\Delta_\lambda\mid H,G)
+ =H_\lambda\Omega_HH_\lambda^\top,
+\]
+\begin{equation}\label{eq:designomega}
+ \Omega_H=n^{-1}\sum_i v_iv_i^\top,\quad
+ v_i=\sqrt{p_*(\pi_{E,i}^{-1}-1)}\,w_i\binom{q_i-Z_i}{D_i}.
+\end{equation}
+The code takes $p_*=n^{-1}\sum_i\pi_{E,i}$. This positive common normalisation cancels from selection and yields half-width $c/\sqrt{np_*}$. Kernel weights are already normalised, so no additional factor of $h$ or estimated density is applied in the fixed-frame code.
+
+The gate Horvitz--Thompson estimate is
+\[
+ \widehat\Omega_H=n^{-1}\sum_i\frac{R_{G,i}}{\pi_{G,i}}v_iv_i^\top.
+\]
+Every unobserved $Z_i$ is absent from this sum. This estimate is positive semidefinite and unbiased. Its exact fluctuation is $n^{-1}\sum_i(R_{G,i}/\pi_{G,i}-1)v_iv_i^\top$; no distribution-centring term is needed because the frame weights and target error representation are fixed.
+
+For a symmetric slope gradient $D_\lambda(\Omega_H)$, put $a_{i\lambda}=v_i^\top D_\lambda(\Omega_H)v_i$. The covariance of the linearised slope error is
+\[
+ V_{\lambda\gamma}=n^{-2}\sum_i
+ \frac{1-\pi_{G,i}}{\pi_{G,i}}a_{i\lambda}a_{i\gamma}.
+\]
+An unbiased observed-data version replaces each summand by
+$R_{G,i}(1-\pi_{G,i})a_{i\lambda}a_{i\gamma}/\pi_{G,i}^2$.
+The program forms scores
+$\sqrt{1-\pi_{G,i}}\,a_{i\lambda}/\pi_{G,i}$ only on observed gate indices. Their Gram matrix divided by $n^2$ is precisely this variance estimate. Replacing the gradient by its consistent gate estimate gives the feasible variance used by the multiplier.
+
+For the selected $a_i$, an independent evaluation covariance estimate is
+\[
+ \widehat\Sigma_{E,\lambda}=\frac{p_*}{n}\sum_i
+ \frac{R_{E,i}}{\pi_{E,i}}w_i^2(\pi_{E,i}^{-1}-1)
+ (a_i-Z_i)(a_i-Z_i)^\top.
+\]
+It is also unbiased conditional on the gate and frame. This differs from a superpopulation sample covariance because finite-frame randomisation has zero-mean errors at each unit, rather than a common unknown distribution mean.
+
+\subsection{Asymptotic justification for frame sequences}
+Consider a sequence of deterministic frames. Require $\max_i p_i<1$, probabilities comparable to their frame average, no single weighted observation dominating the selection or evaluation variances, consistency of the displayed covariance estimators, and output covariance matrices bounded above and below in the declared normalisation (or a fixed common enlargement). More explicitly, for every unit vector $u$ in the relevant finite score dimension, the Bernoulli triangular array must satisfy
+\[
+ \frac{\sum_i\E\{(u^\top X_{i,n})^2
+ \ind(|u^\top X_{i,n}|>\epsilon s_{u,n})\}}{s_{u,n}^2}\to0,
+ \qquad s_{u,n}^2=\sum_i\E(u^\top X_{i,n})^2,
+\]
+for each $\epsilon>0$, for both the covariance-slope and evaluation-error arrays. This condition is directly implied by bounded normalised contributions divided by their total standard deviations tending to zero. Require the corresponding empirical variance ratios to converge to one on nonzero directions.
+
+Independent non-identically distributed Lindeberg--Feller convergence then gives the score and evaluation Gaussian limits. The quantile differentiability and Taylor argument from S3 apply to the gate moment estimate. Independent evaluation is valid conditional on the frame and gate. Numerical interval guards and error budgets are unchanged. This proves the design analogue of the feasible certificate and coverage theorem. Since these are frame-sequence asymptotics, very small local reference counts can still under-cover; the data experiment reports their observed coverage and does not relabel the theorem as an exact randomisation interval.
+
+\subsection{EPA implementation and scientific interpretation}
+The historical calibration uses all 2019 rows and predicts later rows through $Y=\beta_0+\beta_1S+\beta_2(X-50)/20$. Historical candidate regressions use log concentration. The anchor mean features are $1,x,x^2$, $x=(X-50)/20$; the surrogate features add $s,s^2,xs$, $s=\log(1+S)$. Each candidate variance model regresses $\log\{\max(\widehat\varepsilon^2,10^{-4})\}$ on the same features, adds $1.270362845$ for the normal log-square expectation, and clips the resulting standard deviation to $[0.12,2.5]$. All choices are fixed for this reanalysis and are recorded in \texttt{epa\_protocol.json}.
+
+The selective probability score is $1+0.4\tanh\{(s-\bar s)/\operatorname{sd}(s)\}$, divided by its frame mean and multiplied by the requested $p$. This uses only broadly observed quantities. The three humidity-specific criteria are calibrated separately with a Bonferroni division of the total error, giving joint control for the declared three targets. Additional thresholds or humidity targets are not added after inspecting which confidence intervals exclude zero.
+
+Complete audit outcomes compute the fixed-frame benchmark, diagnostic curves and criterion performance. They never fit a candidate or select a weight after masking. Code tests change unobserved outcomes and verify that the selected weights and corresponding estimates remain unchanged. Coverage describes repeated random verification of this processed population, not repeated sampling of United States sites or years. The station-weight mixture is retained; none of the between-humidity comparisons is interpreted as a causal humidity effect.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=\linewidth]{v2/figure5_epa_intervals.pdf}
+\caption{Actual simultaneous limits in the first retained random-audit mask at the 20\% budget (369 unique references). All three humidity targets and seven thresholds are shown. Horizontal bars are limits for each method; crosses mark complete-frame values. Paired weights are $(0,0.8,0)$ at $(30,50,70)\%$ humidity. Repeated-mask coverage is reported in Table 3 of the main manuscript.}\label{fig:epa_intervals}
+\noindent Alt text: Paired coincides with Anchor at 30 and 70 percent humidity and is narrower at 50 percent. One 70-percent interval misses its complete-frame value.
+\end{figure}

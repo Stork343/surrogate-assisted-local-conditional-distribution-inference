@@ -1,0 +1,46 @@
+\documentclass[12pt,a4paper]{article}
+\input{preamble}
+\input{results_macros}
+\title{Surrogate-assisted local conditional distribution inference\\with certified simultaneous gains}
+\author{Jian Hou\textsuperscript{a}, Tan Meng\textsuperscript{b}, and Maozai Tian\textsuperscript{b}\thanks{Corresponding author: mztian@ruc.edu.cn.}\\[.4em]
+\normalsize\textsuperscript{a}College of Systems Engineering,\\
+\normalsize National University of Defense Technology, Changsha 410073, China\\
+\normalsize\textsuperscript{b}Center for Applied Statistics, School of Statistics,\\\normalsize Renmin University of China, Beijing 100872, China}
+\date{}
+\begin{document}
+\begin{center}\setstretch{1.0}
+{\Large\bfseries Surrogate-assisted local conditional distribution inference\par
+with certified simultaneous gains\par}
+\vspace{0.8em}
+{\normalsize Jian Hou\textsuperscript{a}, Tan Meng\textsuperscript{b}, and Maozai Tian\textsuperscript{b}\par}
+\vspace{0.4em}
+\begin{minipage}{\textwidth}\centering\normalsize\setstretch{1.0}
+\textsuperscript{a}College of Systems Engineering,\\
+National University of Defense Technology, Changsha 410073, China\\[0.4em]
+\textsuperscript{b}Center for Applied Statistics, School of Statistics,\\
+Renmin University of China, Beijing 100872, China\\[0.4em]
+Correspondence: mztian@ruc.edu.cn
+\end{minipage}
+\end{center}
+\begin{abstract}\normalsize
+Average estimation variance and simultaneous band width can favour different borrowing weights.
+For selectively verified reference outcomes, we certify gains in simultaneous inference for a local conditional distribution.
+Paired chooses a common weight between a surrogate-free Anchor and a surrogate-assisted estimator using a lower confidence bound on their Gaussian critical-value difference.
+The paired gain vanishes at Anchor, and its covariance-estimation error decreases with the borrowing weight.
+This cancellation yields an Anchor-adaptive oracle bound that allows nonunique optimal weights.
+Multiplier calibration and independent numerical guards support simultaneous inference after selection and dependence-valid aggregation across sample rotations.
+A local binary submodel identifies the reference-information scale for certifying weak improvements.
+Simulations compare Trace, Plug-in, Projection and Paired using common reference samples.
+An air-monitoring application separates historical mean calibration from subsequent distributional verification and quantifies the reference budget for recovering humidity-specific exceedance discrepancies.
+\end{abstract}
+\noindent\textbf{Keywords:} Augmented estimation; Conditional distributions; Gaussian approximation; Negative transfer; Selective verification; Simultaneous inference.
+\input{01_introduction}
+\input{02_method}
+\input{03_theory}
+\input{04_simulation}
+\input{05_application}
+\input{06_discussion}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\clearpage\input{tables_and_figures}
+\end{document}

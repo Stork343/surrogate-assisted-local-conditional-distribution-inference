@@ -1,0 +1,70 @@
+\begin{table}[p]\centering\setstretch{1.0}
+\caption{All six methods at a common sample size and reference fraction.}\label{tab:simulation}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{llrrrr}\toprule
+Mechanism & Method & Coverage & Grid ISE & $\Delta$ ISE (MCSE) & Gain \\\midrule
+Aligned & Anchor & 0.956 & 3.074 & 0.000 (0.000) & 0.000 \\
+ & Full & 0.960 & 1.419 & -1.656 (0.123) & 180.739 \\
+ & Trace & 0.962 & 1.420 & -1.654 (0.121) & 180.373 \\
+ & Plug-in & 0.962 & 1.427 & -1.647 (0.120) & 179.937 \\
+ & Projection & 0.958 & 1.482 & -1.592 (0.121) & 172.550 \\
+ & Paired & 0.956 & 1.567 & -1.508 (0.103) & 162.655 \\
+\addlinespace[3pt]
+Weak & Anchor & 0.960 & 2.899 & 0.000 (0.000) & 0.000 \\
+ & Full & 0.966 & 2.526 & -0.373 (0.072) & 31.131 \\
+ & Trace & 0.964 & 2.575 & -0.324 (0.058) & 29.995 \\
+ & Plug-in & 0.962 & 2.580 & -0.318 (0.056) & 29.746 \\
+ & Projection & 0.960 & 2.677 & -0.222 (0.063) & 23.600 \\
+ & Paired & 0.960 & 2.899 & 0.000 (0.000) & 0.000 \\
+\addlinespace[3pt]
+Reversal & Anchor & 0.954 & 3.080 & 0.000 (0.000) & 0.000 \\
+ & Full & 0.958 & 3.909 & 0.829 (0.063) & -72.220 \\
+ & Trace & 0.954 & 3.080 & 0.000 (0.000) & 0.081 \\
+ & Plug-in & 0.954 & 3.080 & 0.000 (0.000) & 0.081 \\
+ & Projection & 0.966 & 1.901 & -1.178 (0.106) & 125.115 \\
+ & Paired & 0.954 & 3.080 & 0.000 (0.000) & 0.000 \\
+\addlinespace[3pt]
+No signal & Anchor & 0.968 & 3.000 & 0.000 (0.000) & 0.000 \\
+ & Full & 0.968 & 3.006 & 0.007 (0.009) & -0.683 \\
+ & Trace & 0.966 & 3.003 & 0.003 (0.004) & -0.217 \\
+ & Plug-in & 0.966 & 3.005 & 0.005 (0.005) & -0.232 \\
+ & Projection & 0.958 & 3.105 & 0.105 (0.030) & -7.431 \\
+ & Paired & 0.968 & 3.000 & 0.000 (0.000) & 0.000 \\
+\bottomrule\end{tabular}
+\par\raggedright\noindent Each row uses 500 replications with $n=6,000$ and random verification at $p=0.10$. Grid ISE, its mean paired difference from Anchor ($\Delta$ ISE) and mean Gaussian critical-value gain are multiplied by $10^3$. MCSE is the paired-difference Monte Carlo standard error. Negative $\Delta$ ISE and positive gain indicate improvement; Figure~\ref{fig:simulation_comparison} reports widths and harmful-selection frequencies. Supplementary Table~S1 contains all twelve cells and Monte Carlo uncertainties.
+\end{table}
+\begin{table}[p]\centering\setstretch{1.0}
+\caption{Complete-frame calibration after historical training.}\label{tab:epa_science}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{rrrrrr}\toprule
+RH (\%) & Local rows & Mean diff. & $Q_{.90}$ diff. & Ref. $>15$ & Sensor $>15$ \\\midrule
+30 & 379 & -0.191 & -1.612 & 9.307 & 6.068 \\
+50 & 783 & -0.380 & -0.493 & 7.993 & 6.439 \\
+70 & 482 & -0.227 & 0.471 & 7.038 & 8.194 \\
+\bottomrule\end{tabular}
+\par\raggedright\noindent Differences are corrected sensor minus reference in $\mu\mathrm{g}/\mathrm{m}^3$; exceedance frequencies are percentages. The frame has 1,829 site-days and the historical training sample 985. These are complete-frame descriptions.
+\end{table}
+\begin{table}[p]\centering\setstretch{1.0}
+\caption{All five methods in the EPA reference-sampling experiment.}\label{tab:epa_budget}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrr}\toprule
+ & & \multicolumn{5}{c}{Method}\\
+Design & $p$ (\%) & Anchor & Full & Trace & Plug-in & Paired \\\midrule
+\multicolumn{7}{l}{(a) Joint coverage over all 21 threshold--humidity combinations}\\
+Random & 5 & 0.960 & 0.995 & 0.995 & 0.995 & 0.960 \\
+Random & 10 & 0.955 & 0.970 & 0.965 & 0.970 & 0.960 \\
+Random & 20 & 0.970 & 0.975 & 0.975 & 0.970 & 0.970 \\
+Selective & 5 & 0.955 & 0.990 & 0.975 & 0.980 & 0.955 \\
+Selective & 10 & 0.935 & 0.980 & 0.980 & 0.980 & 0.935 \\
+Selective & 20 & 0.955 & 0.985 & 0.975 & 0.975 & 0.955 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{(b) Mean within-mask width ratio to Anchor}\\
+Random & 5 & 1.000 & 0.679 & 0.687 & 0.696 & 0.985 \\
+Random & 10 & 1.000 & 0.667 & 0.669 & 0.674 & 0.942 \\
+Random & 20 & 1.000 & 0.660 & 0.660 & 0.663 & 0.828 \\
+Selective & 5 & 1.000 & 0.665 & 0.672 & 0.682 & 0.988 \\
+Selective & 10 & 1.000 & 0.652 & 0.655 & 0.662 & 0.950 \\
+Selective & 20 & 1.000 & 0.648 & 0.651 & 0.655 & 0.856 \\
+\bottomrule\end{tabular}
+\par\raggedright\noindent Each design--budget cell uses 200 masks. Widths are averaged across humidity within each mask. The average unique audit counts are 91.3, 182.8 and 364.8 under random auditing and 90.8, 183.5 and 364.1 under selective auditing. These counts exclude historical calibration. Projection is not evaluated in the EPA experiment.
+\end{table}

@@ -1,0 +1,178 @@
+\subsection{Additional results and interpretation}
+The completed run contains 6,300 design--grid replications, with no execution failures. Table~\ref{tab:s10-validation} gives coverage, width and adoption for every additional cell and method. Exact binomial intervals and Monte Carlo standard errors for all continuous summaries accompany the machine-readable table. These are cellwise Monte Carlo intervals, not a simultaneous assertion across all simulation cells. The dense output eigenvalues and local reference counts are retained alongside each replication. The 1,001-point envelope check is separate from grid coverage.
+
+In the paired ablation, width differences and their standard errors are computed within the same generated sample. Two absolute critical-value bounds can remain too wide to certify a gain even when the paired difference can do so. The lower-bound constants and the allocation of error are fully disclosed in Section S3.5; this experiment isolates the stated implementations rather than every possible unpaired optimisation.
+
+In the 30 dense refinement cases, 25 weights agree. Maximum absolute changes in radial critical values and paired radial gains are 0.005813 and 0.004265. Maximum relative changes in an evaluated band width and in the corresponding population critical value are 3.258\% and 2.140\%. No refined selected candidate in these cases has a negative assessed gain. Selection labels, integration error and inferential impact are therefore all recorded, rather than requiring equality of a mesh index as a proxy for numerical accuracy.
+
+The seven robustness cells retain Gaussian-candidate misspecification or use the declared neighbour estimator. Their true CDFs are evaluated analytically in the outcome dimension and by covariate quadrature; the independent 180-node refinement and implementation tests are archived. These checks do not convert an asymptotic statement into a finite-sample guarantee for an estimated verification model.
+
+\subsection{Extended EPA precision experiment}
+The original 1,200 budget--design--mask combinations and 126,000 threshold records remain unchanged. The added random-audit grid has 1,600 budget--mask combinations, 24,000 method--humidity records and 168,000 thresholdwise intervals. It uses the unchanged historical candidates and the same mask generator as the original study. The first 200 uniform-draw families are nested with those already reported; the next 200 are additional families. No thresholds are selected by their sign-resolution rates. Table~\ref{tab:s10-epa} reports all methods on the added budgets. Complete targetwise coverage, false-sign family probabilities, adoption and interval-width summaries are in \texttt{results/v3/reporting}.
+
+The first-tested-budget summary distinguishes an observed resolution rate above 0.80 from an exact 95\% Monte Carlo lower bound above 0.80. It does not interpolate a minimum required budget. For $p=1$ the entire audit frame is observed and the contrast is known; this exact census endpoint is not passed through a Gaussian covariance enlargement or represented as an additional simulation. Historical calibration measurements remain an additional cost at every budget.
+\begin{longtable}{llrrrr}
+\caption{Complete additional validation. Coverage and adoption are frequencies; width is the mean within-replication ratio to Anchor.}\label{tab:s10-validation}\\
+\toprule Cell & Method & Coverage & MCSE & Width & Adoption \\\midrule\endfirsthead
+\toprule Cell & Method & Coverage & MCSE & Width & Adoption \\\midrule\endhead
+\bottomrule\endfoot
+\multicolumn{6}{l}{101: aligned, $p=0.05$}\\
+101 & Anchor & 0.954 & 0.009 & 1.000 & 0.000 \\
+101 & Full & 0.966 & 0.008 & 0.723 & 1.000 \\
+101 & Trace & 0.968 & 0.008 & 0.722 & 1.000 \\
+101 & Plug-in & 0.968 & 0.008 & 0.724 & 1.000 \\
+101 & Paired & 0.952 & 0.010 & 0.802 & 0.858 \\
+101 & Unpaired & 0.954 & 0.009 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{102: aligned, $p=0.10$}\\
+102 & Anchor & 0.948 & 0.010 & 1.000 & 0.000 \\
+102 & Full & 0.952 & 0.010 & 0.724 & 1.000 \\
+102 & Trace & 0.954 & 0.009 & 0.724 & 1.000 \\
+102 & Plug-in & 0.958 & 0.009 & 0.724 & 1.000 \\
+102 & Paired & 0.954 & 0.009 & 0.747 & 0.998 \\
+102 & Unpaired & 0.948 & 0.010 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{103: aligned, $p=0.20$}\\
+103 & Anchor & 0.958 & 0.009 & 1.000 & 0.000 \\
+103 & Full & 0.954 & 0.009 & 0.759 & 1.000 \\
+103 & Trace & 0.956 & 0.009 & 0.759 & 1.000 \\
+103 & Plug-in & 0.954 & 0.009 & 0.759 & 1.000 \\
+103 & Paired & 0.956 & 0.009 & 0.769 & 1.000 \\
+103 & Unpaired & 0.958 & 0.009 & 0.993 & 0.032 \\
+\multicolumn{6}{l}{104: weak, $p=0.10$}\\
+104 & Anchor & 0.928 & 0.012 & 1.000 & 0.000 \\
+104 & Full & 0.938 & 0.011 & 0.956 & 1.000 \\
+104 & Trace & 0.938 & 0.011 & 0.957 & 0.998 \\
+104 & Plug-in & 0.934 & 0.011 & 0.957 & 0.998 \\
+104 & Paired & 0.928 & 0.012 & 1.000 & 0.002 \\
+104 & Unpaired & 0.928 & 0.012 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{105: reversal, $p=0.10$}\\
+105 & Anchor & 0.942 & 0.010 & 1.000 & 0.000 \\
+105 & Full & 0.946 & 0.010 & 1.110 & 1.000 \\
+105 & Trace & 0.942 & 0.010 & 1.000 & 0.004 \\
+105 & Plug-in & 0.942 & 0.010 & 1.000 & 0.004 \\
+105 & Paired & 0.942 & 0.010 & 1.000 & 0.000 \\
+105 & Unpaired & 0.942 & 0.010 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{106: no signal, $p=0.10$}\\
+106 & Anchor & 0.958 & 0.009 & 1.000 & 0.000 \\
+106 & Full & 0.958 & 0.009 & 1.002 & 1.000 \\
+106 & Trace & 0.958 & 0.009 & 1.000 & 0.496 \\
+106 & Plug-in & 0.958 & 0.009 & 1.000 & 0.484 \\
+106 & Paired & 0.958 & 0.009 & 1.000 & 0.000 \\
+106 & Unpaired & 0.958 & 0.009 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{206: aligned, $J=21$}\\
+206 & Anchor & 0.960 & 0.014 & 1.000 & 0.000 \\
+206 & Full & 0.940 & 0.017 & 0.740 & 1.000 \\
+206 & Trace & 0.940 & 0.017 & 0.740 & 1.000 \\
+206 & Plug-in & 0.940 & 0.017 & 0.741 & 1.000 \\
+206 & Paired & 0.955 & 0.015 & 0.765 & 1.000 \\
+206 & Unpaired & 0.960 & 0.014 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{207: aligned, $J=51$}\\
+207 & Anchor & 0.960 & 0.014 & 1.000 & 0.000 \\
+207 & Full & 0.965 & 0.013 & 0.750 & 1.000 \\
+207 & Trace & 0.960 & 0.014 & 0.750 & 1.000 \\
+207 & Plug-in & 0.965 & 0.013 & 0.751 & 1.000 \\
+207 & Paired & 0.965 & 0.013 & 0.782 & 0.985 \\
+207 & Unpaired & 0.960 & 0.014 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{208: aligned, $J=101$}\\
+208 & Anchor & 0.960 & 0.014 & 1.000 & 0.000 \\
+208 & Full & 0.960 & 0.014 & 0.753 & 1.000 \\
+208 & Trace & 0.960 & 0.014 & 0.753 & 1.000 \\
+208 & Plug-in & 0.960 & 0.014 & 0.754 & 1.000 \\
+208 & Paired & 0.955 & 0.015 & 0.798 & 0.965 \\
+208 & Unpaired & 0.960 & 0.014 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{209: reversal, $J=21$}\\
+209 & Anchor & 0.935 & 0.017 & 1.000 & 0.000 \\
+209 & Full & 0.925 & 0.019 & 1.128 & 1.000 \\
+209 & Trace & 0.935 & 0.017 & 1.000 & 0.010 \\
+209 & Plug-in & 0.935 & 0.017 & 1.000 & 0.005 \\
+209 & Paired & 0.935 & 0.017 & 1.000 & 0.000 \\
+209 & Unpaired & 0.935 & 0.017 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{210: reversal, $J=51$}\\
+210 & Anchor & 0.945 & 0.016 & 1.000 & 0.000 \\
+210 & Full & 0.940 & 0.017 & 1.124 & 1.000 \\
+210 & Trace & 0.945 & 0.016 & 1.000 & 0.010 \\
+210 & Plug-in & 0.945 & 0.016 & 1.000 & 0.010 \\
+210 & Paired & 0.945 & 0.016 & 1.000 & 0.000 \\
+210 & Unpaired & 0.945 & 0.016 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{211: reversal, $J=101$}\\
+211 & Anchor & 0.950 & 0.015 & 1.000 & 0.000 \\
+211 & Full & 0.930 & 0.018 & 1.123 & 1.000 \\
+211 & Trace & 0.950 & 0.015 & 1.000 & 0.010 \\
+211 & Plug-in & 0.950 & 0.015 & 1.000 & 0.010 \\
+211 & Paired & 0.950 & 0.015 & 1.000 & 0.000 \\
+211 & Unpaired & 0.950 & 0.015 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{301: t3, $d=1$, gaussian, random}\\
+301 & Anchor & 0.967 & 0.010 & 1.000 & 0.000 \\
+301 & Full & 0.960 & 0.011 & 0.809 & 1.000 \\
+301 & Trace & 0.953 & 0.012 & 0.807 & 1.000 \\
+301 & Plug-in & 0.960 & 0.011 & 0.807 & 1.000 \\
+301 & Paired & 0.963 & 0.011 & 0.841 & 0.943 \\
+301 & Unpaired & 0.967 & 0.010 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{302: skew, $d=1$, gaussian, random}\\
+302 & Anchor & 0.960 & 0.011 & 1.000 & 0.000 \\
+302 & Full & 0.960 & 0.011 & 0.779 & 1.000 \\
+302 & Trace & 0.960 & 0.011 & 0.778 & 1.000 \\
+302 & Plug-in & 0.960 & 0.011 & 0.779 & 1.000 \\
+302 & Paired & 0.960 & 0.011 & 0.807 & 0.980 \\
+302 & Unpaired & 0.960 & 0.011 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{303: mixture, $d=1$, gaussian, random}\\
+303 & Anchor & 0.953 & 0.012 & 1.000 & 0.000 \\
+303 & Full & 0.977 & 0.009 & 0.723 & 1.000 \\
+303 & Trace & 0.977 & 0.009 & 0.723 & 1.000 \\
+303 & Plug-in & 0.977 & 0.009 & 0.723 & 1.000 \\
+303 & Paired & 0.970 & 0.010 & 0.744 & 1.000 \\
+303 & Unpaired & 0.953 & 0.012 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{304: discrete, $d=1$, gaussian, random}\\
+304 & Anchor & 0.947 & 0.013 & 1.000 & 0.000 \\
+304 & Full & 0.963 & 0.011 & 0.667 & 1.000 \\
+304 & Trace & 0.960 & 0.011 & 0.665 & 1.000 \\
+304 & Plug-in & 0.960 & 0.011 & 0.666 & 1.000 \\
+304 & Paired & 0.953 & 0.012 & 0.686 & 1.000 \\
+304 & Unpaired & 0.950 & 0.013 & 0.994 & 0.020 \\
+\multicolumn{6}{l}{305: normal, $d=2$, gaussian, random}\\
+305 & Anchor & 0.937 & 0.014 & 1.000 & 0.000 \\
+305 & Full & 0.957 & 0.012 & 0.754 & 1.000 \\
+305 & Trace & 0.963 & 0.011 & 0.754 & 1.000 \\
+305 & Plug-in & 0.967 & 0.010 & 0.755 & 1.000 \\
+305 & Paired & 0.950 & 0.013 & 0.822 & 0.877 \\
+305 & Unpaired & 0.937 & 0.014 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{306: normal, $d=1$, knn, random}\\
+306 & Anchor & 0.983 & 0.007 & 1.000 & 0.000 \\
+306 & Full & 0.960 & 0.011 & 0.753 & 1.000 \\
+306 & Trace & 0.960 & 0.011 & 0.753 & 1.000 \\
+306 & Plug-in & 0.960 & 0.011 & 0.753 & 1.000 \\
+306 & Paired & 0.963 & 0.011 & 0.777 & 0.993 \\
+306 & Unpaired & 0.983 & 0.007 & 1.000 & 0.000 \\
+\multicolumn{6}{l}{307: normal, $d=1$, gaussian, estimated}\\
+307 & Anchor & 0.960 & 0.011 & 1.000 & 0.000 \\
+307 & Full & 0.970 & 0.010 & 0.737 & 1.000 \\
+307 & Trace & 0.970 & 0.010 & 0.737 & 1.000 \\
+307 & Plug-in & 0.970 & 0.010 & 0.738 & 1.000 \\
+307 & Paired & 0.963 & 0.011 & 0.768 & 0.997 \\
+307 & Unpaired & 0.960 & 0.011 & 1.000 & 0.000 \\
+\end{longtable}
+\begin{longtable}{rlrrr}
+\caption{Added random EPA budgets. Coverage is joint over 21 threshold--humidity combinations; width is averaged across humidity within each mask and divided by Anchor. Each row uses 400 masks.}\label{tab:s10-epa}\\
+\toprule $p$ (\%) & Method & Joint coverage & MCSE & Width ratio \\\midrule\endfirsthead
+\toprule $p$ (\%) & Method & Joint coverage & MCSE & Width ratio \\\midrule\endhead
+\bottomrule\endfoot
+40 & Anchor & 0.968 & 0.009 & 1.000 \\
+40 & Full & 0.973 & 0.008 & 0.654 \\
+40 & Trace & 0.975 & 0.008 & 0.654 \\
+40 & Plug-in & 0.970 & 0.009 & 0.655 \\
+40 & Paired & 0.975 & 0.008 & 0.701 \\
+60 & Anchor & 0.963 & 0.009 & 1.000 \\
+60 & Full & 0.978 & 0.007 & 0.651 \\
+60 & Trace & 0.978 & 0.007 & 0.651 \\
+60 & Plug-in & 0.978 & 0.007 & 0.652 \\
+60 & Paired & 0.968 & 0.009 & 0.671 \\
+80 & Anchor & 0.960 & 0.010 & 1.000 \\
+80 & Full & 0.960 & 0.010 & 0.650 \\
+80 & Trace & 0.960 & 0.010 & 0.650 \\
+80 & Plug-in & 0.960 & 0.010 & 0.651 \\
+80 & Paired & 0.960 & 0.010 & 0.662 \\
+95 & Anchor & 0.968 & 0.009 & 1.000 \\
+95 & Full & 0.945 & 0.011 & 0.650 \\
+95 & Trace & 0.943 & 0.012 & 0.650 \\
+95 & Plug-in & 0.948 & 0.011 & 0.650 \\
+95 & Paired & 0.948 & 0.011 & 0.658 \\
+\end{longtable}
