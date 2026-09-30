@@ -3,3 +3,9 @@
 date_recovery_work/
 _build_check/
 JRSSB/writing_samples/
+JRSSB/writing_v4/paper/*.aux
+JRSSB/writing_v4/paper/*.log
+JRSSB/writing_v4/paper/*.out
+JRSSB/writing_v4/paper/*.blg
+JRSSB/writing_v4/paper/*.toc
+
