@@ -11,6 +11,7 @@
 ## 必读材料
 
 - `output/`：语料蒸馏与审计交付物。`JRSSB_STYLE_PROFILE.md` 是 20 篇样本的画像，`JRSSB_STYLE_RULES.yaml` 是机器可读规则，`MANUSCRIPT_JRSSB_AUDIT.md` 是修订后的逐项审计，`REVISION_PLAN.md` 是剩余工作清单。
+- `output/JRSSB_STYLE_MODEL.md`：语料定性提炼的写作风格模型，含开场、贡献、定理引入与解释、结果报告、过渡、动词表与可套用句式。
 - `style_findings.md`：样本共性与维度分析的叙述版。
 - 本页其余部分是状态、规则与文件地图。
 
@@ -121,3 +122,4 @@
 ## 编译
 
 在 `paper/` 内执行 pdflatex、bibtex、pdflatex ×2（manuscript 与 supplement）。图形路径 `../figures/`。当前基线：正文 34 页，补充材料 54 页，均无溢出框、无未定义引用。
+
