@@ -1,0 +1,42 @@
+\contentsline {section}{\numberline {S1}Geometry of paired critical values}{3}{section.1}%
+\contentsline {subsection}{\numberline {S1.1}Notation and exact local identities}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {S1.2}Proof of the separation proposition}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {S1.3}Gaussian-quantile differentiability}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {S1.4}Proofs of Theorems 1 and 2}{5}{subsection.1.4}%
+\contentsline {section}{\numberline {S2}An observable covariance confidence set}{6}{section.2}%
+\contentsline {section}{\numberline {S3}Feasible paired calibration and local information}{8}{section.3}%
+\contentsline {subsection}{\numberline {S3.1}Primitive conditions and covariance expansion}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {S3.2}Score central limit theorem and multiplier calibration}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {S3.3}Proof of Theorem 3}{11}{subsection.3.3}%
+\contentsline {subsection}{\numberline {S3.4}Increasing thresholds and weights}{12}{subsection.3.4}%
+\contentsline {subsection}{\numberline {S3.5}A matched unpaired certification comparator}{13}{subsection.3.5}%
+\contentsline {section}{\numberline {S4}Post-selection bands and numerical calibration}{14}{section.4}%
+\contentsline {subsection}{\numberline {S4.1}Proof of Theorem 4}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {S4.2}Monotone envelopes and quantile inversion}{16}{subsection.4.2}%
+\contentsline {subsection}{\numberline {S4.3}Exact order-statistic protection for Gaussian critical values}{16}{subsection.4.3}%
+\contentsline {subsection}{\numberline {S4.4}Radial integration and its derivative}{17}{subsection.4.4}%
+\contentsline {subsection}{\numberline {S4.5}Declared covariance enlargement}{18}{subsection.4.5}%
+\contentsline {section}{\numberline {S5}Rotating roles and independent blocks}{19}{section.5}%
+\contentsline {section}{\numberline {S6}Finite-frame verification of a distributional contrast}{20}{section.6}%
+\contentsline {subsection}{\numberline {S6.1}Target and independent masks}{20}{subsection.6.1}%
+\contentsline {subsection}{\numberline {S6.2}Exact evaluation error and covariance}{21}{subsection.6.2}%
+\contentsline {subsection}{\numberline {S6.3}Asymptotic justification for frame sequences}{22}{subsection.6.3}%
+\contentsline {subsection}{\numberline {S6.4}EPA implementation and scientific interpretation}{23}{subsection.6.4}%
+\contentsline {section}{\numberline {S7}Weak-signal information boundary}{25}{section.7}%
+\contentsline {section}{\numberline {S8}Reference efficiency and extensions of the original framework}{26}{section.8}%
+\contentsline {subsection}{\numberline {S8.1}Canonical gradient and covariance excess}{26}{subsection.8.1}%
+\contentsline {subsection}{\numberline {S8.2}The integrated-variance rule as a comparison method}{28}{subsection.8.2}%
+\contentsline {subsection}{\numberline {S8.3}Local covariance limit and point-target bias}{29}{subsection.8.3}%
+\contentsline {subsection}{\numberline {S8.4}Estimated verification probabilities}{30}{subsection.8.4}%
+\contentsline {subsection}{\numberline {S8.5}Local linear estimation and verification allocation}{31}{subsection.8.5}%
+\contentsline {section}{\numberline {S9}Reproduction, numerical diagnostics and complete results}{31}{section.9}%
+\contentsline {subsection}{\numberline {S9.1}Frozen protocols and provenance}{31}{subsection.9.1}%
+\contentsline {subsection}{\numberline {S9.2}Numerical accuracy and software checks}{33}{subsection.9.2}%
+\contentsline {subsection}{\numberline {S9.3}Three-role rotation}{34}{subsection.9.3}%
+\contentsline {subsection}{\numberline {S9.4}EPA decisions and reference support}{34}{subsection.9.4}%
+\contentsline {section}{\numberline {S10}Dense thresholds, matched certification and precision requirements}{42}{section.10}%
+\contentsline {subsection}{\numberline {S10.1}Experiments fixed before the additional runs}{42}{subsection.10.1}%
+\contentsline {subsection}{\numberline {S10.2}Outcome and nuisance-regression robustness}{43}{subsection.10.2}%
+\contentsline {subsection}{\numberline {S10.3}Numerical refinement at dense thresholds}{44}{subsection.10.3}%
+\contentsline {subsection}{\numberline {S10.4}Additional results and interpretation}{45}{subsection.10.4}%
+\contentsline {subsection}{\numberline {S10.5}Extended EPA precision experiment}{46}{subsection.10.5}%

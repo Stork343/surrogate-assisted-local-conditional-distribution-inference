@@ -1,4 +1,4 @@
-\begin{thebibliography}{24}
+\begin{thebibliography}{50}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -20,7 +20,6 @@ Anastasios~N. Angelopoulos, Stephen Bates, Emmanuel~J. Cand{\`e}s, Michael~I.
 \newblock Learn then test: Calibrating predictive algorithms to achieve risk
   control.
 \newblock \emph{arXiv preprint arXiv:2110.01052}, 2021.
-\newblock \doi{10.48550/arXiv.2110.01052}.
 
 \bibitem[Angelopoulos et~al.(2023{\natexlab{a}})Angelopoulos, Bates, Fannjiang,
   Jordan, and Zrnic]{AngelopoulosEtAl2023}
@@ -29,14 +28,27 @@ Anastasios~N. Angelopoulos, Stephen Bates, Clara Fannjiang, Michael~I. Jordan,
 \newblock Prediction-powered inference.
 \newblock \emph{Science}, 382\penalty0 (6671):\penalty0 669--674,
   2023{\natexlab{a}}.
-\newblock \doi{10.1126/science.adi6000}.
 
 \bibitem[Angelopoulos et~al.(2023{\natexlab{b}})Angelopoulos, Duchi, and
   Zrnic]{AngelopoulosDuchiZrnic2023}
 Anastasios~N. Angelopoulos, John~C. Duchi, and Tijana Zrnic.
 \newblock {PPI++}: Efficient prediction-powered inference.
 \newblock \emph{arXiv preprint arXiv:2311.01453}, 2023{\natexlab{b}}.
-\newblock \doi{10.48550/arXiv.2311.01453}.
+
+\bibitem[Auddy et~al.(2026)Auddy, Cai, and Chakraborty]{AuddyEtAl2026}
+Arnab Auddy, T.~Tony Cai, and Abhinav Chakraborty.
+\newblock Minimax and adaptive transfer learning for nonparametric
+  classification under distributed differential privacy constraints.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 88\penalty0 (3):\penalty0 903--929, 2026.
+
+\bibitem[Azriel et~al.(2022)Azriel, Brown, Sklar, Berk, Buja, and
+  Zhao]{AzrielEtAl2022}
+David Azriel, Lawrence~D. Brown, Michael Sklar, Richard Berk, Andreas Buja, and
+  Linda Zhao.
+\newblock Semi-supervised linear regression.
+\newblock \emph{Journal of the American Statistical Association}, 117\penalty0
+  (540):\penalty0 2238--2251, 2022.
 
 \bibitem[Barkjohn et~al.(2025)Barkjohn, Yaga, Thomas, Schoppman, Docherty, and
   Clements]{Barkjohn2025}
@@ -46,26 +58,48 @@ Karoline~K. Barkjohn, Robert Yaga, Brittany Thomas, William Schoppman,
 \newblock \emph{Sensors}, 25\penalty0 (4):\penalty0 1265, 2025.
 \newblock \doi{10.3390/s25041265}.
 
+\bibitem[Cand{\`e}s et~al.(2023)Cand{\`e}s, Lei, and Ren]{CandesLeiRen2023}
+Emmanuel Cand{\`e}s, Lihua Lei, and Zhimei Ren.
+\newblock Conformalized survival analysis.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 85\penalty0 (1):\penalty0 24--45, 2023.
+
 \bibitem[Cao et~al.(2009)Cao, Tsiatis, and Davidian]{CaoTsiatisDavidian2009}
 Weihua Cao, Anastasios~A. Tsiatis, and Marie Davidian.
 \newblock Improving efficiency and robustness of the doubly robust estimator
   for a population mean with incomplete data.
 \newblock \emph{Biometrika}, 96\penalty0 (3):\penalty0 723--734, 2009.
-\newblock \doi{10.1093/biomet/asp033}.
 
-\bibitem[Cattaneo et~al.(2024)Cattaneo, Jansson, and Ma]{CattaneoJanssonMa2024}
+\bibitem[Cattaneo et~al.(2024{\natexlab{a}})Cattaneo, Chandak, Jansson, and
+  Ma]{CattaneoEtAl2024}
+Matias~D. Cattaneo, Rajita Chandak, Michael Jansson, and Xinwei Ma.
+\newblock Boundary adaptive local polynomial conditional density estimators.
+\newblock \emph{Bernoulli}, 30\penalty0 (4):\penalty0 3193--3223,
+  2024{\natexlab{a}}.
+
+\bibitem[Cattaneo et~al.(2024{\natexlab{b}})Cattaneo, Jansson, and
+  Ma]{CattaneoJanssonMa2024}
 Matias~D. Cattaneo, Michael Jansson, and Xinwei Ma.
 \newblock Local regression distribution estimators.
 \newblock \emph{Journal of Econometrics}, 240\penalty0 (2):\penalty0 105074,
-  2024.
-\newblock \doi{10.1016/j.jeconom.2021.01.006}.
+  2024{\natexlab{b}}.
 
 \bibitem[Chakrabortty and Cai(2018)]{ChakraborttyCai2018}
 Abhishek Chakrabortty and Tianxi Cai.
 \newblock Efficient and adaptive linear regression in semi-supervised settings.
 \newblock \emph{The Annals of Statistics}, 46\penalty0 (4):\penalty0
   1541--1572, 2018.
-\newblock \doi{10.1214/17-AOS1594}.
+
+\bibitem[Chen et~al.(2025)Chen, Wang, Lumley, Dai, and Chen]{ChenEtAl2025}
+Jianmin Chen, Huiyuan Wang, Thomas Lumley, Xiaowu Dai, and Yong Chen.
+\newblock Surrogate-powered inference: Regularization and adaptivity.
+\newblock \emph{arXiv preprint arXiv:2512.21826}, 2025.
+
+\bibitem[Chernozhukov et~al.(2010)Chernozhukov, Fern{\'a}ndez-Val, and
+  Galichon]{ChernozhukovEtAl2010}
+Victor Chernozhukov, Iv{\'a}n Fern{\'a}ndez-Val, and Alfred Galichon.
+\newblock Quantile and probability curves without crossing.
+\newblock \emph{Econometrica}, 78\penalty0 (3):\penalty0 1093--1125, 2010.
 
 \bibitem[Chernozhukov et~al.(2016)Chernozhukov, Chetverikov, and
   Kato]{cck2016clt}
@@ -82,32 +116,123 @@ Benjamin Eyre and David Madras.
   Learning}, volume 267 of \emph{Proceedings of Machine Learning Research},
   pages 15596--15612, 2025.
 
+\bibitem[Gibbs et~al.(2025)Gibbs, Cherian, and Cand{\`e}s]{GibbsEtAl2025}
+Isaac Gibbs, John~J. Cherian, and Emmanuel~J. Cand{\`e}s.
+\newblock Conformal prediction with conditional guarantees.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 87\penalty0 (4):\penalty0 1100--1126, 2025.
+
+\bibitem[Gronsbell et~al.(2022)Gronsbell, Liu, Tian, and
+  Cai]{GronsbellEtAl2022}
+Jessica Gronsbell, Molei Liu, Lu~Tian, and Tianxi Cai.
+\newblock Efficient evaluation of prediction rules in semi-supervised settings
+  under stratified sampling.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 84\penalty0 (4):\penalty0 1353--1391, 2022.
+
+\bibitem[Gronsbell and Cai(2018)]{GronsbellCai2018}
+Jessica~L. Gronsbell and Tianxi Cai.
+\newblock Semi-supervised approaches to efficient evaluation of model
+  prediction performance.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 80\penalty0 (3):\penalty0 579--594, 2018.
+
+\bibitem[Gu et~al.(2025)Gu, Han, and Duan]{GuHanDuan2025}
+Tian Gu, Yi~Han, and Rui Duan.
+\newblock Robust angle-based transfer learning in high dimensions.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 87\penalty0 (3):\penalty0 723--745, 2025.
+
+\bibitem[Hore and Barber(2025)]{HoreBarber2025}
+Rohan Hore and Rina~Foygel Barber.
+\newblock Conformal prediction with local weights: randomization enables robust
+  guarantees.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 87\penalty0 (2):\penalty0 549--578, 2025.
+
+\bibitem[Ignatiadis and Huber(2021)]{IgnatiadisHuber2021}
+Nikolaos Ignatiadis and Wolfgang Huber.
+\newblock Covariate powered cross-weighted multiple testing.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 83\penalty0 (4):\penalty0 720--751, 2021.
+
+\bibitem[Ji et~al.(2025)Ji, Lei, and Zrnic]{JiLeiZrnic2025}
+Wenlong Ji, Lihua Lei, and Tijana Zrnic.
+\newblock Predictions as surrogates: Revisiting surrogate outcomes in the age
+  of {AI}.
+\newblock \emph{arXiv preprint arXiv:2501.09731}, 2025.
+
+\bibitem[Jin and Ren(2025)]{JinRen2025}
+Ying Jin and Zhimei Ren.
+\newblock Confidence on the focal: conformal prediction with
+  selection-conditional coverage.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 87\penalty0 (4):\penalty0 1239--1259, 2025.
+
 \bibitem[Kallus and Mao(2025)]{KallusMao2025}
 Nathan Kallus and Xiaojie Mao.
 \newblock On the role of surrogates in the efficient estimation of treatment
   effects with limited outcome data.
 \newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
   Methodology}, 87\penalty0 (2):\penalty0 480--509, 2025.
-\newblock \doi{10.1093/jrsssb/qkae099}.
+
+\bibitem[Lei and Cand{\`e}s(2021)]{LeiCandes2021}
+Lihua Lei and Emmanuel~J. Cand{\`e}s.
+\newblock Conformal inference of counterfactuals and individual treatment
+  effects.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 83\penalty0 (5):\penalty0 911--938, 2021.
+
+\bibitem[Li et~al.(2022)Li, Cai, and Li]{LiCaiLi2022}
+Sai Li, T.~Tony Cai, and Hongzhe Li.
+\newblock Transfer learning for high-dimensional linear regression: Prediction,
+  estimation and minimax optimality.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 84\penalty0 (1):\penalty0 149--173, 2022.
+
+\bibitem[Li and Ignatiadis(2025)]{LiIgnatiadis2025}
+Sida Li and Nikolaos Ignatiadis.
+\newblock Prediction-powered adaptive shrinkage estimation.
+\newblock In \emph{Proceedings of the 42nd International Conference on Machine
+  Learning}, volume 267 of \emph{Proceedings of Machine Learning Research},
+  pages 34836--34875. PMLR, 2025.
+\newblock URL \url{https://proceedings.mlr.press/v267/li25ak.html}.
 
 \bibitem[Li et~al.(2026)Li, Jiang, and Zhang]{li2026multisource}
 Wenhui Li, Fen Jiang, and Xinyu Zhang.
 \newblock Multi-source prediction-powered inference.
 \newblock \emph{arXiv preprint arXiv:2606.21232}, 2026.
-\newblock \doi{10.48550/arXiv.2606.21232}.
+
+\bibitem[Ma et~al.(2026)Ma, Wang, and Samworth]{MaWangSamworth2026}
+Tianyi Ma, Tengyao Wang, and Richard~J. Samworth.
+\newblock Deep learning with missing data.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 2026.
+\newblock Advance article online 29 July 2026.
 
 \bibitem[Mani et~al.(2025)Mani, Xu, Lipton, and Oberst]{mani2025nofreelunch}
 Pranav Mani, Peng Xu, Zachary Lipton, and Michael Oberst.
 \newblock No free lunch: Non-asymptotic analysis of prediction-powered
   inference.
 \newblock \emph{arXiv preprint arXiv:2505.20178}, 2025.
-\newblock \doi{10.48550/arXiv.2505.20178}.
+
+\bibitem[Miao et~al.(2025)Miao, Miao, Wu, Zhao, and Lu]{MiaoEtAl2025}
+Jiacheng Miao, Xinran Miao, Yixuan Wu, Jiwei Zhao, and Qiongshi Lu.
+\newblock Assumption-lean and data-adaptive post-prediction inference.
+\newblock \emph{Journal of Machine Learning Research}, 26\penalty0
+  (179):\penalty0 1--31, 2025.
+\newblock URL \url{https://jmlr.org/papers/v26/24-0056.html}.
 
 \bibitem[Pepe(1992)]{Pepe1992}
 Margaret~Sullivan Pepe.
 \newblock Inference using surrogate outcome data and a validation sample.
 \newblock \emph{Biometrika}, 79\penalty0 (2):\penalty0 355--365, 1992.
-\newblock \doi{10.1093/biomet/79.2.355}.
+
+\bibitem[Qiu et~al.(2023)Qiu, Dobriban, and Tchetgen~Tchetgen]{QiuEtAl2023}
+Hongxiang Qiu, Edgar Dobriban, and Eric Tchetgen~Tchetgen.
+\newblock Prediction sets adaptive to unknown covariate shift.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 85\penalty0 (5):\penalty0 1680--1705, 2023.
 
 \bibitem[Robins et~al.(1994)Robins, Rotnitzky, and
   Zhao]{RobinsRotnitzkyZhao1994}
@@ -116,7 +241,19 @@ James~M. Robins, Andrea Rotnitzky, and Lue~Ping Zhao.
   always observed.
 \newblock \emph{Journal of the American Statistical Association}, 89\penalty0
   (427):\penalty0 846--866, 1994.
-\newblock \doi{10.1080/01621459.1994.10476818}.
+
+\bibitem[Sesia et~al.(2025)Sesia, Wang, and Tong]{SesiaEtAl2025}
+Matteo Sesia, Y.~X.~Rachel Wang, and Xin Tong.
+\newblock Adaptive conformal classification with noisy labels.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 87\penalty0 (3):\penalty0 796--815, 2025.
+
+\bibitem[Shah and Samworth(2013)]{ShahSamworth2013}
+Rajen~D. Shah and Richard~J. Samworth.
+\newblock Variable selection with error control: Another look at stability
+  selection.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 75\penalty0 (1):\penalty0 55--80, 2013.
 
 \bibitem[Song et~al.(2024)Song, Lin, and Zhou]{Song2024}
 Shanshan Song, Yuanyuan Lin, and Yong Zhou.
@@ -129,7 +266,6 @@ Shanshan Song, Yuanyuan Lin, and Yong Zhou.
 Yang Sui, Jin Zhou, Hua Zhou, and Xiaowu Dai.
 \newblock Prediction-powered conditional inference.
 \newblock \emph{arXiv preprint arXiv:2603.05575}, 2026.
-\newblock \doi{10.48550/arXiv.2603.05575}.
 
 \bibitem[Tao et~al.(2017)Tao, Zeng, and Lin]{TaoZengLin2017}
 Ran Tao, Donglin Zeng, and Dan-Yu Lin.
@@ -137,46 +273,66 @@ Ran Tao, Donglin Zeng, and Dan-Yu Lin.
   applications to genetic association studies.
 \newblock \emph{Journal of the American Statistical Association}, 112\penalty0
   (520):\penalty0 1468--1476, 2017.
-\newblock \doi{10.1080/01621459.2017.1295864}.
 
 \bibitem[Testa et~al.(2025)Testa, Xu, Lei, and Roeder]{TestaEtAl2025}
 Lorenzo Testa, Qi~Xu, Jing Lei, and Kathryn Roeder.
 \newblock Semiparametric semi-supervised learning for general targets under
   distribution shift and decaying overlap.
 \newblock \emph{arXiv preprint arXiv:2505.06452}, 2025.
-\newblock \doi{10.48550/arXiv.2505.06452}.
 
 \bibitem[Tsiatis(2006)]{Tsiatis2006}
 Anastasios~A. Tsiatis.
 \newblock \emph{Semiparametric Theory and Missing Data}.
 \newblock Springer Series in Statistics. Springer, New York, 2006.
-\newblock \doi{10.1007/0-387-37345-4}.
 
 \bibitem[Wang(2026)]{Wang2026}
 Pengyun Wang.
 \newblock Efficient transported distributional and quantile treatment effects
   with surrogate-assisted missing primary outcomes.
 \newblock \emph{arXiv preprint arXiv:2605.02154}, 2026.
-\newblock \doi{10.48550/arXiv.2605.02154}.
+
+\bibitem[Yang and Ding(2025)]{YangDing2025}
+Shu Yang and Peng Ding.
+\newblock Two-phase rejective sampling and its asymptotic properties.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 87\penalty0 (4):\penalty0 957--977, 2025.
+
+\bibitem[Yang et~al.(2021)Yang, Kim, and Song]{YangKimSong2021}
+Shu Yang, Jae~Kwang Kim, and Rui Song.
+\newblock Doubly robust inference when combining probability and
+  non-probability samples with high dimensional data.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 82\penalty0 (2):\penalty0 445--465, 2021.
+
+\bibitem[Yang et~al.(2024)Yang, Kuchibhotla, and
+  Tchetgen~Tchetgen]{YangEtAl2024}
+Yachong Yang, Arun~Kumar Kuchibhotla, and Eric Tchetgen~Tchetgen.
+\newblock Doubly robust calibration of prediction sets under covariate shift.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 86\penalty0 (4):\penalty0 943--965, 2024.
 
 \bibitem[Zhang et~al.(2019)Zhang, Brown, and Cai]{ZhangBrownCai2019}
 Anru Zhang, Lawrence~D. Brown, and T.~Tony Cai.
 \newblock Semi-supervised inference: General theory and estimation of means.
 \newblock \emph{The Annals of Statistics}, 47\penalty0 (5):\penalty0
   2538--2566, 2019.
-\newblock \doi{10.1214/18-AOS1756}.
+
+\bibitem[Zhang et~al.(2026)Zhang, Huang, Yang, and Shao]{ZhangEtAl2026}
+Yi~Zhang, Linjun Huang, Yun Yang, and Xiaofeng Shao.
+\newblock Doubly robust conditional independence testing with generative neural
+  networks.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 88\penalty0 (1):\penalty0 195--220, 2026.
 
 \bibitem[Zhang and Li(2026)]{zhang2026generation}
 Yijiao Zhang and Hongzhe Li.
 \newblock Generation-powered inference for distribution-valued outcomes.
 \newblock \emph{arXiv preprint arXiv:2608.14542}, 2026.
-\newblock \doi{10.48550/arXiv.2608.14542}.
 
 \bibitem[Zrnic and Cand{\`e}s(2024)]{ZrnicCandes2024}
 Tijana Zrnic and Emmanuel~J. Cand{\`e}s.
 \newblock Cross-prediction-powered inference.
 \newblock \emph{Proceedings of the National Academy of Sciences}, 121\penalty0
   (15):\penalty0 e2322083121, 2024.
-\newblock \doi{10.1073/pnas.2322083121}.
 
 \end{thebibliography}

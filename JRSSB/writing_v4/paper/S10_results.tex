@@ -176,3 +176,28 @@ The first-tested-budget summary distinguishes an observed resolution rate above 
 95 & Plug-in & 0.948 & 0.011 & 0.650 \\
 95 & Paired & 0.948 & 0.011 & 0.658 \\
 \end{longtable}
+
+\begin{table}[htbp]\centering
+\caption{All five methods in the EPA reference-sampling experiment.}\label{tab:epa_budget}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrr}\toprule
+ & & \multicolumn{5}{c}{Method}\\
+Design & $p$ (\%) & Anchor & Full & Trace & Plug-in & Paired \\\midrule
+\multicolumn{7}{l}{(a) Joint coverage over all 21 threshold--humidity combinations}\\
+Random & 5 & 0.960 & 0.995 & 0.995 & 0.995 & 0.960 \\
+Random & 10 & 0.955 & 0.970 & 0.965 & 0.970 & 0.960 \\
+Random & 20 & 0.970 & 0.975 & 0.975 & 0.970 & 0.970 \\
+Selective & 5 & 0.955 & 0.990 & 0.975 & 0.980 & 0.955 \\
+Selective & 10 & 0.935 & 0.980 & 0.980 & 0.980 & 0.935 \\
+Selective & 20 & 0.955 & 0.985 & 0.975 & 0.975 & 0.955 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{(b) Mean within-mask width ratio to Anchor}\\
+Random & 5 & 1.000 & 0.679 & 0.687 & 0.696 & 0.985 \\
+Random & 10 & 1.000 & 0.667 & 0.669 & 0.674 & 0.942 \\
+Random & 20 & 1.000 & 0.660 & 0.660 & 0.663 & 0.828 \\
+Selective & 5 & 1.000 & 0.665 & 0.672 & 0.682 & 0.988 \\
+Selective & 10 & 1.000 & 0.652 & 0.655 & 0.662 & 0.950 \\
+Selective & 20 & 1.000 & 0.648 & 0.651 & 0.655 & 0.856 \\
+\bottomrule\end{tabular}
+\par\raggedright\noindent Each design--budget cell uses 200 masks. Widths are averaged across humidity within each mask. The average unique audit counts are 91.3, 182.8 and 364.8 under random auditing and 90.8, 183.5 and 364.1 under selective auditing. These counts exclude historical calibration. Projection is not evaluated in the EPA experiment.
+\end{table}

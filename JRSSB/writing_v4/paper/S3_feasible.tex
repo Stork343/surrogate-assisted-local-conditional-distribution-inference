@@ -2,6 +2,13 @@
 \subsection{Primitive conditions and covariance expansion}
 The following conditions make the asymptotic assertions precise. For each row, the three samples consist of independent identically distributed observations with known $\pi=pe$, $c_e\leq e\leq C_e$ and $0<p\leq1$. The kernel satisfies $0\leq K_h\leq K_{\max}$, $\Pr(K_h>0)\asymp v_h$, $\mu_h\asymp v_h$, and $n_Gpv_h\to\infty$. The trained candidates lie in $[0,1]^J$. Conditional constants in these assumptions are uniform on training events with probability tending to one. Fixed $h$ is allowed with $v_h$ interpreted as a fixed positive constant.
 
+The kernel ratio used on the evaluation sample satisfies the exact representation
+\begin{equation}\label{eq:identity}
+ \wh F_{\se,\lambda}=\frac{\PP_{\se}K_hU_\lambda}{\PP_{\se}K_h},\qquad
+ \sqrt{n_{\se}pv_h}(\wh F_{\se,\lambda}-F_h)
+ =\frac{n_{\se}^{-1/2}\sum_{i\in\se}H_\lambda\Psi_i}{\wh f_{h,\se}},
+\end{equation}
+where $\wh f_{h,\se}=\PP_{\se}K_h/v_h$ and a zero denominator gives the full $[0,1]$ distribution band. This identity yields the influence decomposition used in the main text and in Theorem~3.
 Let $f=F_h$, $r=(U_0-f,B)^\top$, $a_i=(p/v_h)K_i^2r_i$, $A=\E a_i$, $E_0=(I_J,0)^\top$, and
 \[
  \ell_i=K_i(U_{0,i}-f)/\mu_h,
@@ -134,3 +141,4 @@ $c_{\widehat\Omega}(\lambda)-c_\Omega(\lambda)
 =P_Gv_\lambda+O_P(N_G^{-1})$. The first multiplier controls $c_{\widehat\Omega}(0)-c_\Omega(0)$; the second controls all $c_\Omega(\lambda)-c_{\widehat\Omega}(\lambda)$, $\lambda>0$. The two Taylor remainders are absorbed by $2b_N$ under the same cushion conditions as the paired theorem. Their simultaneous upper bound fails with probability at most $\delta+\eta_t+o(1)$ by a union bound. On this event and the shared numerical interval event, $L_U(\lambda)\leq g_\Omega(\lambda)$ for every candidate. Maximising a family containing zero completes the proof.
 \end{proof}
 The two absolute errors are computed from the same sample, but their separate upper bounds discard their statistical cancellation. Their penalty is generally of order $N_G^{-1/2}$ even as $\lambda$ approaches zero, whereas the paired statistical penalty is multiplied by $\lambda$. This proposition gives both competitors the same advertised error budget. It does not assert that every lower-bound realisation or every chosen weight must be ordered. The ablation reports paired differences of realised performance.
+

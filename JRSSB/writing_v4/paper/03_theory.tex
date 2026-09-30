@@ -1,6 +1,8 @@
 \section{Certification and simultaneous inference}
+In this section we state the certification, coverage and information results. Proofs and primitive conditions are collected in the Supplement.
+
 \subsection{A covariance-set benchmark and paired sensitivity}
-Condition throughout on the training sample. Let $\mathcal C_G$ be a nonempty compact set of positive semidefinite joint covariance matrices with conditional coverage at least $1-\delta$. An ideal paired lower bound and its selector are
+We condition throughout on the training sample. Let $\mathcal C_G$ be a nonempty compact set of positive semidefinite joint covariance matrices with conditional coverage at least $1-\delta$. An ideal paired lower bound and its selector are
 \begin{equation}\label{eq:ideal}
  L_G(\lambda)=\inf_{Q\in\mathcal C_G}\{c_Q(0)-c_Q(\lambda)\},\qquad
  \lambda_G\in\argmax_{\lambda\in\Lset}L_G(\lambda).
@@ -31,10 +33,32 @@ If $\mathcal C_G\subset\mathcal K_{\kappa,B}$ has radius $\varepsilon_G$ about a
 The proof differentiates the Gaussian rectangle quantile twice with respect to its covariance and uses the cancellation at $\lambda=0$. The joint matrix may be singular, and only its output covariance needs to be positive definite, so an exactly zero correction is allowed. Constants depend on dimension and conditioning, and a growing grid requires the explicit dimension-dependent conditions in the Supplement.
 
 \subsection{Feasible calibration under scarce verification}
-Write $N_G=n_Gph^d$ and $N_E=n_Eph^d$. We impose the following conditions for the implemented procedure. The observations in each role are independent copies within a triangular row, the roles are disjoint, $\mu_h\asymp h^d$, the kernel and candidate functions are bounded, and $0<c_e\leq e\leq C_e<\infty$. Both local information indices diverge. For a fixed threshold and weight grid, output covariances stay in a compact positive definite set. Finally, the normalised nonzero covariance-influence scores satisfy the Lindeberg and covariance-consistency conditions stated in Supplementary Section~S3. These are conditions on the fitted path, and correct specification of either regression is unnecessary.
+We write $N_G=n_Gph^d$ and $N_E=n_Eph^d$. We impose the following conditions for the implemented procedure.
+
+\begin{assumption}[Sampling and roles]\label{ass:sampling}
+For each row, the observations in each role are independent copies, and the three roles are disjoint.
+\end{assumption}
+
+\begin{assumption}[Kernel and candidates]\label{ass:kernel}
+$\mu_h\asymp h^d$, and the kernel and the candidate functions $q_y$ and $m_y$ are bounded.
+\end{assumption}
+
+\begin{assumption}[Verification and information]\label{ass:verification}
+$0<c_e\leq e\leq C_e<\infty$, and both local information indices $N_G$ and $N_E$ diverge.
+\end{assumption}
+
+\begin{assumption}[Covariance class]\label{ass:covariance}
+For the fixed threshold and weight grids, the output covariances $H_\lambda\Omega H_\lambda^\top$ stay in a compact positive definite set.
+\end{assumption}
+
+\begin{assumption}[Score conditions]\label{ass:scores}
+The normalised nonzero covariance-influence scores satisfy the Lindeberg and covariance-consistency conditions stated in Section~S3.
+\end{assumption}
+
+These are conditions on the fitted path, and correct specification of either regression is unnecessary.
 
 \begin{theorem}[Feasible paired calibration]\label{th:feasible}
-Under these conditions, the covariance estimator in \eqref{eq:moments} has the influence expansion \eqref{eq:covif}, and
+Under Assumptions~\ref{ass:sampling}--\ref{ass:scores}, the covariance estimator in \eqref{eq:moments} has the influence expansion \eqref{eq:covif}, and
 \begin{equation}\label{eq:slopelinear}
  \frac{g_{\wh\Omega}(\lambda)-g_\Omega(\lambda)}{\lambda}
    =\frac1{n_G}\sum_{i\in G}\inner{D_\lambda(\Omega)}{C_i}
@@ -53,13 +77,19 @@ $1-\delta-\eta_c-\eta_t-o(1)$ and a nonnegative $R_N=O_P(N_G^{-1/2})$ such that,
 \end{equation}
 Here $\wh t_\delta=O_P(N_G^{-1/2})$, $e_{\mc}(\lambda)$ sums the anchor and candidate numerical interval widths, and $e_{\mc}(0)=0$. The bound retains the certificate's failure probability; at an anchor oracle its zero regret is asserted on $\mathcal A_N$.
 \end{theorem}
+
+\begin{remark}[Two calibrations]\label{rem:calibrations}
 Theorem~\ref{th:ideal} gives a finite-sample covariance-set statement and Theorem~\ref{th:feasible} an asymptotic multiplier statement. The software implements the latter, with exact finite-sample protection for the Monte Carlo quantile errors, and an observable Bernstein covariance ball for the benchmark is given in Section~S2. For $D=s_N\widetilde D$ with $s_N\to0$, the score statement applies after normalising by the nonzero path scale under the corresponding Lindeberg condition, and $D=0$ returns the anchor exactly.
+\end{remark}
 
 \subsection{Coverage, whole distributions and rotating roles}
 \begin{theorem}[Independent evaluation]\label{th:coverage}
 Let $\mathcal L\subseteq[0,1]$ be a fixed finite set or the compact interval. Assume the evaluation score process admits a Gaussian approximation uniformly over $\lambda\in\mathcal L$, its covariance estimate is uniformly consistent, and its Gaussian maximum is uniformly continuous at the target quantiles. For any $\mathcal L$-valued weight measurable with respect to the training and selection samples, the independently calibrated grid band has coverage at least $1-\alpha-\eta_E-o(1)$, where $\eta_E$ bounds its Monte Carlo quantile error. No convergence to a unique deterministic weight is needed.
 \end{theorem}
-Conditional on training and selection, the chosen weight is fixed in \eqref{eq:identity}; uniform Gaussian approximation and covariance consistency give the conclusion. Under a uniformly bounded local score envelope, standard Gaussian rectangle bounds apply when $\log^7(n_EJ)/N_E\to0$ \citep{cck2016clt}, and continuous-index counterparts use the local increment and entropy conditions in Section~S4.
+
+\begin{remark}[Coverage conditions]\label{rem:coverage}
+Conditional on training and selection, the chosen weight is fixed in the kernel-ratio representation of Section~S3; uniform Gaussian approximation and covariance consistency give the conclusion. Under a uniformly bounded local score envelope, standard Gaussian rectangle bounds apply when $\log^7(n_EJ)/N_E\to0$ \citep{cck2016clt}, and continuous-index counterparts use the local increment and entropy conditions in Section~S4. When local information is scarce, the finite-sample coverage may fall below the nominal level, which is why the simulations report it directly.
+\end{remark}
 
 If grid limits $(l_j,u_j)$ cover $F_h(y_j)$, the envelopes
 \begin{equation}\label{eq:envelope}
@@ -71,7 +101,7 @@ cover the entire distribution, with empty maxima and minima interpreted as zero 
 Rotating three roles is analysed by calibrating each role at error $\alpha/3$ and intersecting its whole-distribution bands; a union bound gives overall error at most $\alpha+o(1)$ without independence between the three bands. Conditioning on all three selected weights would instead reveal evaluation information. Convex combinations of their endpoints are also valid but can be wider, and Section~S5 gives both constructions.
 
 \subsection{How much reference information certifies a gain?}
-Consider $S\in\{-1,1\}$ equally likely and $Z=\ind(Y=0)$ with
+We consider $S\in\{-1,1\}$ equally likely and $Z=\ind(Y=0)$ with
 $\Pr_\theta(Z=1\mid S)=1/2+\theta S$. Set $q=1/2$, $D=dS$, $0<d<1/4$, and verify independently with probability $p$. Then
 \begin{equation}\label{eq:binary}
  p\Var_\theta(U_\lambda)=\tfrac14+(1-p)(d^2\lambda^2-2d\theta\lambda).
@@ -91,4 +121,9 @@ Localising the association to a box-kernel support of probability $r_h$ replaces
 has harmful-selection probability at most $\delta$, and selects a positive weight with probability at least $1-\beta$ if
 $\theta\geq\sqrt{\log(1/\delta)/(2k)}+\sqrt{\log(1/\beta)/(2k)}$.
 \end{theorem}
-The proof bounds observed-data divergence by $4n_Gp\theta^2$ and applies a one-sided Hoeffding bound for the converse. In this submodel the signal boundary is $N_G^{-1/2}$ and the oracle-gain boundary is $N_G^{-1}$, so numerical error must be smaller than the gain to retain this resolution, and a finite weight mesh must resolve the local optimum.
+
+\begin{remark}[Information scales]\label{rem:scales}
+The proof bounds observed-data divergence by $4n_Gp\theta^2$ and applies a one-sided Hoeffding bound for the converse. In this submodel the signal boundary is $N_G^{-1/2}$ and the oracle-gain boundary is $N_G^{-1}$, so numerical error must be smaller than the gain to retain this resolution, and a finite weight mesh must resolve the local optimum. Recall that $N_G$ denotes the local gate information defined above.
+\end{remark}
+
+

@@ -1,148 +1,123 @@
 # JRSSB 写作交接说明（writing_v4）
 
-更新日期：2026-09-30。本页给协助改写正文的外部助手阅读。
+更新日期：2026-09-30，语料蒸馏与第一轮修订后。本页给协助改写正文的外部助手阅读。
 
 ## 目录定位
 
-- `paper/` 是 `JRSSB_revision_v3/paper/` 的工作稿副本，已完成两轮凝练；`figures/` 与 V3 相同。
-- 权威数值、逐次结果、代码与审计记录在作者本地的 `JRSSB_revision_v3` 包中，没有进入本仓库。本目录只改文字、结构与图表位置，数值一律不得改动。
-- V3 交付包（34 页、七图）仍是正式版本；`JRSSB/submission_v5/` 是协作方发布的 V5 快照（29 页），不含本目录后续编辑。
+- `paper/` 是 `JRSSB_revision_v3/paper/` 的工作稿副本；`figures/` 与 V3 相同。
+- 权威数值、逐次结果、代码与审计记录在作者本地的 `JRSSB_revision_v3` 包中。本目录只改文字、结构与图表归属，数值一律不得改动。
+- V3 交付包仍是正式版本；`JRSSB/submission_v5/` 是协作方发布的 V5 快照（29 页），不含本目录后续编辑。
 
 ## 必读材料
 
-- `output/`：第一轮语料蒸馏与审计的七份交付物：`corpus_manifest.csv`、`corpus_quality_report.md`、`JRSSB_STYLE_PROFILE.md`、`JRSSB_STYLE_RULES.yaml`、`matched_papers.csv`、`MANUSCRIPT_JRSSB_AUDIT.md`、`REVISION_PLAN.md`；`corpus_database/corpus_metrics.csv` 存 20 篇样本加本稿的指标明细。
-- `style_findings.md`：20 篇 Series B 样本的共性分析，覆盖正文规模、引言、参考文献、措辞语气、标题、章节骨架、叙事逻辑、绘图、表格、编号假设、算法框，以及追加的读者引导句、note/recall、Remark、limitation、证明组织等维度，含行动清单。
+- `output/`：语料蒸馏与审计交付物。`JRSSB_STYLE_PROFILE.md` 是 20 篇样本的画像，`JRSSB_STYLE_RULES.yaml` 是机器可读规则，`MANUSCRIPT_JRSSB_AUDIT.md` 是修订后的逐项审计，`REVISION_PLAN.md` 是剩余工作清单。
+- `style_findings.md`：样本共性与维度分析的叙述版。
 - 本页其余部分是状态、规则与文件地图。
 
 ## 已完成的改动
 
 第一轮（结构）：引言重写、理论评注删减、模拟 7 并 4 小节、应用 6 并 4 小节、原第六图移入补充材料、讨论删减、表格改单倍行距。
 
-第二轮（按 12 篇样本）：模拟与应用短段合并；语态转换使 `we` 密度从 2.2 提高到 4.2 每千词。
+第二轮（12 篇样本）：短段合并；`we` 密度 2.2 到 4.2。
 
-第三轮（样本扩到 20 篇）：样本库扩到 20 篇，深度度量新增引言规模、参考文献规模、编号假设、算法框、摘要开场。
+第三轮（20 篇样本）：语料扩容与深度度量，产出画像与规则。
 
-第四轮（追加维度）：度量读者引导句、note/recall 提醒、编号 Remark、定理命名、limitation 表述、证明组织；结论并入 `style_findings.md`。
+第四轮（追加维度）：引导句、note/recall、Remark、limitation、证明组织。
 
-`02_method.tex` 与 `manuscript.tex` 未改动。
+第五轮（语料蒸馏后修订，2026-09-30）：
+1. 参考文献从 27 条扩到 50 条；新增 19 条为语料库双核对条目，其余来自原 bib 的真实条目；提交版删除 `doi` 字段（官方允许任意可读格式）。
+2. 引言从 586 词扩到 897 词，文献分四组，每段以缺口收尾。
+3. 3.2 节条件改为 Assumption 1--5。
+4. 新增 Remark 1--3。
+5. 02 节新增 Algorithm 1 伪代码框（procedurebox，无新宏包）。
+6. `eq:identity` 移入补充材料 S3，02 节公式从 11 条降到 9 条。
+7. 表 3 移入补充材料成为 Table S5，正文保留两张表，内部横线改为空行。
+8. 摘要改为情境句开场。
+9. 引导句 5 处、`note that / recall that` 4 处、情态词 1.1 每千词、显式 limitation 一句。
+10. `we` 密度 4.2 到 6.7。
+11. 正文 34 页，补充材料 54 页，均无溢出框与未定义引用。
 
-## 度量基线（20 篇样本对照）
+## 度量基线（20 篇样本对照，修订后）
 
 | 指标 | V3 | 当前 | 样本中位 |
 |---|---|---|---|
-| 正文页数 | 34 | 30 | - |
-| 正文词数 | 6,687 | 5,910 | 11,682（同口径 6,593） |
-| 引言词数 | - | 586 | 1,524 |
-| 引言占正文 | - | 8.9% | 14% |
-| 参考文献条数 | 27 | 27 | 46 |
+| 正文页数 | 34 | 34 | - |
+| 正文词数 | 6,687 | 6,583 | 11,682 |
+| 引言词数 | - | 897 | 1,524 |
+| 参考文献条数 | 27 | 50 | 46 |
 | 正文图数 | 7 | 6 | 8 |
-| 正文表数 | 3 | 3 | 1 |
-| `we` 密度（每千词） | 2.2 | 4.2 | 12.9 |
-| 情态词密度（每千词） | 0.3 | 0.3 | 2.3 |
-| 摘要词数 | 157 | 157 | 191 |
-| 编号假设 | 0 | 0 | 16/20 篇有 |
-| 算法框 | 0 | 0 | 10/20 篇有 |
-| 引导句 | - | 0 | 9.5 处 |
-| `note that / recall that` | - | 0 | 8.5 处 |
-| 编号 Remark | - | 0 | 11/20 篇有 |
-| 希腊字母种类 | - | 16 | 10.5 |
-| 编号公式条数 | - | 25 | 20 |
+| 正文表数 | 3 | 2 | 1 |
+| `we` 密度（每千词） | 2.2 | 6.7 | 12.9 |
+| 情态词密度（每千词） | 0.3 | 1.1 | 2.3 |
+| 引导句 | 0 | 5 | 9.5 处 |
+| `note that / recall that` | 0 | 4 | 8.5 处 |
+| 编号假设 | 0 | 5 | 16/20 篇有 |
+| 编号 Remark | 0 | 3 | 11/20 篇有 |
+| 算法框 | 0 | 1 | 10/20 篇有 |
+| 希腊字母种类 | 16 | 15 | 10.5 |
+| 编号公式条数 | 25 | 23 | 20 |
+| 摘要词数 | 157 | 159 | 191 |
 
-## 待办（按差距大小排列）
+## 待办
 
-1. 参考文献从 27 条扩到 45--60 条，集中在引言与相关工作；只加真实可核对的条目，新条目先经作者确认。
-2. 引言从 586 词扩到 1,100--1,500 词：情境段加长、文献分三组、贡献句保持显式。
-3. 语态继续转换，`we` 密度从 4.2 提到 8--12 每千词。
-4. 加引导句 6--10 处（In this section / We now / The remainder），放在每节首段与理论节各小节开头。
-5. 把 3.2 节的条件段落改成编号的 Assumption 1--5。
-6. 恢复 `note that / recall that` 4--6 处，用于定义回引与定理适用范围；`it should be noted` 继续排除。
-7. 情态词恢复到 1--2 每千词，只用于解释句。
-8. 摘要开场改为情境句。
-9. 为配对选择器补 Algorithm 伪代码框。
-10. 定理后的解释段改为编号 Remark。
-11. 讨论加一句显式 limitation。
-12. 页数：扩引言与文献约需 2--2.5 页，需同步压缩 04/05 或移表入补充材料，或者接受 31--32 页；由作者裁决。
-13. 定稿后把 `paper/` 移回 `JRSSB_revision_v3`，同步更新 `claim_code_map.csv`、`修改与验收记录_V3.md`、`README.md`、`FILE_INVENTORY.csv`，并重跑 `release_audit_v3.py`。
-14. 标题用词：样本用 `guarantees`，`certified` 不在样本词汇内；是否改动由作者决定。
-15. 把 02 节的 `eq:identity` 与 `eq:moments` 移入补充材料，正文保留定义与选择规则，02 节公式从 11 条降到 7 条左右。
-16. 可选：把 `χ` 与 `κ` 的记号并入文字，希腊字母从 16 种降到 14 种。
+1. R06：把绘图代码的面板字母从坐标区上沿移到面板内部左上角，重新生成六幅图（官方合规项）。
+2. R02/R03/R04 收尾：引言再扩约 200 词、`we` 再加约 10 处、引导句再加 1--2 处，或接受当前值。
+3. R14：把式 (11) 的卡方记号与 $\mathcal K_{\kappa,B}$ 并入文字，希腊字母降到 14 种。
+4. R17：标题用词 certified 对 guarantees，由作者裁决。
+5. R12 的最终确认：正文 34 页（语料一致性优先的默认）；如需回到 30 页，删约 1,200 词或再移展示项。
+6. R18：定稿后同步 V3 包记录并重跑 `release_audit_v3.py`。
 
 ## 改写规则
 
 ### 立场
-- 直接陈述结论。必要的适用范围与限制写一次，放在定理后的解释段或限制小节。
-- 用正面范围替代否定式免责；避免 `not X but Y`、`rather than`、`to be clear`、`it should be noted that`，除非对比本身是论证的一部分。
-- 段落一个主题句加支撑；删去只复述本段的收尾句。
+- 直接陈述结论。必要的适用范围与限制写一次，放在定理后的 Remark 或限制小节。
+- 用正面范围替代否定式免责；避免 `not X but Y`、`rather than`、`to be clear`、`it should be noted that`。
 
 ### 句法（英文）
 - 句长目标 10--30 词；超过 30 词拆分。每句一个核心命题。
-- 不用破折号连接句子，用逗号、括号或拆句。
+- 不用破折号连接句子。
 - 结果段报告"发生了什么"，解释放到讨论。
 
 ### 语气
-- 经验与设定句用 `we` 主语：`We separate`、`We generate`、`We draw`、`We model`。定义与公式陈述可以保留非人称形式。
-- 解释句允许 `may reflect`、`could indicate` 一类的适度情态；数值结论不加情态。
-- 摘要以情境句开场，再给缺口与贡献。
-- 每节开头用一句引导句告诉读者本节做什么；回引定义时用 `recall that` 或 `note that`。
+- 经验与设定句用 `we` 主语；定义与公式陈述可保留非人称形式。
+- 解释句允许 `may reflect`、`could indicate`；数值结论不加情态。
+- 摘要以情境句开场。每节开头用一句引导句；回引定义用 `recall that` 或 `note that`。
 
 ### 记号
-- 运算符用简写：`E`、`Var`、`Cov`、`argmin`、`tr`；不写成文字。
-- 帽子只标估计量，同一字母的装饰族只在定义处出现，后文用 `c(λ)` 与 `g(λ)` 这类简写。
+- 运算符用简写：`E`、`Var`、`Cov`、`argmin`、`tr`。
+- 帽子只标估计量，同一字母的装饰族只在定义处出现，后文用 `c(λ)` 与 `g(λ)`。
 - 不引入新的希腊字母；需要新记号时优先复用已有字母加下标。
-`n### 术语
-- 一人一名：Paired、Anchor、Full、Trace、Plug-in、Projection、Unpaired、gate、evaluation、audit frame 全文统一，不为行文变化引入同义词。
-- 缩略语首次出现给全称；EPA、CDF、RH 这类尚未定义的缩略语补上首次定义。
 
-### 数值
-- 正文、表格、`results_macros.tex` 的数值不得改动，也不得新增。需要核对时向作者索取 `results` 摘要。
-- 新增参考文献必须真实可核对；不得生成条目。
-- 改动后必须重新编译，并核对页数与无未定义引用。
+### 术语与数值
+- 一人一名：Paired、Anchor、Full、Trace、Plug-in、Projection、Unpaired、gate、evaluation、audit frame 全文统一。
+- 缩略语首次出现给全称。
+- 正文、表格、`results_macros.tex` 的数值不得改动，也不得新增；新增参考文献必须真实可核对。
+- 改动后必须重新编译，核对页数与无未定义引用。
 
-## JRSSB 硬性要求（来自官方 Instructions to Authors）
+## JRSSB 硬性要求（摘要）
 
-- 正文 12pt、双倍行距（每页 28 行）、A4；含附录、参考文献、表格与图在内低于 30 页，超过约 35 页会在初审招致负面评审。
-- 摘要不超过 200 词；五到六个关键词按字母序；摘要内不用引文与缩略语。
-- 英式拼写。
-- 定理按类型顺序编号（theorem 1, 2, ...；proposition 1, ...）。
-- 表格放正文末尾；无竖线、表身内无横线；数字右对齐。
-- 图题与图例写在正文文件内；每幅图单独文件；多面板合并为一个文件；面板左上角标 A、B、C。
-- 图例正下方写一行 `Alt text: ...`，这是期刊的强制要求，且不会进入排版版。
-- 补充材料单独在线发布，每份不超过 2MB，正文必须引用；数据不放进补充材料。
-- 数据可用性声明作为独立小节放在致谢之前；录用前代码须有 DOI，并在正文与参考文献中给出。
-- 投稿系统 ScholarOne；单盲评审，正文可含作者信息。
+正文 12pt 双倍行距 A4，含全部内容低于 30 页、超过约 35 页招致负面评审；摘要不超过 200 词；英式拼写；定理按类型编号；表格无竖线与内部横线；图例正下方 `Alt text:`；补充材料每份不超过 2MB 且正文引用；数据可用性在致谢之前；录用前代码须有 DOI；单盲评审。
 
 ## 文件地图
 
 | 文件 | 内容 | 状态 |
 |---|---|---|
-| `paper/manuscript.tex` | 主文件 | 未改 |
-| `paper/01_introduction.tex` | 引言 | 重写并转语态，待扩写 |
-| `paper/02_method.tex` | 方法与算法 | 未改，待语态转换与算法框 |
-| `paper/03_theory.tex` | 定理与解释 | 评注已删减，待编号假设与 Remark |
-| `paper/04_simulation.tex` | 模拟 | 4 小节，并段并转语态 |
-| `paper/05_application.tex` | EPA 应用 | 4 小节，并段并转语态 |
-| `paper/06_discussion.tex` | 讨论与声明 | 已删减，待 limitation 句 |
-| `paper/tables_and_figures.tex` | 三张表 | 表内改单倍行距 |
+| `paper/manuscript.tex` | 主文件 | 摘要开场已改 |
+| `paper/01_introduction.tex` | 引言 | 897 词，四组文献 |
+| `paper/02_method.tex` | 方法与算法 | 语态、算法框、公式说明句 |
+| `paper/03_theory.tex` | 定理与解释 | Assumption 1--5、Remark 1--3 |
+| `paper/04_simulation.tex` | 模拟 | 4 小节 |
+| `paper/05_application.tex` | EPA 应用 | 4 小节 |
+| `paper/06_discussion.tex` | 讨论与声明 | 含 limitation 句 |
+| `paper/tables_and_figures.tex` | 两张表 | 表 3 已移入补充材料 |
+| `paper/S3_feasible.tex` | 补充材料 S3 | 收纳 eq:identity |
+| `paper/S10_results.tex` | 补充材料 S10 | 收纳 Table S5 |
+| `paper/references.bib` | 参考文献 | 59 条，提交版无 doi 字段 |
 | `paper/results_macros.tex` | 数值宏 | 勿改 |
-| `paper/S6_design.tex` | 补充材料 S6 | 末尾新增 Figure S1 |
-| 其余 `paper/S*.tex` | 补充材料各节 | 未改 |
-| `style_findings.md` | 20 篇样本共性分析 | 必读 |
-| `output/` | 语料清单、质量报告、风格画像、规则文件、匹配表、稿件审计、修订计划 | 必读 |
+| `output/` | 语料交付物与审计 | 必读 |
 
-正文在用的图：`figure_separation_v2`、`figure_simulation_v2`、`figure_validation_v3`、`figure_binary_v2`、`figure_epa_science_v2`、`figure_epa_budget_v3`。`figure_epa_budget_v2.tex` 沿自 V3，未被引用。
+正文在用的图：`figure_separation_v2`、`figure_simulation_v2`、`figure_validation_v3`、`figure_binary_v2`、`figure_epa_science_v2`、`figure_epa_budget_v3`。
 
 ## 编译
 
-在 `paper/` 内执行：
-
-```sh
-pdflatex -interaction=nonstopmode manuscript.tex
-bibtex manuscript
-pdflatex -interaction=nonstopmode manuscript.tex
-pdflatex -interaction=nonstopmode manuscript.tex
-```
-
-补充材料同理，编译对象换成 `supplement.tex`。图形路径为 `../figures/`。当前基线：正文 30 页，补充材料 53 页，均无溢出框、无未定义引用。
-
-
-
+在 `paper/` 内执行 pdflatex、bibtex、pdflatex ×2（manuscript 与 supplement）。图形路径 `../figures/`。当前基线：正文 34 页，补充材料 54 页，均无溢出框、无未定义引用。
