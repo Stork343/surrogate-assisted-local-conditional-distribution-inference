@@ -44,6 +44,8 @@
 | 引导句 | - | 0 | 9.5 处 |
 | `note that / recall that` | - | 0 | 8.5 处 |
 | 编号 Remark | - | 0 | 11/20 篇有 |
+| 希腊字母种类 | - | 16 | 10.5 |
+| 编号公式条数 | - | 25 | 20 |
 
 ## 待办（按差距大小排列）
 
@@ -61,6 +63,8 @@
 12. 页数：扩引言与文献约需 2--2.5 页，需同步压缩 04/05 或移表入补充材料，或者接受 31--32 页；由作者裁决。
 13. 定稿后把 `paper/` 移回 `JRSSB_revision_v3`，同步更新 `claim_code_map.csv`、`修改与验收记录_V3.md`、`README.md`、`FILE_INVENTORY.csv`，并重跑 `release_audit_v3.py`。
 14. 标题用词：样本用 `guarantees`，`certified` 不在样本词汇内；是否改动由作者决定。
+15. 把 02 节的 `eq:identity` 与 `eq:moments` 移入补充材料，正文保留定义与选择规则，02 节公式从 11 条降到 7 条左右。
+16. 可选：把 `χ` 与 `κ` 的记号并入文字，希腊字母从 16 种降到 14 种。
 
 ## 改写规则
 
@@ -80,7 +84,11 @@
 - 摘要以情境句开场，再给缺口与贡献。
 - 每节开头用一句引导句告诉读者本节做什么；回引定义时用 `recall that` 或 `note that`。
 
-### 术语
+### 记号
+- 运算符用简写：`E`、`Var`、`Cov`、`argmin`、`tr`；不写成文字。
+- 帽子只标估计量，同一字母的装饰族只在定义处出现，后文用 `c(λ)` 与 `g(λ)` 这类简写。
+- 不引入新的希腊字母；需要新记号时优先复用已有字母加下标。
+`n### 术语
 - 一人一名：Paired、Anchor、Full、Trace、Plug-in、Projection、Unpaired、gate、evaluation、audit frame 全文统一，不为行文变化引入同义词。
 - 缩略语首次出现给全称；EPA、CDF、RH 这类尚未定义的缩略语补上首次定义。
 
@@ -133,3 +141,5 @@ pdflatex -interaction=nonstopmode manuscript.tex
 ```
 
 补充材料同理，编译对象换成 `supplement.tex`。图形路径为 `../figures/`。当前基线：正文 30 页，补充材料 53 页，均无溢出框、无未定义引用。
+
+
