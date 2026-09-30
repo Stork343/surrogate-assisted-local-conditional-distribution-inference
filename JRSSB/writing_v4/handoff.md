@@ -10,6 +10,7 @@
 
 ## 必读材料
 
+- `output/`：第一轮语料蒸馏与审计的七份交付物：`corpus_manifest.csv`、`corpus_quality_report.md`、`JRSSB_STYLE_PROFILE.md`、`JRSSB_STYLE_RULES.yaml`、`matched_papers.csv`、`MANUSCRIPT_JRSSB_AUDIT.md`、`REVISION_PLAN.md`；`corpus_database/corpus_metrics.csv` 存 20 篇样本加本稿的指标明细。
 - `style_findings.md`：20 篇 Series B 样本的共性分析，覆盖正文规模、引言、参考文献、措辞语气、标题、章节骨架、叙事逻辑、绘图、表格、编号假设、算法框，以及追加的读者引导句、note/recall、Remark、limitation、证明组织等维度，含行动清单。
 - 本页其余部分是状态、规则与文件地图。
 
@@ -126,6 +127,7 @@
 | `paper/S6_design.tex` | 补充材料 S6 | 末尾新增 Figure S1 |
 | 其余 `paper/S*.tex` | 补充材料各节 | 未改 |
 | `style_findings.md` | 20 篇样本共性分析 | 必读 |
+| `output/` | 语料清单、质量报告、风格画像、规则文件、匹配表、稿件审计、修订计划 | 必读 |
 
 正文在用的图：`figure_separation_v2`、`figure_simulation_v2`、`figure_validation_v3`、`figure_binary_v2`、`figure_epa_science_v2`、`figure_epa_budget_v3`。`figure_epa_budget_v2.tex` 沿自 V3，未被引用。
 
@@ -141,5 +143,6 @@ pdflatex -interaction=nonstopmode manuscript.tex
 ```
 
 补充材料同理，编译对象换成 `supplement.tex`。图形路径为 `../figures/`。当前基线：正文 30 页，补充材料 53 页，均无溢出框、无未定义引用。
+
 
 

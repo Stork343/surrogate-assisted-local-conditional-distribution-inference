@@ -1,0 +1,106 @@
+# JRSSB empirical style rules
+# 分层: official = 官方硬性要求; dominant = 多数样本一致; common = 过半样本; optional = 作者选择
+# 数值来自 20 篇 JRSSB 样本 (corpus_manifest.csv), 见 JRSSB_STYLE_PROFILE.md
+version: 2026-09-30
+corpus:
+  size: 20
+  source: arXiv author copies of JRSSB papers
+  verification: crossref + arXiv title match
+official:
+  abstract:
+    max_words: 200
+    keywords_count: [5, 6]
+    keywords_order: alphabetical
+    no_citations: true
+    no_abbreviations: true
+  language:
+    spelling: UK
+  math:
+    theorem_numbering: by_type
+    equations_displayed_and_numbered: true
+    derivations_in_appendix: true
+  tables:
+    placement: end_of_main_text
+    vertical_rules: false
+    internal_horizontal_rules: false
+    numbers_right_aligned: true
+  figures:
+    captions_in_manuscript_file: true
+    one_file_per_figure: true
+    multipanel_single_file: true
+    panel_labels: [A, B, C]
+    panel_label_position: upper_left
+    alt_text_line: "Alt text:"
+  format:
+    paper_size: A4
+    font_pt: 12
+    line_spacing: double_28_lines_per_page
+    page_budget_under: 30
+    page_discourage_above: 35
+  supplement:
+    max_bytes_each: 2000000
+    cited_in_main_text: true
+    data_in_supplement: false
+  data:
+    availability_section_before_acknowledgements: true
+    code_doi_before_acceptance: true
+  review:
+    mode: single_blind
+    system: ScholarOne
+empirical:
+  scale:
+    body_words: {median: 11682, range: [6062, 16477]}
+    abstract_words: {median: 191, range: [130, 260], valid_n: 15}
+    introduction_words: {median: 1524, range: [736, 2929], valid_n: 16}
+    introduction_share: {median: 0.14, range: [0.06, 0.26]}
+    discussion_words: {median: 530, range: [280, 1836], valid_n: 14}
+    references_count: {median: 46, range: [28, 99], valid_n: 17}
+    figures: {median: 8, range: [0, 20]}
+    tables: {median: 1, range: [0, 6]}
+    numbered_equations: {median: 20, range: [0, 50]}
+  structure:
+    section_skeleton: [introduction, method, theory, numerical, application, discussion]
+    numbered_assumptions: {present: 16, of: 20, level: dominant}
+    algorithm_box: {present: 10, of: 20, level: common}
+    numbered_remarks: {present: 11, of: 20, level: common}
+    titled_theorems: {present: 8, of: 20, level: optional}
+    named_limitation: {present: 9, of: 20, level: common}
+    proof_of_theorem_subsections: {present: 12, of: 20, level: common}
+    notation_section: {present: 7, of: 20, level: optional}
+  voice:
+    we_per_1k: {median: 12.9, range: [6.3, 19.8]}
+    hedges_per_1k: {median: 2.3, range: [0.7, 4.7]}
+    assertives_per_1k: {median: 3.3, range: [0.7, 8.0]}
+    signposts: {median: 9.5, range: [1, 19]}
+    note_recall: {median: 8.5, range: [1, 19]}
+    mean_sentence_words: {median: 31.5, range: [23.3, 40.2]}
+    negation_sentences: {median: 0.071, range: [0.049, 0.114]}
+    paragraph_words: {median: 113, range: [70, 145]}
+  symbols:
+    greek_letters_distinct: {median: 10.5, range: [7, 14]}
+    greek_per_1k: {median: 30.6, range: [10.3, 82.6]}
+    equations_per_1k: {median: 1.70, range: [0.0, 4.51]}
+    hat_marks_per_1k: {median: 7.6, range: [0.0, 18.4]}
+    operator_shorthands: [E, Var, Cov, argmin, tr]
+  titles:
+    words: {median: 9.5, range: [5, 15]}
+    colon_subtitle_share: 0.33
+    preferred_words: [guarantees, efficient, efficiency]
+    absent_words: [certified, certificate]
+targets_for_manuscript:
+  references: [45, 60]
+  introduction_words: [1100, 1500]
+  we_per_1k: [8, 12]
+  hedges_per_1k: [1, 2]
+  signposts: [6, 10]
+  note_recall: [4, 6]
+  greek_letters_distinct_max: 14
+  numbered_equations_section_02: 7
+  pages_max: 30
+  pages_preferred: 29
+stop_rule:
+  when_no_official_violation: true
+  when_no_high_priority_gap: true
+  when_no_notation_conflict: true
+  when_no_latex_error: true
+  forbid_endless_polishing: true

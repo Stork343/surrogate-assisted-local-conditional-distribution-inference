@@ -1,0 +1,21 @@
+match_rank,paper_id,authors_year,topic_overlap,match_reason,priority_use
+1,01,"Kallus & Mao 2025",core,"surrogate outcomes with limited primary outcomes; efficiency bound versus feasible estimator; closest overall narrative",primary model
+2,03,"Gronsbell et al 2022",core,"semi-supervised prediction-rule evaluation under stratified sampling; closest analogue of selective verification",primary model
+3,17,"Yang, Kim & Song 2021",core,"combining probability and non-probability samples; two-sample information structure like gate/evaluation",primary model
+4,07,"Gibbs et al 2025",core,"conditional guarantees; feasibility and impossibility narrative parallels certification-or-anchor",secondary model
+5,08,"Jin & Ren 2025",core,"selection-conditional coverage; post-selection inference analogue",secondary model
+6,15,"Yang et al 2024",high,"doubly robust calibration of prediction sets; calibration layer with covariates",secondary model
+7,18,"Shah & Samworth 2013",high,"error-controlled selection with subsampling; same family as certified selection",secondary model
+8,06,"Hore & Barber 2025",high,"local weights with randomization; localised guarantee structure",secondary model
+9,09,"Lei & Candes 2021",high,"conditional-distribution target with real-data application",secondary model
+10,04,"Yang & Ding 2025",medium,"two-phase sampling design and asymptotics",secondary model
+11,02,"Gronsbell & Cai 2018",medium,"classic semi-supervised evaluation paper; introduction model",secondary model
+12,16,"Qiu et al 2023",medium,"prediction sets adaptive to unknown covariate shift",context
+13,11,"Sesia et al 2025",medium,"adaptive conformal with noisy labels; label-noise analogue",context
+14,05,"Ma, Wang & Samworth 2026",medium,"missing data with modern learning; recent OUP-era style",style reference
+15,12,"Ignatiadis & Huber 2021",medium,"covariate-powered inference; auxiliary information in testing",context
+16,13,"Candes, Lei & Ren 2023",medium,"conformalized survival analysis; guarantee plus application",context
+17,14,"Zhang, Huang & Yang 2026",medium,"doubly robust testing with generative models; learned model in inference",context
+18,10,"Li, Cai & Li 2022",low,"transfer learning minimax; structure model only",context
+19,19,"Gu, Han & Duan 2025",low,"robust transfer in high dimensions; negative-transfer theme",context
+20,20,"Auddy et al 2026",low,"minimax transfer under privacy; structure model only",context
